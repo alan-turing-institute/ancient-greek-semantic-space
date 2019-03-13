@@ -29,7 +29,7 @@ window = input("What is the window size? Leave empty for default (" + str(window
 freq_threshold = input("What is the frequency threshold for vocabulary lemmas? Leave empty for default (" +
                        str(freq_threshold_default) + ").")# 2 or 50 # frequency threshold for lemmas in vocabulary
 istest = input("Is this a test? Leave empty for default (" + str(istest_default) + ").")
-
+lines_read_testing = 10 # lines read in test case
 
 if window == "":
     window = window_default
@@ -95,7 +95,7 @@ synset_lemma = ""
 
 for row in wn_reader:
     count_n += 1
-    if ((istest == "yes" and count_n < 1200) or (istest == "no" and count_n <= row_count_wn)) and (count_n > 1):
+    if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_wn)) and (count_n > 1):
 
             print("WordNet: line", str(count_n), " out of ", str(row_count_wn))
 
@@ -174,3 +174,51 @@ for lemma1 in wn_vocabulary:
 
 #        wn_cooccurrence[lemma1][lemma2]
 
+# ---------------------------------------------
+# read neighbours from DISSECT semantic space
+# ---------------------------------------------
+
+neighbours_file = open(os.path.join(dir_ss, neighbours_file_name), 'r', encoding="UTF-8")
+row_count_neighbours = sum(1 for line in neighbours_file)
+neighbours_file.close()
+
+neighbours_file = open(os.path.join(dir_ss, neighbours_file_name), 'r', encoding="UTF-8")
+count_n = 0
+
+dissect_lemmas = list()  # list of lemmas in DISSECT space, for which we have the top 5 neighbours
+lemma2neighbour = defaultdict(dict) # maps a pair of lemma and each of its top 5 DISSECT neighbours to their distance,
+# excluding the cases where the neighbour is the lemma itself
+
+lemma = ""
+for line in neighbours_file:
+    count_n +=1
+
+    if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_neighbours)):
+        #print("Line", str(count_n), ":", line)
+        line = line.rstrip('\n')
+        if not line.startswith("\t"):
+            #print("lemma!", line)
+            lemma = line
+            dissect_lemmas.append(lemma)
+        else:
+            #print("neighbour!", line)
+            fields = line.split("\t")
+            #print("fields:", fields)
+            neighbour_distance = fields[1]
+            #print("neighbour_distance:", neighbour_distance)
+            neighbour_distance_fields = neighbour_distance.split(" ")
+            #print("neighbour_distance_fields:", neighbour_distance_fields)
+            neighbour = neighbour_distance_fields[0]
+            #print("neighbour:", neighbour)
+            distance = neighbour_distance_fields[1]
+            #print("distance:", distance)
+            if neighbour != lemma:
+                lemma2neighbour[lemma][neighbour] = distance
+
+
+neighbours_file.close()
+
+for lemma, neighbour in lemma2neighbour.items():
+    print("lemma:", lemma)
+    for n in neighbour:
+        print("neighbour:", n, "distance:", neighbour[n])
