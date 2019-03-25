@@ -18,6 +18,8 @@ import csv
 from collections import defaultdict
 import numpy as np
 from scipy.spatial import distance
+import matplotlib.pyplot as plt
+#import seaborn; seaborn.set()  # set plot style
 
 # Default parameters:
 
@@ -73,6 +75,7 @@ file_out_dissect_5neighbour_name = "semantic-space_w" + str(window) + "_t" + str
 file_out_shared_lemmas_name = "AGWN-semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "_shared-lemmas.txt"
 file_out_agwn_vocabulary_name = "AGWM_lemmas.txt"
 file_out_dissect_distances_name = "semantic_space_w" + str(window) + "_t" + str(freq_threshold) + "distances.csv"
+hist_file_name = "cos-distances_semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "hist.png"
 
 if istest == "yes":
     file_out_wn_cooccurrence_name = file_out_wn_cooccurrence_name.replace(".csv", "_test.csv")
@@ -80,6 +83,7 @@ if istest == "yes":
     file_out_shared_lemmas_name = file_out_shared_lemmas_name.replace(".txt", "_test.txt")
     file_out_agwn_vocabulary_name = file_out_agwn_vocabulary_name.replace(".txt", "_test.txt")
     file_out_dissect_distances_name = file_out_dissect_distances_name.replace(".csv", "_test.csv")
+    hist_file_name = hist_file_name.replace(".png", "_test.png")
 
 # Initialize objects:
 
@@ -89,8 +93,9 @@ agwn_dissect_5neighbours = list()  # list of lemmas shared between AGWN and DISS
 agwn_cooccurrence = defaultdict(dict) # multidimensional dictionary: maps each pair of lemmas to 1 if they co-occur in the same WN synset, and 0 otherwise
 lemma2neighbour = defaultdict(dict) # maps a pair of lemmas and each of its top 5 DISSECT neighbours to their distance,
     # excluding the cases where the neighbour is the lemma itself
-dissect_lemmas2coordinates = dict() # maps a lemma to the array of its coordinates in the DISSECT semantic space
+dissect_lemmas2coordinates = defaultdict(dict) # maps a lemma to the array of its coordinates in the DISSECT semantic space
 dissect_lemmas2cosinedistance = defaultdict(dict) # maps a pair of lemmas to the cosine distance between them in the DISSECT semantic space
+dissect_distances = list()  # list of distance values from dissect_lemma2cosinedistance
 
 # --------------------------------------
 # Read WordNet file to collect synsets
@@ -276,7 +281,7 @@ if skip_read_files == "no":
     for line in ss_file:
         count_n += 1
         if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_ss)):
-            print("Reading DISSECT coordinates, line", str(count_n), ":", line)
+            print("Reading DISSECT coordinates, line", str(count_n))
             line = line.rstrip('\n')
             coordinates = line.split('\t')
             lemma = coordinates[0]
@@ -296,7 +301,7 @@ if skip_read_files == "no":
 
         for lemma1 in dissect_lemmas2coordinates:
             count_n += 1
-            print("Printing distances for", lemma1, ":", str(count_n), "out of", str(len(dissect_lemmas2coordinates.keys)))
+            print("Printing distances for", lemma1, ":", str(count_n), "out of", str(len(dissect_lemmas2coordinates.keys())))
             for lemma2 in dissect_lemmas2coordinates:
                 #print("Printing distances between", lemma1, "and", lemma2, ":")
                 #print(str(dissect_lemmas2coordinates[lemma1]))
@@ -306,6 +311,7 @@ if skip_read_files == "no":
                 #print(str(distance.cosine(dissect_lemmas2coordinates[lemma1], dissect_lemmas2coordinates[lemma2])))
                 dissect_lemmas2cosinedistance[lemma1][lemma2] = \
                     distance.cosine(dissect_lemmas2coordinates[lemma1], dissect_lemmas2coordinates[lemma2])
+                dissect_distances.append(dissect_lemmas2cosinedistance[lemma1][lemma2])
 
                 # print out distances between pairs of lemmas in DISSECT space:
 
@@ -383,11 +389,11 @@ else:
         if ((istest == "yes" and count_n < lines_read_testing) or (
                 istest == "no" and count_n <= row_count_dissect_distances)):
             print("DISSECT distance: line", str(count_n), "out of", str(row_count_dissect_distances))
-
             lemma1 = row[0]
             lemma2 = row[1]
             cos_distance = float(row[2])
-            dissect_lemmas2coordinates[lemma1][lemma2] = cos_distance
+            dissect_lemmas2cosinedistance[lemma1][lemma2] = cos_distance
+            dissect_distances.append(cos_distance)
 
     file_dissect_distances.close()
 
@@ -399,8 +405,31 @@ else:
 
 # calculate average distance between pairs of lemmas in DISSECT space:
 
-#....
-#dissect_lemmas2coordinates
+dissect_distances = np.asarray(dissect_distances)
+print(str(type(dissect_distances)))
+print(str(dissect_distances))
+mean_dissect_distances = dissect_distances.mean()
+print("Mean of DISSECT distances:", str(mean_dissect_distances))
+std_dissect_distances = dissect_distances.std()
+print("STD of DISSECT distances:", str(std_dissect_distances))
+min_dissect_distances = dissect_distances.min()
+print("Min of DISSECT distances:", str(min_dissect_distances))
+max_dissect_distances = dissect_distances.max()
+print("Max of DISSECT distances:", str(max_dissect_distances))
+median_dissect_distances = np.median(dissect_distances)
+print("Median of DISSECT distances:", str(median_dissect_distances))
+perc25_dissect_distances = np.percentile(dissect_distances, 25)
+print("25th percentile of DISSECT distances:", str(perc25_dissect_distances))
+perc75_dissect_distances = np.percentile(dissect_distances, 75)
+print("75th percentile of DISSECT distances:", str(perc75_dissect_distances))
+
+plt.hist(dissect_distances)
+plt.title('Distribution of cosine distance in DISSECT space')
+plt.xlabel('cosine dist')
+plt.ylabel('number')
+#plt.show()
+plt.savefig(os.path.join(dir_out, hist_file_name))
+
 
 #for lemma1 in dissect_lemmas_5neighbours:
 #    for lemma2 in dissect_lemmas_5neighbours:
