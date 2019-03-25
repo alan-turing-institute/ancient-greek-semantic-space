@@ -16,6 +16,8 @@
 import os
 import csv
 from collections import defaultdict
+import numpy as np
+from scipy.spatial import distance
 
 # Default parameters:
 
@@ -58,22 +60,26 @@ if not os.path.exists(os.path.join(directory, "Evaluation", "input")):
     os.makedirs(os.path.join(directory, "Evaluation", "input"))
 
 # Input files:
+
 wn_file_name = "wn-data-grc.tab"
 ss_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.dm"
 neighbours_file_name = "NEIGHBOURS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".rows.CORE_SS.matrix_w" \
                        + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.cos"
 
 # Output files:
+
 file_out_wn_cooccurrence_name = "AGwordnet_co-occurrences.csv" # matrix with 0s and 1s depending on whether two lemmas co-occur in the same WN synset
-file_out_dissect_5neighbour_name = "AGWN-semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "lemmas.txt"
+file_out_dissect_5neighbour_name = "semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "lemmas.txt"
 file_out_shared_lemmas_name = "AGWN-semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "_shared-lemmas.txt"
 file_out_agwn_vocabulary_name = "AGWM_lemmas.txt"
+file_out_dissect_distances_name = "semantic_space_w" + str(window) + "_t" + str(freq_threshold) + "distances.csv"
 
 if istest == "yes":
     file_out_wn_cooccurrence_name = file_out_wn_cooccurrence_name.replace(".csv", "_test.csv")
     file_out_dissect_5neighbour_name = file_out_dissect_5neighbour_name.replace(".txt", "_test.txt")
     file_out_shared_lemmas_name = file_out_shared_lemmas_name.replace(".txt", "_test.txt")
     file_out_agwn_vocabulary_name = file_out_agwn_vocabulary_name.replace(".txt", "_test.txt")
+    file_out_dissect_distances_name = file_out_dissect_distances_name.replace(".csv", "_test.csv")
 
 # Initialize objects:
 
@@ -81,6 +87,10 @@ agwn_vocabulary = list() # list of all lemmas in AG WordNet
 dissect_lemmas_5neighbours = list()  # list of lemmas in DISSECT space, for which we have the top 5 neighbours
 agwn_dissect_5neighbours = list()  # list of lemmas shared between AGWN and DISSECT space with 5 neighbours
 agwn_cooccurrence = defaultdict(dict) # multidimensional dictionary: maps each pair of lemmas to 1 if they co-occur in the same WN synset, and 0 otherwise
+lemma2neighbour = defaultdict(dict) # maps a pair of lemmas and each of its top 5 DISSECT neighbours to their distance,
+    # excluding the cases where the neighbour is the lemma itself
+dissect_lemmas2coordinates = dict() # maps a lemma to the array of its coordinates in the DISSECT semantic space
+dissect_lemmas2cosinedistance = defaultdict(dict) # maps a pair of lemmas to the cosine distance between them in the DISSECT semantic space
 
 # --------------------------------------
 # Read WordNet file to collect synsets
@@ -150,7 +160,7 @@ if skip_read_files == "no":
         print("Lemmas:", str(synsets[synset_id]))
         synsets_this_lemma = synsets[synset_id]
         for lemma1 in synsets_this_lemma:
-            #print("Lemma1:", lemma1)
+            #print("Defining co-occurrences of lemma1:", lemma1)
             if lemma1 not in agwn_vocabulary:
                 agwn_vocabulary.append(lemma1)
                 #print("Vocabulary so far:", str(wn_vocabulary))
@@ -158,7 +168,7 @@ if skip_read_files == "no":
                 #print("Lemma2:", lemma2)
                 agwn_cooccurrence[lemma1][lemma2] = 1
                 #print("Co-occurrence:", str(wn_cooccurrence[lemma1][lemma2]))
-                print("Lemma1:", lemma1, "Lemma2:", lemma2, "Co-occurrence:", str(agwn_cooccurrence[lemma1][lemma2]))
+                #print("Lemma1:", lemma1, "Lemma2:", lemma2, "Co-occurrence:", str(agwn_cooccurrence[lemma1][lemma2]))
 
     agwn_vocabulary = sorted(agwn_vocabulary)
 
@@ -173,6 +183,7 @@ if skip_read_files == "no":
     with open(os.path.join(dir_out, file_out_wn_cooccurrence_name), 'w', encoding="UTF-8") as file_out_wn_cooccurrence:
 
         for lemma1 in agwn_vocabulary:
+            print("Printing Co-occurrences of lemma1:", lemma1)
             for lemma2 in agwn_vocabulary:
                 #print("Co-occurrence of ", lemma1, "and", lemma2, ":")
                 try:
@@ -189,8 +200,10 @@ if skip_read_files == "no":
 
 
     # ---------------------------------------------
-    # read neighbours from DISSECT semantic space
+    # read data from DISSECT semantic space
     # ---------------------------------------------
+
+    # neighbours in semantic space:
 
     neighbours_file = open(os.path.join(dir_ss, neighbours_file_name), 'r', encoding="UTF-8")
     row_count_neighbours = sum(1 for line in neighbours_file)
@@ -199,15 +212,12 @@ if skip_read_files == "no":
     neighbours_file = open(os.path.join(dir_ss, neighbours_file_name), 'r', encoding="UTF-8")
     count_n = 0
 
-    lemma2neighbour = defaultdict(dict) # maps a pair of lemma and each of its top 5 DISSECT neighbours to their distance,
-    # excluding the cases where the neighbour is the lemma itself
-
     lemma = ""
     for line in neighbours_file:
         count_n +=1
 
         if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_neighbours)):
-            #print("Line", str(count_n), ":", line)
+            print("Reading neighbours in DISSECT, line", str(count_n))
             line = line.rstrip('\n')
             if not line.startswith("\t"):
                 #print("lemma!", line)
@@ -223,10 +233,10 @@ if skip_read_files == "no":
                 #print("neighbour_distance_fields:", neighbour_distance_fields)
                 neighbour = neighbour_distance_fields[0]
                 #print("neighbour:", neighbour)
-                distance = neighbour_distance_fields[1]
-                #print("distance:", distance)
+                neighbour_distance = neighbour_distance_fields[1]
+                #print("distance:", neighbour_distance)
                 if neighbour != lemma:
-                    lemma2neighbour[lemma][neighbour] = distance
+                    lemma2neighbour[lemma][neighbour] = neighbour_distance
 
 
     neighbours_file.close()
@@ -235,10 +245,10 @@ if skip_read_files == "no":
         for lemma in dissect_lemmas_5neighbours:
             file_out_dissect_5neighbour.write("%s\n" % lemma)
 
-    for lemma, neighbour in lemma2neighbour.items():
-        print("lemma:", lemma)
-        for n in neighbour:
-            print("Corpus neighbour:", n, "distance:", neighbour[n])
+    #for lemma, neighbour in lemma2neighbour.items():
+    #    print("lemma:", lemma)
+    #    for n in neighbour:
+    #        print("Corpus neighbour:", n, "distance:", neighbour[n])
 
 
     #-------------------------------------------------------------------------------
@@ -246,24 +256,82 @@ if skip_read_files == "no":
     #-------------------------------------------------------------------------------
 
     agwn_dissect_5neighbours = list((set(dissect_lemmas_5neighbours).intersection(set(agwn_vocabulary))))
-    print("There are", str(len(agwn_vocabulary)), "lemmas in AGWN, ", str(len(dissect_lemmas_5neighbours)), "lemmas in DISSECT space with 5 top neighbours", "and", str(len(agwn_dissect_5neighbours)), "in the intersection.")
+    print("There are", str(len(agwn_vocabulary)), "lemmas in AGWN, ", str(len(dissect_lemmas_5neighbours)),
+          "lemmas in DISSECT space with 5 top neighbours", "and", str(len(agwn_dissect_5neighbours)),
+          "in the intersection.")
     #There are 22828 lemmas in AGWN,  44740 lemmas in DISSECT space with 5 top neighbours and 12899 in the intersection.
 
     with open(os.path.join(dir_out, file_out_shared_lemmas_name), 'w', encoding="UTF-8") as out_shared_lemmas_file:
         for lemma in agwn_dissect_5neighbours:
             out_shared_lemmas_file.write("%s\n" % lemma)
 
+    # read semantic space coordinates:
+
+    ss_file = open(os.path.join(dir_ss, ss_file_name), 'r', encoding="UTF-8")
+    row_count_ss = sum(1 for line in ss_file)
+    ss_file.close()
+
+    ss_file = open(os.path.join(dir_ss, ss_file_name), 'r', encoding="UTF-8")
+    count_n = 0
+    for line in ss_file:
+        count_n += 1
+        if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_ss)):
+            print("Reading DISSECT coordinates, line", str(count_n), ":", line)
+            line = line.rstrip('\n')
+            coordinates = line.split('\t')
+            lemma = coordinates[0]
+            coordinates.pop(0)
+            dissect_lemmas2coordinates[lemma] = np.asarray(list(np.float_(coordinates)))
+
+    ss_file.close()
+
+    # calculate distance between pairs of lemmas in DISSECT space:
+
+    count_n = 0
+    with open(os.path.join(dir_out, file_out_dissect_distances_name), 'w',
+              encoding="UTF-8") as out_dissect_distances_file:
+        dissect_distances_writer = csv.writer(out_dissect_distances_file, delimiter="\t")
+
+        dissect_distances_writer.writerow(["lemma1", "lemma2", "distance"])
+
+        for lemma1 in dissect_lemmas2coordinates:
+            count_n += 1
+            print("Printing distances for", lemma1, ":", str(count_n), "out of", str(len(dissect_lemmas2coordinates.keys)))
+            for lemma2 in dissect_lemmas2coordinates:
+                #print("Printing distances between", lemma1, "and", lemma2, ":")
+                #print(str(dissect_lemmas2coordinates[lemma1]))
+                #print(str(type(dissect_lemmas2coordinates[lemma1])))
+                #print(str(dissect_lemmas2coordinates[lemma2]))
+                #print(str(type(dissect_lemmas2coordinates[lemma2])))
+                #print(str(distance.cosine(dissect_lemmas2coordinates[lemma1], dissect_lemmas2coordinates[lemma2])))
+                dissect_lemmas2cosinedistance[lemma1][lemma2] = \
+                    distance.cosine(dissect_lemmas2coordinates[lemma1], dissect_lemmas2coordinates[lemma2])
+
+                # print out distances between pairs of lemmas in DISSECT space:
+
+                dissect_distances_writer.writerow(
+                    [lemma1, lemma2, str(dissect_lemmas2cosinedistance[lemma1][lemma2])])
+
+
 else:
+
+    # read list of AGWN lemmas:
 
     agwn_vocabulary = [line.rstrip('\n') for line in open(os.path.join(dir_out, file_out_agwn_vocabulary_name), 'r', encoding="UTF-8")]
 
+    # read list of DISSECT lemmas with top 5 neighbours:
+
     dissect_lemmas_5neighbours = [line.rstrip('\n') for line in open(os.path.join(dir_out, file_out_dissect_5neighbour_name), 'r', encoding="UTF-8")]
+
+    # read list of shared lemmas between AGWN and DISSECT lemmas with top 5 neighbours:
 
     agwn_dissect_5neighbours = [line.rstrip('\n') for line in open(os.path.join(dir_out, file_out_shared_lemmas_name), 'r', encoding="UTF-8")]
 
     print("There are", str(len(agwn_vocabulary)), "lemmas in AGWN, ", str(len(dissect_lemmas_5neighbours)),
           "lemmas in DISSECT space with 5 top neighbours", "and", str(len(agwn_dissect_5neighbours)),
           "in the intersection.")
+
+    # read mapping between pairs of AGWM lemmas and their co-occurrence value in AGWN:
 
     file_wn_cooccurrence = open(os.path.join(dir_out, file_out_wn_cooccurrence_name), 'r', encoding="UTF-8")
     row_count_wn_cooccurrence = sum(1 for line in file_wn_cooccurrence)
@@ -284,16 +352,55 @@ else:
         count_n += 1
         if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_wn_cooccurrence)):
 
-            print("QGWN Co-occurrence: line", str(count_n), "out of", str(row_count_wn_cooccurrence))
+            print("AGWN Co-occurrence: line", str(count_n), "out of", str(row_count_wn_cooccurrence))
 
             lemma1 = row[0]
             lemma2 = row[1]
             coocc = row[2]
             agwn_cooccurrence[lemma1][lemma2] = coocc
 
+    file_wn_cooccurrence.close()
+
+    # read mapping between pairs of lemmas and their cosine distance in the DISSECT semantic space:
+
+    file_dissect_distances = open(os.path.join(dir_out, file_out_dissect_distances_name), 'r', encoding="UTF-8")
+    row_count_dissect_distances = sum(1 for line in file_dissect_distances)
+    file_dissect_distances.close()
+
+    file_dissect_distances = open(os.path.join(dir_out, file_out_dissect_distances_name), 'r', encoding="UTF-8")
+    dissect_distances_reader = csv.reader(file_dissect_distances, delimiter="\t")
+
+    next(dissect_distances_reader)
+
+    lemma1 = ""
+    lemma2 = ""
+    cos_distance = 0
+
+    count_n = 1
+
+    for row in dissect_distances_reader:
+        count_n += 1
+        if ((istest == "yes" and count_n < lines_read_testing) or (
+                istest == "no" and count_n <= row_count_dissect_distances)):
+            print("DISSECT distance: line", str(count_n), "out of", str(row_count_dissect_distances))
+
+            lemma1 = row[0]
+            lemma2 = row[1]
+            cos_distance = float(row[2])
+            dissect_lemmas2coordinates[lemma1][lemma2] = cos_distance
+
+    file_dissect_distances.close()
 
 # ---------------------------------------------
 
 #1.	Distances in DISSECT space
 #a.	Calculate distance between pairs of shared lemmas that are neighbours in DISSECT space
 #b.	Compare this distance with average distance between pairs of lemmas in DISSECT space
+
+# calculate average distance between pairs of lemmas in DISSECT space:
+
+#....
+#dissect_lemmas2coordinates
+
+#for lemma1 in dissect_lemmas_5neighbours:
+#    for lemma2 in dissect_lemmas_5neighbours:
