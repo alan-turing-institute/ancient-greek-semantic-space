@@ -843,7 +843,7 @@ for [lemma1, lemma2] in agwn_cooccurrence:
         dissect_cos_distance_lemma1_lemma2 = distance.cosine(dissect_lemma2coordinates[lemma1],
                                                              dissect_lemma2coordinates[lemma2])
 
-        if count_n % 1000 == 0:
+        if count_n % 5000 == 0:
             print(str(count_n), "out of", str(len(agwn_cooccurrence)), "Consider synonyms", lemma1, "and", lemma2, "AGWN IDs are", str(id1), "and", str(id2), "AGWN cosine distance:", str(agwn_cos_distance_lemma1_lemma2), "DISSECT cosine distance:", str(dissect_cos_distance_lemma1_lemma2))
 
         dissect_distances_shared_agwn_synonyms.append(dissect_cos_distance_lemma1_lemma2)
@@ -889,8 +889,8 @@ for [lemma, neighbour] in lemma_neighbour2distance:
             agwn_distances_shared_dissect_neighbours.append(agwn_cos_distance_lemma_neighbour)
 
             dissect_cos_distance_lemma_neighbour = lemma2neighbour[agwn_vocabulary[id1]][agwn_vocabulary[id2]]
-            if count_n % 100 == 0:
-                print("Consider neighbours", lemma, "and", neighbour, "AGWN IDs are", str(id1), "and", str(id2))
+            if count_n % 1000 == 0:
+                print(str(count_n), "out of", str(len(lemma_neighbour2distance)), "consider neighbours", lemma, "and", neighbour, "AGWN IDs are", str(id1), "and", str(id2))
                 print("AGWN cosine distance:", str(agwn_cos_distance_lemma_neighbour))
                 print("DISSECT cosine distance:", str(dissect_cos_distance_id1_id2))
 
