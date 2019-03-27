@@ -84,11 +84,11 @@ file_out_agwn_vocabulary_name = "AGWN_lemmas.txt"
 # file_out_dissect_distances_name = "semantic_space_w" + str(window) + "_t" + str(freq_threshold) + "distances.csv"
 hist_file_name = "cos-distances-5neighbours_semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "hist.png"
 summary_stats_dissect_5neighbours_file_name = "summary_statistics_distance_semantic-space_w" + str(window) + "_t" + \
-                                              str(freq_threshold) + "5neighbours.txt"
+                                              str(freq_threshold) + "_5neighbours.txt"
 summary_dissect_agwn_distances_file_name = "summary_comparison_distances_AGWN_semantic-space_w" + str(window) + "_t" + \
-                                           str(freq_threshold) + "5neighbours.txt"
+                                           str(freq_threshold) + "_5neighbours.txt"
 summary_dissect_agwn_overlap_file_name = "summary_overlap_AGWN_semantic-space_w" + str(window) + "_t" + \
-                                           str(freq_threshold) + "5neighbours.txt"
+                                           str(freq_threshold) + "_5neighbours.txt"
 
 if istest == "yes":
     file_out_agwn_cooccurrence_name = file_out_agwn_cooccurrence_name.replace(".csv", "_test.csv")
@@ -112,7 +112,7 @@ synsets = dict()  # maps a synset ID to the list of its contents
 synsetid2def = dict()  # maps a synset ID to its English definition
 agwn_cooccurrence = defaultdict(
     dict)  # multidimensional dictionary: maps each pair of lemmas to 1 if they co-occur in the same WN synset, and 0 otherwise
-agwn_coordinates = list()  # indexes an AGWN lemma id to the list of its 0/1 coordinates in the AGWN space
+agwn_coordinates = dict()  # maps an AGWN lemma id to the list of its 0/1 coordinates in the AGWN space
 # agwn_distances = list()  # indexes an AGWN lemma id to the array of cosine distances with other AGWN lemmas
 agwn_dissect_5neighbours = list()  # list of lemmas shared between AGWN and DISSECT space with 5 neighbours
 dissect_lemmas_5neighbours = list()  # list of lemmas in DISSECT space, for which we have the top 5 neighbours
@@ -218,136 +218,6 @@ except:
 
 if skip_read_files == "no":
 
-
-    # --------------------------------------------------
-    # Print co-occurrence matrix from WordNet synsets
-    # --------------------------------------------------
-
-    # create vocabulary list and co-occurrence pairs:
-
-    print(
-        "------------------------------------------\nDefining AGWN co-occurrence pairs...\n------------------------------------------")
-
-    count_s = 0
-    for synset_id in synsets:
-
-        count_s += 1
-        if count_s % 100 == 0:
-            print(str(count_s), ":", "synset ID:", synset_id)
-            # print("Definition:", synsetid2def[synset_id])
-            print("Lemmas:", str(synsets[synset_id]))
-
-        synsets_this_lemma = synsets[synset_id]
-
-        for lemma1 in synsets_this_lemma:
-
-            # print("Defining co-occurrences of lemma1:", lemma1)
-            if lemma1 not in agwn_vocabulary:
-                agwn_vocabulary.append(lemma1)
-                # print("Vocabulary so far:", str(agwn_vocabulary))
-
-            for lemma2 in synsets_this_lemma:
-                if (lemma1, lemma2) in agwn_cooccurrence:
-                    agwn_cooccurrence[lemma1, lemma2] += 1
-                else:
-                    agwn_cooccurrence[lemma1, lemma2] = 1
-
-                if count_s % 1000 == 0:
-                    print(str(count_s), ":", "lemma1:", lemma1, "lemma2:", lemma2, "co-occurrence:",
-                          str(agwn_cooccurrence[lemma1, lemma2]))
-                # print("Lemma1:", lemma1, "Lemma2:", lemma2, "Co-occurrence:", str(agwn_cooccurrence[lemma1][lemma2]))
-
-                if (lemma1 == "κομιδή") and (lemma2 == "ἐπιμέλεια"):
-                    print("\tTest!")
-                    print("\tLemma1:", lemma1, "lemma2:", lemma2, "co-occurrence:",
-                          str(agwn_cooccurrence[lemma1, lemma2]))
-
-                    # if (synset_id in ["00267522-n", "00654885-n", "00829378-n", "05615869-n", "05650579-n", "05702275-n", "05853636-n", "07524529-n", "01824736-v", "01824736-v"]):
-                    # if ((synset_id == "00267522-n" or synset_id == "00654885-n")) and (lemma1 == "κομιδή") and (lemma2 == "ἐπιμέλεια"):
-                    #    print("Test!")
-                    #    print("Synset_id:", synset_id)
-                    #    print("Lemma1:", lemma1, "lemma2:", lemma2, "co-occurrence:",
-                    #          str(agwn_cooccurrence[(lemma1, lemma2)]))
-
-    # agwn_vocabulary = sorted(agwn_vocabulary)
-
-    with open(os.path.join(dir_out, file_out_agwn_vocabulary_name), 'w', encoding="UTF-8") as agwn_vocabulary_file:
-        for lemma in agwn_vocabulary:
-            agwn_vocabulary_file.write("%s\n" % lemma)
-
-    # finish defining co-occurrence pairs:
-
-    count_n = -1
-    with open(os.path.join(dir_out, file_out_agwn_cooccurrence_name), 'w',
-              encoding="UTF-8") as file_out_agwn_cooccurrence:
-
-        file_out_agwn_cooccurrence_writer = csv.writer(file_out_agwn_cooccurrence, delimiter="\t")
-
-        for lemma1 in agwn_vocabulary:
-            count_n += 1
-            coordinates_lemmaid1 = list()
-            # print("Printing Co-occurrences of lemma1 (", str(count_n), "out of", str(len(agwn_vocabulary)), "):",
-            #      lemma1)
-            count_n2 = 0
-            for lemma2 in agwn_vocabulary:
-                count_n2 += 1
-                # print("Co-occurrence of ", lemma1, "and", lemma2, ":")
-                # try:
-                #    print("Co-occurrence of", lemma1, "and", lemma2, ":", str(agwn_cooccurrence[(lemma1,lemma2)]))
-                #    # file_out_agwn_cooccurrence.write("\t" + str(agwn_cooccurrence[lemma1][lemma2]))
-                #    # if lemma1 == "κτίσμα":
-                #    #    print("Co-occurrence of ", lemma1, "and", lemma2, ":", str(wn_cooccurrence[lemma1][lemma2]))
-                # except KeyError:
-                #    agwn_cooccurrence[(lemma1, lemma2)] = 0
-                if (lemma1, lemma2) not in agwn_cooccurrence:
-                    agwn_cooccurrence[lemma1, lemma2] = 0
-                    # if lemma1 == "κτίσμα":
-                    #    print("Co-occurrence of ", lemma1, "and", lemma2, ":", str(agwn_cooccurrence[lemma1][lemma2]))
-                    # file_out_agwn_cooccurrence.write("\t" + str(agwn_cooccurrence[lemma1][lemma2]))
-                if count_n % 5000 == 0 and count_n2 % 500 == 0:
-                    print(str(count_n), "and", str(count_n2), ":", "co-occurrence of", lemma1, "and", lemma2, ":",
-                          str(agwn_cooccurrence[lemma1, lemma2]))
-
-                coordinates_lemmaid1.append(agwn_cooccurrence[lemma1, lemma2])
-
-            file_out_agwn_cooccurrence_writer.writerow(coordinates_lemmaid1)
-
-            agwn_coordinates.append(coordinates_lemmaid1)
-
-            if (lemma1 == "κομιδή") or (lemma1 == "ἐπιμέλεια"):
-                print("\tTest!")
-                print("\tCount:", str(count_n), "Lemma1:", lemma1)
-                print("\tNon-zero AGWN coordinates at positions/lemmas:")
-                l1_c = agwn_coordinates[count_n]
-                print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
-
-    print("AGWN co-occurrence:")
-    # print(str(agwn_cooccurrence))
-    print("Examples:")
-    print("κομιδή", "ἐπιμέλεια", str(agwn_cooccurrence["κομιδή", "ἐπιμέλεια"]))
-    print("ἐπιμέλεια", "κομιδή", str(agwn_cooccurrence["ἐπιμέλεια", "κομιδή"]))
-
-    print("AGWN coordinates:")
-    # print(str(agwn_coordinates))
-    print("Examples:")
-    # print("0", str(agwn_coordinates[0]))
-    print("0 (" + agwn_vocabulary[0] + "):")
-    print("Non-zero AGWN coordinates at positions/lemnmas")
-    l1_c = agwn_coordinates[0]
-    print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
-
-    print("1092 (" + agwn_vocabulary[1092] + "):")
-    print("Non-zero AGWN coordinates at positions/lemmas:")
-    l1_c = agwn_coordinates[1092]
-    print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
-
-    print("1109 (" + agwn_vocabulary[1109] + "):")
-    print("Non-zero AGWN coordinates at positions/lemmas:")
-    l1_c = agwn_coordinates[1109]
-    print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
-
-    # print("ἐπιμέλεια", "κομιδή", str(agwn_cooccurrence[("ἐπιμέλεια", "κομιδή")]))
-
     # ---------------------------------------------
     # read data from DISSECT semantic space
     # ---------------------------------------------
@@ -424,21 +294,157 @@ if skip_read_files == "no":
             file_out_dissect_5neighbour_distances_writer.writerow(
                 [lemma, neighbour, str(lemma_neighbour2distance[lemma, neighbour])])
 
+    # ---------------------------------------------------------------------------------------
+    # Print co-occurrence matrix from WordNet synsets for lemmas shared with DISSECT lemmas
+    # ---------------------------------------------------------------------------------------
+
+    # create vocabulary list and co-occurrence pairs:
+
+    print(
+        "------------------------------------------\nDefining AGWN co-occurrence pairs...\n------------------------------------------")
+
+    count_s = 0
+    for synset_id in synsets:
+
+        count_s += 1
+        if count_s % 100 == 0:
+            print(str(count_s), ":", "synset ID:", synset_id)
+            # print("Definition:", synsetid2def[synset_id])
+            print("Lemmas:", str(synsets[synset_id]))
+
+        synsets_this_lemma = synsets[synset_id]
+
+        for lemma1 in synsets_this_lemma:
+
+            # print("Defining co-occurrences of lemma1:", lemma1)
+            if lemma1 not in agwn_vocabulary:
+                agwn_vocabulary.append(lemma1)
+                # print("Vocabulary so far:", str(agwn_vocabulary))
+
+            for lemma2 in synsets_this_lemma:
+                if (lemma1, lemma2) in agwn_cooccurrence:
+                    agwn_cooccurrence[lemma1, lemma2] += 1
+                else:
+                    agwn_cooccurrence[lemma1, lemma2] = 1
+
+                if count_s % 1000 == 0:
+                    print(str(count_s), ":", "lemma1:", lemma1, "lemma2:", lemma2, "co-occurrence:",
+                          str(agwn_cooccurrence[lemma1, lemma2]))
+                # print("Lemma1:", lemma1, "Lemma2:", lemma2, "Co-occurrence:", str(agwn_cooccurrence[lemma1][lemma2]))
+
+                if (lemma1 == "κομιδή") and (lemma2 == "ἐπιμέλεια"):
+                    print("\tTest!")
+                    print("\tLemma1:", lemma1, "lemma2:", lemma2, "co-occurrence:",
+                          str(agwn_cooccurrence[lemma1, lemma2]))
+
+                    # if (synset_id in ["00267522-n", "00654885-n", "00829378-n", "05615869-n", "05650579-n", "05702275-n", "05853636-n", "07524529-n", "01824736-v", "01824736-v"]):
+                    # if ((synset_id == "00267522-n" or synset_id == "00654885-n")) and (lemma1 == "κομιδή") and (lemma2 == "ἐπιμέλεια"):
+                    #    print("Test!")
+                    #    print("Synset_id:", synset_id)
+                    #    print("Lemma1:", lemma1, "lemma2:", lemma2, "co-occurrence:",
+                    #          str(agwn_cooccurrence[(lemma1, lemma2)]))
+
+    # agwn_vocabulary = sorted(agwn_vocabulary)
+
+    with open(os.path.join(dir_out, file_out_agwn_vocabulary_name), 'w', encoding="UTF-8") as agwn_vocabulary_file:
+        for lemma in agwn_vocabulary:
+            agwn_vocabulary_file.write("%s\n" % lemma)
+
     # -------------------------------------------------------------------------------
     # find lemmas present in both AGWN and DISSECT space (called “shared lemmas”)
     # -------------------------------------------------------------------------------
 
     print(
-        "---------------------------------------------\nFind shared lemmas between AGWN and DISSECT space....\n---------------------------------------")
+                "---------------------------------------------\nFind shared lemmas between AGWN and DISSECT space....\n---------------------------------------")
 
     agwn_dissect_5neighbours = list((set(dissect_lemmas_5neighbours).intersection(set(agwn_vocabulary))))
-    # print("There are", str(len(agwn_vocabulary)), "lemmas in AGWN, ", str(len(dissect_lemmas_5neighbours)),
-    #      "lemmas in DISSECT space with 5 top neighbours", "and", str(len(agwn_dissect_5neighbours)),
-    #      "in the intersection.")
 
-    with open(os.path.join(dir_out, file_out_shared_lemmas_name), 'w', encoding="UTF-8") as out_shared_lemmas_file:
+    with open(os.path.join(dir_out, file_out_shared_lemmas_name), 'w',
+                      encoding="UTF-8") as out_shared_lemmas_file:
         for lemma in agwn_dissect_5neighbours:
-            out_shared_lemmas_file.write("%s\n" % lemma)
+                    out_shared_lemmas_file.write("%s\n" % lemma)
+
+    # ------------------------------------------
+    # finish defining AGWN co-occurrence pairs:
+    # ------------------------------------------
+
+    print("----------------------------------------\nFinish defining AGWN co-occurrence pairs...\n-------------------------------------------------")
+
+    count_n = -1
+    with open(os.path.join(dir_out, file_out_agwn_cooccurrence_name), 'w',
+              encoding="UTF-8") as file_out_agwn_cooccurrence:
+
+        file_out_agwn_cooccurrence_writer = csv.writer(file_out_agwn_cooccurrence, delimiter="\t")
+
+        #for lemma1 in agwn_vocabulary:
+        for lemma1 in agwn_dissect_5neighbours:
+            count_n += 1
+            coordinates_lemmaid1 = list()
+            # print("Printing Co-occurrences of lemma1 (", str(count_n), "out of", str(len(agwn_vocabulary)), "):",
+            #      lemma1)
+            count_n2 = 0
+
+            #for lemma2 in agwn_vocabulary:
+            for lemma2 in agwn_dissect_5neighbours:
+                count_n2 += 1
+                # print("Co-occurrence of ", lemma1, "and", lemma2, ":")
+                # try:
+                #    print("Co-occurrence of", lemma1, "and", lemma2, ":", str(agwn_cooccurrence[(lemma1,lemma2)]))
+                #    # file_out_agwn_cooccurrence.write("\t" + str(agwn_cooccurrence[lemma1][lemma2]))
+                #    # if lemma1 == "κτίσμα":
+                #    #    print("Co-occurrence of ", lemma1, "and", lemma2, ":", str(wn_cooccurrence[lemma1][lemma2]))
+                # except KeyError:
+                #    agwn_cooccurrence[(lemma1, lemma2)] = 0
+                if (lemma1, lemma2) not in agwn_cooccurrence:
+                    agwn_cooccurrence[lemma1, lemma2] = 0
+                    # if lemma1 == "κτίσμα":
+                    #    print("Co-occurrence of ", lemma1, "and", lemma2, ":", str(agwn_cooccurrence[lemma1][lemma2]))
+                    # file_out_agwn_cooccurrence.write("\t" + str(agwn_cooccurrence[lemma1][lemma2]))
+                if count_n % 5000 == 0 and count_n2 % 500 == 0:
+                    print(str(count_n), "out of", len(agwn_dissect_5neighbours), "and", str(count_n2), ":", "co-occurrence of", lemma1, "and", lemma2, ":",
+                          str(agwn_cooccurrence[lemma1, lemma2]))
+
+                coordinates_lemmaid1.append(agwn_cooccurrence[lemma1, lemma2])
+
+            file_out_agwn_cooccurrence_writer.writerow(coordinates_lemmaid1)
+
+            agwn_coordinates[lemma1] = coordinates_lemmaid1
+
+            if (lemma1 == "κομιδή") or (lemma1 == "ἐπιμέλεια"):
+                print("\tTest!")
+                print("\tCount:", str(count_n), "Lemma1:", lemma1)
+                print("\tNon-zero AGWN coordinates at positions/lemmas:")
+                l1_c = agwn_coordinates[lemma1]
+                print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
+
+    print("AGWN co-occurrence:")
+    # print(str(agwn_cooccurrence))
+    print("Examples:")
+    print("κομιδή", "ἐπιμέλεια", str(agwn_cooccurrence["κομιδή", "ἐπιμέλεια"]))
+    print("ἐπιμέλεια", "κομιδή", str(agwn_cooccurrence["ἐπιμέλεια", "κομιδή"]))
+
+    print("AGWN coordinates:")
+    # print(str(agwn_coordinates))
+    print("Examples:")
+    # print("0", str(agwn_coordinates[0]))
+
+    try:
+        print("κομιδή (" + agwn_vocabulary["κομιδή"] + "):")
+        print("Non-zero AGWN coordinates at positions/lemmas:")
+        l1_c = agwn_coordinates["κομιδή"]
+        print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
+    except:
+        pass
+
+    try:
+        print("ἐπιμέλεια (" + agwn_vocabulary["ἐπιμέλεια"] + "):")
+        print("Non-zero AGWN coordinates at positions/lemmas:")
+        l1_c = agwn_coordinates["ἐπιμέλεια"]
+        print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
+    except:
+        pass
+
+    # print("ἐπιμέλεια", "κομιδή", str(agwn_cooccurrence[("ἐπιμέλεια", "κομιδή")]))
 
 else:
 
@@ -483,7 +489,7 @@ else:
 
             # print(str(row))
             coocc = [float(i) for i in row]
-            agwn_coordinates.append(coocc)
+            agwn_coordinates[lemma1] = coocc
             for ic in range(0, len(coocc)):
                 if coocc[ic] == 1:
                     agwn_cooccurrence[lemma1, agwn_vocabulary[ic]] = 1
@@ -506,19 +512,15 @@ else:
     print("AGWN coordinates:")
     # print(str(agwn_coordinates))
     print("Examples:")
-    print("0 (" + agwn_vocabulary[0] + "):")
+
+    print("ἐπιμέλεια (" + agwn_vocabulary["ἐπιμέλεια"] + "):")
     print("Non-zero AGWN coordinates at positions/lemmas:")
-    l1_c = agwn_coordinates[0]
+    l1_c = agwn_coordinates["ἐπιμέλεια"]
     print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
 
-    print("1092 (" + agwn_vocabulary[1092] + "):")
+    print("κομιδή (" + agwn_vocabulary["κομιδή"] + "):")
     print("Non-zero AGWN coordinates at positions/lemmas:")
-    l1_c = agwn_coordinates[1092]
-    print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
-
-    print("1109 (" + agwn_vocabulary[1109] + "):")
-    print("Non-zero AGWN coordinates at positions/lemmas:")
-    l1_c = agwn_coordinates[1109]
+    l1_c = agwn_coordinates["κομιδή"]
     print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
 
     # read mapping between pairs of lemmas and their cosine distance in the DISSECT semantic space:
@@ -830,7 +832,7 @@ for [lemma1, lemma2] in agwn_cooccurrence:
 
     if (lemma1 in agwn_dissect_5neighbours) and (lemma1 is not lemma2) and (lemma2 in agwn_dissect_5neighbours) and (id1 < id2):
 
-        agwn_cos_distance_lemma1_lemma2 = distance.cosine(agwn_coordinates[id1], agwn_coordinates[id2])
+        agwn_cos_distance_lemma1_lemma2 = distance.cosine(agwn_coordinates[lemma1], agwn_coordinates[lemma2])
         # print("AGWN coordinates for lemma1:", str(agwn_coordinates[id1]))
         # print("AGWN coordinates for lemma2:", str(agwn_coordinates[id2]))
 
@@ -883,7 +885,7 @@ for [lemma, neighbour] in lemma_neighbour2distance:
 
         if (lemma is not neighbour) and (id1 < id2):
 
-            agwn_cos_distance_lemma_neighbour = distance.cosine(agwn_coordinates[id1], agwn_coordinates[id2])
+            agwn_cos_distance_lemma_neighbour = distance.cosine(agwn_coordinates[lemma], agwn_coordinates[neighbour])
             agwn_distances_shared_dissect_neighbours.append(agwn_cos_distance_lemma_neighbour)
 
             dissect_cos_distance_lemma_neighbour = lemma2neighbour[agwn_vocabulary[id1]][agwn_vocabulary[id2]]
