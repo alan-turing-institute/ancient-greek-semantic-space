@@ -1019,12 +1019,12 @@ print("Neighbours of ἐπιμέλεια: ", str(lemma2neighbourset["ἐπιμέ
 
 # Calculate overlap between synsets and neighbour sets:
 
-lemma2overlap = dict()  # maps a shared lemma to the overlap between its AGWN synonyms and its DISSECT neighbours:
+lemma2overlap_ratio = dict()  # maps a shared lemma to the overlap ratio between its AGWN synonyms and its DISSECT neighbours, divided by the union# :
 
 print("Finding overlap between synsets and neighboursets")
 
 count_n = 0
-overlaps = list() # list of overlap values
+overlap_ratios = list() # list of overlap ratio values
 
 for lemma in agwn_dissect_5neighbours:
     count_n += 1
@@ -1035,42 +1035,40 @@ for lemma in agwn_dissect_5neighbours:
     try:
         synset = set(lemma2synset[lemma])
         neighbourset = set(lemma2neighbourset[lemma])
-        overlap = list(synset.intersection(neighbourset))
+        union = list(set(synset + neighbourset))
+        overlap_ratio = len(list(synset.intersection(neighbourset)))/len(union)
     except:
-        overlap = list()
+        overlap_ratio = 0
 
-    lemma2overlap[lemma] = overlap
-    overlaps.append(overlap)
+    lemma2overlap_ratio[lemma] = overlap_ratio
+    overlap_ratios.append(overlap_ratio)
 
     if (lemma == "κομιδή") or (lemma == "ἐπιμέλεια"):
         print("\tTest!")
-        print("\t", lemma, str(lemma2overlap[lemma]))
+        print("\t", lemma, str(lemma2overlap_ratio[lemma]))
 
 print("Examples:")
-print("Overlap for κομιδή:", str(lemma2overlap["κομιδή"]))
-print("Overlap for ἐπιμέλεια:", str(lemma2overlap["ἐπιμέλεια"]))
+print("Overlap ratio for κομιδή:", str(lemma2overlap_ratio["κομιδή"]))
+print("Overlap ratio for ἐπιμέλεια:", str(lemma2overlap_ratio["ἐπιμέλεια"]))
 
 # print out results:
 
 summary_dissect_agwn_overlap_file = open(os.path.join(dir_out, summary_dissect_agwn_overlap_file_name), 'w')
 
-if len(overlaps) > 0:
-    mean_overlaps = np.mean(overlaps)
-    std_overlaps = overlaps.std()
-    min_overlaps = overlaps.min()
-    max_overlaps = overlaps.max()
-    median_overlaps = np.median(overlaps)
-    perc25_overlaps = np.percentile(overlaps, 25)
-    perc75_overlaps = np.percentile(overlaps, 75)
+mean_overlaps = np.mean(overlap_ratios)
+std_overlaps = overlap_ratios.std()
+min_overlaps = overlap_ratios.min()
+max_overlaps = overlap_ratios.max()
+median_overlaps = np.median(overlap_ratios)
+perc25_overlaps = np.percentile(overlap_ratios, 25)
+perc75_overlaps = np.percentile(overlap_ratios, 75)
 
-    summary_dissect_agwn_overlap_file.write("Mean of overlaps:" + str(mean_overlaps))
-    summary_dissect_agwn_overlap_file.write("STD of overlaps:" + str(std_overlaps))
-    summary_dissect_agwn_overlap_file.write("Min of overlaps:" + str(min_overlaps))
-    summary_dissect_agwn_overlap_file.write("Max of overlaps:" + str(max_overlaps))
-    summary_dissect_agwn_overlap_file.write("Median of overlaps:" + str(median_overlaps))
-    summary_dissect_agwn_overlap_file.write("25th percentile of overlaps:" + str(perc25_overlaps))
-    summary_dissect_agwn_overlap_file.write("75th percentile of overlaps:" + str(perc75_overlaps))
-else:
-    summary_dissect_agwn_overlap_file.write("No overlap.")
+summary_dissect_agwn_overlap_file.write("Mean of overlap ratios:" + str(mean_overlaps))
+summary_dissect_agwn_overlap_file.write("STD of overlap ratios:" + str(std_overlaps))
+summary_dissect_agwn_overlap_file.write("Min of overlap ratios:" + str(min_overlaps))
+summary_dissect_agwn_overlap_file.write("Max of overlap ratios:" + str(max_overlaps))
+summary_dissect_agwn_overlap_file.write("Median of overlap ratios:" + str(median_overlaps))
+summary_dissect_agwn_overlap_file.write("25th percentile of overlap ratios:" + str(perc25_overlaps))
+summary_dissect_agwn_overlap_file.write("75th percentile of overlap ratios:" + str(perc75_overlaps))
 
 summary_dissect_agwn_overlap_file.close()
