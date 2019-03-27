@@ -775,7 +775,7 @@ summary_stats_dissect_5neighbours_file.close()
 # --------------------------------------------------------------------------------------------
 
 print(
-    "---------------------------------------------------------Second evaluation approach: distances in AGWN/DISSECT spaces between synonyms/neighbours\n-------------------------------------------------")
+    "---------------------------------------------------------\nSecond evaluation approach: distances in AGWN/DISSECT spaces between synonyms/neighbours\n-------------------------------------------------")
 
 # calculate cosine distances in AGWN space between pairs of shared lemmas that are synonyms in AGWN space:
 
@@ -954,7 +954,7 @@ summary_dissect_agwn_distances_file.close()
 
 
 print(
-    "---------------------------------------------------------Third evaluation approach: overlap between synsets in AGWN and neighbour sets in DISSECT spaces\n-------------------------------------------------")
+    "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in AGWN and neighbour sets in DISSECT spaces\n-------------------------------------------------")
 
 # Define synsets in AGWN space containing shared lemmas:
 
@@ -1055,6 +1055,8 @@ print("Overlap ratio for ἐπιμέλεια:", str(lemma2overlap_ratio["ἐπι
 
 summary_dissect_agwn_overlap_file = open(os.path.join(dir_out, summary_dissect_agwn_overlap_file_name), 'w')
 
+overlap_ratios = np.array(overlap_ratios, dtype=np.float32)
+
 mean_overlaps = np.mean(overlap_ratios)
 std_overlaps = overlap_ratios.std()
 min_overlaps = overlap_ratios.min()
@@ -1063,12 +1065,12 @@ median_overlaps = np.median(overlap_ratios)
 perc25_overlaps = np.percentile(overlap_ratios, 25)
 perc75_overlaps = np.percentile(overlap_ratios, 75)
 
-summary_dissect_agwn_overlap_file.write("Mean of overlap ratios:" + str(mean_overlaps))
-summary_dissect_agwn_overlap_file.write("STD of overlap ratios:" + str(std_overlaps))
-summary_dissect_agwn_overlap_file.write("Min of overlap ratios:" + str(min_overlaps))
-summary_dissect_agwn_overlap_file.write("Max of overlap ratios:" + str(max_overlaps))
-summary_dissect_agwn_overlap_file.write("Median of overlap ratios:" + str(median_overlaps))
-summary_dissect_agwn_overlap_file.write("25th percentile of overlap ratios:" + str(perc25_overlaps))
-summary_dissect_agwn_overlap_file.write("75th percentile of overlap ratios:" + str(perc75_overlaps))
+summary_dissect_agwn_overlap_file.write("Mean of overlap ratios:" + str(mean_overlaps) + "\n")
+summary_dissect_agwn_overlap_file.write("STD of overlap ratios:" + str(std_overlaps) + "\n")
+summary_dissect_agwn_overlap_file.write("Min of overlap ratios:" + str(min_overlaps) + "\n")
+summary_dissect_agwn_overlap_file.write("Max of overlap ratios:" + str(max_overlaps) + "\n")
+summary_dissect_agwn_overlap_file.write("Median of overlap ratios:" + str(median_overlaps) + "\n")
+summary_dissect_agwn_overlap_file.write("25th percentile of overlap ratios:" + str(perc25_overlaps) + "\n")
+summary_dissect_agwn_overlap_file.write("75th percentile of overlap ratios:" + str(perc75_overlaps) + "\n")
 
 summary_dissect_agwn_overlap_file.close()
