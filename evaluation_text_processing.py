@@ -844,7 +844,9 @@ for [lemma1, lemma2] in agwn_cooccurrence:
                                                              dissect_lemma2coordinates[lemma2])
 
         if count_n % 10000 == 0:
-            print(str(count_n), "out of", str(len(agwn_cooccurrence)), "synonyms", lemma1, "and", lemma2, "AGWN IDs are", str(id1), "and", str(id2), "AGWN cosine distance:", str(agwn_cos_distance_lemma1_lemma2), "DISSECT cosine distance:", str(dissect_cos_distance_lemma1_lemma2))
+            #print(str(count_n), "out of", str(len(agwn_cooccurrence)), "synonyms", lemma1, "and", lemma2, "AGWN IDs are", str(id1), "and", str(id2), "AGWN cosine distance:", str(agwn_cos_distance_lemma1_lemma2), "DISSECT cosine distance:", str(dissect_cos_distance_lemma1_lemma2))
+            print(str(count_n), "out of", str(len(agwn_cooccurrence)), "synonyms", lemma1, "and", lemma2,
+                  "AGWN IDs are", str(id1), "and", str(id2))
 
         dissect_distances_shared_agwn_synonyms.append(dissect_cos_distance_lemma1_lemma2)
 
