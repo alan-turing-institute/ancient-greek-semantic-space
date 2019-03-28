@@ -35,7 +35,7 @@ freq_threshold = input("What is the frequency threshold for vocabulary lemmas? L
 istest = input("Is this a test? Leave empty for default (" + str(istest_default) + ").")
 skip_read_files = input("Do you want to skip the first step that read input files? Leave empty for default (" + str(
     skip_read_files_default) + "). NB Only skip if you've already created the files in a previous run (with the same parameters)!")
-lines_read_testing = 10000  # lines read in test case
+lines_read_testing = 30000  # lines read in test case
 
 if window == "":
     window = window_default
@@ -410,7 +410,7 @@ if skip_read_files == "no":
 
             agwn_coordinates[lemma1] = coordinates_lemmaid1
 
-            if (lemma1 == "κομιδή") or (lemma1 == "ἐπιμέλεια"):
+            if (lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "πόλις"]):
                 print("\tTest!")
                 print("\tCount:", str(count_n), "Lemma1:", lemma1)
                 print("\tNon-zero AGWN coordinates at positions/lemmas:")
@@ -513,14 +513,24 @@ else:
     # print(str(agwn_coordinates))
     print("Examples:")
 
-    print("ἐπιμέλεια (" + agwn_vocabulary["ἐπιμέλεια"] + "):")
+    print("1092, ἐπιμέλεια (" + agwn_vocabulary[1092] + "):")
     print("Non-zero AGWN coordinates at positions/lemmas:")
     l1_c = agwn_coordinates["ἐπιμέλεια"]
     print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
 
-    print("κομιδή (" + agwn_vocabulary["κομιδή"] + "):")
+    print("1109, κομιδή (" + agwn_vocabulary[1109] + "):")
     print("Non-zero AGWN coordinates at positions/lemmas:")
     l1_c = agwn_coordinates["κομιδή"]
+    print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
+
+    print("11570, οἰκήτωρ (" + agwn_vocabulary[11570] + "):")
+    print("Non-zero AGWN coordinates at positions/lemmas:")
+    l1_c = agwn_coordinates["οἰκήτωρ"]
+    print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
+
+    print("10993, πόλις (" + agwn_vocabulary[10993] + "):")
+    print("Non-zero AGWN coordinates at positions/lemmas:")
+    l1_c = agwn_coordinates["πόλις"]
     print(str([(i, agwn_vocabulary[i]) for i, e in enumerate(l1_c) if e != 0]))
 
     # read mapping between pairs of lemmas and their cosine distance in the DISSECT semantic space:
@@ -797,7 +807,7 @@ for id in range(0, len(agwn_vocabulary)):
     if id % 1000 == 0:
         print("Id:", str(id), "lemma:", agwn_vocabulary[id], "lemma2id:", str(agwn_lemma2id[agwn_vocabulary[id]]))
 
-    if agwn_vocabulary[id] == "κομιδή" or agwn_vocabulary[id] == "ἐπιμέλεια":
+    if agwn_vocabulary[id] in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "πόλις"]:
         print("\tTest!")
         print("\tId:", str(id), "lemma:", agwn_vocabulary[id], "lemma2id:", str(agwn_lemma2id[agwn_vocabulary[id]]))
 
@@ -890,11 +900,12 @@ for [lemma, neighbour] in lemma_neighbour2distance:
             agwn_cos_distance_lemma_neighbour = distance.cosine(agwn_coordinates[lemma], agwn_coordinates[neighbour])
             agwn_distances_shared_dissect_neighbours.append(agwn_cos_distance_lemma_neighbour)
 
-            dissect_cos_distance_lemma_neighbour = lemma2neighbour[agwn_vocabulary[id1]][agwn_vocabulary[id2]]
+            dissect_cos_distance_lemma_neighbour = lemma_neighbour2distance[agwn_vocabulary[id1]][agwn_vocabulary[id2]]
             if count_n % 1000 == 0:
-                print(str(count_n), "out of", str(len(lemma_neighbour2distance)), "consider neighbours", lemma, "and", neighbour, "AGWN IDs are", str(id1), "and", str(id2))
+                print(str(count_n), "out of", str(len(lemma_neighbour2distance)), "consider neighbours", lemma, "and",
+                      neighbour, "AGWN IDs are", str(id1), "and", str(id2))
                 print("AGWN cosine distance:", str(agwn_cos_distance_lemma_neighbour))
-                print("DISSECT cosine distance:", str(dissect_cos_distance_id1_id2))
+                print("DISSECT cosine distance:", str(dissect_cos_distance_lemma_neighbour))
 
             if lemma == "ἐπιμέλεια" or lemma == "κομιδή":
                 print("\tTest!")
