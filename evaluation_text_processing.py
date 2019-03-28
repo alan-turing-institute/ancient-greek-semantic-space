@@ -166,7 +166,7 @@ for line in ssrows_file:
     count_n += 1
 
     if (istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_rows):
-        if count_n % 500 == 0:
+        if count_n % 1000 == 0:
             log_file.write("Reading rows in DISSECT, line " + str(count_n) + "\n")
         line = line.rstrip('\n')
         dissect_id2lemma[count_n] = line
@@ -207,7 +207,7 @@ for row in agwn_reader:
     if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_agwn)) and (
                 count_n > 1):
 
-        if count_n % 500 == 0:
+        if count_n % 1000 == 0:
             log_file.write("WordNet: line " + str(count_n) + " out of " + str(row_count_agwn) + "\n")
 
         row[0] = row[0].replace("#", "")
@@ -335,7 +335,7 @@ if skip_read_files == "no":
     for synset_id in synsets:
 
         count_s += 1
-        if count_s % 100 == 0:
+        if count_s % 1000 == 0:
             log_file.write("Line " + str(count_s) + ": " + "synset ID: " + synset_id + "\n")
             log_file.write("Lemmas: " + str(synsets[synset_id]) + "\n")
 
@@ -769,7 +769,7 @@ count_n = 0
 for lemma, neighbour in lemma_neighbour2distance:
     if lemma in agwn_dissect_5neighbours:
         count_n += 1
-        if count_n % 100 == 0:
+        if count_n % 1000 == 0:
             log_file.write("lemma: " + lemma + ", neighbour: " + neighbour + ", distance: " +
                            str(lemma_neighbour2distance[lemma, neighbour]) + "\n")
         if lemma == "κομιδή" or lemma == "ἐπιμέλεια":
@@ -975,7 +975,7 @@ for [lemma, neighbour] in lemma_neighbour2distance:
 
     count_n += 1
 
-    if count_n % 100 == 0:
+    if count_n % 50000 == 0:
         log_file.write("Consider lemma+neighbour " + lemma + " and " + neighbour + "\n")
 
     if (lemma in agwn_dissect_5neighbours) and (neighbour in agwn_dissect_5neighbours):
@@ -1012,7 +1012,7 @@ for [lemma, neighbour] in lemma_neighbour2distance:
                 agwn_lemma2id[neighbour]]) + "\n")
                 log_file.write("Error with DISSECT cosine distance!\n")
 
-            if count_n % 1000 == 0:
+            if count_n % 10000 == 0:
                 log_file.write(str(count_n) + "out of " + str(
                     len(lemma_neighbour2distance)) + " consider neighbours " + lemma + " and " +
                                neighbour + "AGWN IDs are " + str(id1) + " and " + str(id2) + "\n")
@@ -1104,7 +1104,7 @@ for synset_id in synsets:
 
     count_n += 1
 
-    if count_n % 100 == 0:
+    if count_n % 1000 == 0:
         log_file.write(str(count_n) + synset_id + "out of " + str(len(synsets)) + "\n")
 
     synonyms = synsets[synset_id]
@@ -1134,7 +1134,7 @@ for lemma, neighbour in lemma_neighbour2distance:
 
     if lemma in agwn_dissect_5neighbours:
 
-        if count_n % 100 == 0:
+        if count_n % 1000 == 0:
             log_file.write(str(count_n) + "lemma: " + lemma + " out of " + str(len(lemma_neighbour2distance)) + "\n")
 
         if lemma in lemma2neighbourset:
