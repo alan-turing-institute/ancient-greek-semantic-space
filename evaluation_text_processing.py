@@ -471,7 +471,7 @@ if skip_read_files == "no":
         log_file.write("κομιδή (id: " + agwn_lemma2id["κομιδή"] + "):" + "\n")
         log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
         l1_c = agwn_coordinates["κομιδή"]
-        log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+        log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
     except:
         pass
 
@@ -479,7 +479,7 @@ if skip_read_files == "no":
         log_file.write("ἐπιμέλεια (id: " + agwn_lemma2id["ἐπιμέλεια"] + "):" + "\n")
         log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
         l1_c = agwn_coordinates["ἐπιμέλεια"]
-        log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+        log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
     except:
         pass
 
@@ -487,7 +487,7 @@ if skip_read_files == "no":
         log_file.write("οἰκήτωρ (id: " + agwn_lemma2id["οἰκήτωρ"] + "):" + "\n")
         log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
         l1_c = agwn_coordinates["οἰκήτωρ"]
-        log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+        log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
     except:
         pass
 
@@ -495,7 +495,7 @@ if skip_read_files == "no":
         log_file.write("πόλις (id: " + agwn_lemma2id["πόλις"] + "):" + "\n")
         log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
         l1_c = agwn_coordinates["πόλις"]
-        log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+        log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
     except:
         pass
 
@@ -525,6 +525,7 @@ else:
             log_file.write("id: " + str(id) + ", lemma: " + lemma + "\n")
 
     file_out_agwn_vocabulary.close()
+    agwn_lemma2id_keys = list(agwn_lemma2id.keys())
 
     # read list of DISSECT lemmas with top 5 neighbours:
 
@@ -592,22 +593,22 @@ else:
     log_file.write("ἐπιμέλεια:" + "\n")
     log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
     l1_c = agwn_coordinates["ἐπιμέλεια"]
-    log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
     log_file.write("κομιδή:" + "\n")
     log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
     l1_c = agwn_coordinates["κομιδή"]
-    log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
     log_file.write("οἰκήτωρ:" + "\n")
     log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
     l1_c = agwn_coordinates["οἰκήτωρ"]
-    log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
     log_file.write("πόλις:" + "\n")
     log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
     l1_c = agwn_coordinates["πόλις"]
-    log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
     # read mapping between pairs of lemmas and their cosine distance in the DISSECT semantic space:
 
@@ -920,10 +921,10 @@ for [lemma1, lemma2] in agwn_cooccurrence:
             log_file.write("lemma2: " + lemma2 + "\n")
             log_file.write("AGWN non-zero coordinates for lemma1:"+ "\n")
             l1_c = agwn_coordinates[lemma1]
-            log_file.write(str([(i, agwn_dissect_5neighbours[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
             log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
             l1_c = agwn_coordinates[lemma2]
-            log_file.write(str([(i, agwn_dissect_5neighbours[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
             log_file.write("Error with AGWN cosine distance!\n")
 
         if not np.isfinite(agwn_coordinates[lemma1]).all() or not np.isfinite(agwn_coordinates[lemma2]).all():
@@ -932,10 +933,10 @@ for [lemma1, lemma2] in agwn_cooccurrence:
             log_file.write("lemma2: " + lemma2 + "\n")
             log_file.write("AGWN non-zero coordinates for lemma1:" + "\n")
             l1_c = agwn_coordinates[lemma1]
-            log_file.write(str([(i, agwn_dissect_5neighbours[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
             log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
             l1_c = agwn_coordinates[lemma2]
-            log_file.write(str([(i, agwn_dissect_5neighbours[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
             #cos_sim = dot(a, b) / (norm(a) * norm(b))
             log_file.write("NAN, INF, or NINF Error with AGWN cosine distance!\n")
 
@@ -945,10 +946,10 @@ for [lemma1, lemma2] in agwn_cooccurrence:
             log_file.write("lemma2: " + lemma2 + "\n")
             log_file.write("AGWN non-zero coordinates for lemma1:" + "\n")
             l1_c = agwn_coordinates[lemma1]
-            log_file.write(str([(i, agwn_dissect_5neighbours[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
             log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
             l1_c = agwn_coordinates[lemma2]
-            log_file.write(str([(i, agwn_dissect_5neighbours[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
             log_file.write("Norm of agwn_coordinates[lemma1]: " + str(norm(agwn_coordinates[lemma1])) + "\n")
             log_file.write("Norm of agwn_coordinates[lemma2]: " + str(norm(agwn_coordinates[lemma2])) + "\n")
             #cos_sim = dot(a, b) / (norm(a) * norm(b))
