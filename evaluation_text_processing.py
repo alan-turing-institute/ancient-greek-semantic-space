@@ -373,7 +373,7 @@ if skip_read_files == "no":
                             str(count_s) + ": " + ", lemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
                             str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
 
-                    if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "οἰκήτωρ", "αἴθων"]:
+                    if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
                         log_file.write("\tTest!" + "\n")
                         log_file.write("\tLemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
                                        str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
@@ -432,7 +432,7 @@ if skip_read_files == "no":
                         ": " + " co-occurrence of shared lemmas " + lemma1 + " and " + lemma2 + ": " +
                         str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
 
-                if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "πόλις", "αἴθων"]:
+                if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "πόλις", "αἴθων", "εὐθυθάνατος"]:
                     if agwn_cooccurrence[lemma1, lemma2] > 0:
                         log_file.write("\tTest!" + "\n")
                         log_file.write("\tLemma1: " + lemma1 + " (id: " + agwn_lemma2id[lemma1] + ") " +
@@ -445,7 +445,7 @@ if skip_read_files == "no":
 
             agwn_coordinates[lemma1] = coordinates_lemmaid1
 
-            if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "πόλις", "αἴθων"]:
+            if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "πόλις", "αἴθων", "εὐθυθάνατος"]:
                 log_file.write("\tTest!" + "\n")
                 log_file.write(
                     "\tCount: " + str(count_n) + " Lemma1:" + lemma1 + " (id: " + agwn_lemma2id[lemma1] + ")" + "\n")
@@ -894,95 +894,98 @@ for [lemma1, lemma2] in agwn_cooccurrence:
 
     count_n += 1
 
-    id1 = agwn_lemma2id[lemma1]
-    id2 = agwn_lemma2id[lemma2]
+    if lemma1 in agwn_dissect_5neighbours and lemma2 in agwn_dissect_5neighbours:
+        id1 = agwn_lemma2id[lemma1]
+        id2 = agwn_lemma2id[lemma2]
+        norm_lemma1 = norm(agwn_coordinates[lemma1])
+        norm_lemma2 = norm(agwn_coordinates[lemma2])
 
-    # if count_n % 500000 == 0:
-    #    log_file.write("Consider synonyms", lemma1, "and", lemma2, "AGWN IDs are", str(id1), "and", str(id2) + "\n")
-
-    if lemma1 == "ἐπιμέλεια" and lemma2 == "κομιδή":
-        log_file.write("\tTest!" + "\n")
-        log_file.write(
-            "\tSynonyms " + lemma1 + " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) + "\n")
-        if lemma1 in agwn_dissect_5neighbours and lemma2 in agwn_dissect_5neighbours:
-            log_file.write("\tThey are shared!" + "\n")
-            if id1 < id2:
-                log_file.write("\t and id1 < id2!" + "\n")
-
-    if (lemma1 in agwn_dissect_5neighbours) and (lemma1 is not lemma2) and (lemma2 in agwn_dissect_5neighbours) and (
-        id1 < id2):
-
-        try:
-            agwn_cos_distance_lemma1_lemma2 = distance.cosine(agwn_coordinates[lemma1], agwn_coordinates[lemma2])
-            agwn_distances_shared_agwn_synonyms.append(agwn_cos_distance_lemma1_lemma2)
-        except:
-            log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
-            log_file.write("lemma1: " + lemma1 + "\n")
-            log_file.write("lemma2: " + lemma2 + "\n")
-            log_file.write("AGWN non-zero coordinates for lemma1:"+ "\n")
-            l1_c = agwn_coordinates[lemma1]
-            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-            log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
-            l1_c = agwn_coordinates[lemma2]
-            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-            log_file.write("Error with AGWN cosine distance!\n")
-
-        if not np.isfinite(agwn_coordinates[lemma1]).all() or not np.isfinite(agwn_coordinates[lemma2]).all():
-            log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
-            log_file.write("lemma1: " + lemma1 + "\n")
-            log_file.write("lemma2: " + lemma2 + "\n")
-            log_file.write("AGWN non-zero coordinates for lemma1:" + "\n")
-            l1_c = agwn_coordinates[lemma1]
-            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-            log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
-            l1_c = agwn_coordinates[lemma2]
-            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-            #cos_sim = dot(a, b) / (norm(a) * norm(b))
-            log_file.write("NAN, INF, or NINF Error with AGWN cosine distance!\n")
-
-        if norm(agwn_coordinates[lemma1]) == 0 or norm(agwn_coordinates[lemma1]) == 0:
-            log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
-            log_file.write("lemma1: " + lemma1 + "\n")
-            log_file.write("lemma2: " + lemma2 + "\n")
-            log_file.write("AGWN non-zero coordinates for lemma1:" + "\n")
-            l1_c = agwn_coordinates[lemma1]
-            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-            log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
-            l1_c = agwn_coordinates[lemma2]
-            log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-            log_file.write("Norm of agwn_coordinates[lemma1]: " + str(norm(agwn_coordinates[lemma1])) + "\n")
-            log_file.write("Norm of agwn_coordinates[lemma2]: " + str(norm(agwn_coordinates[lemma2])) + "\n")
-            #cos_sim = dot(a, b) / (norm(a) * norm(b))
-            log_file.write("Zeros! Error with AGWN cosine distance!\n")
-
-
-        # log_file.write("DISSECT coordinates for lemma1:", str(dissect_lemma2coordinates[lemma1][0:4]) + "\n")
-        # log_file.write("DISSECT coordinates for lemma2:", str(dissect_lemma2coordinates[lemma2][0:4]) + "\n")
-        try:
-            dissect_cos_distance_lemma1_lemma2 = distance.cosine(dissect_lemma2coordinates[lemma1],
-                                                             dissect_lemma2coordinates[lemma2])
-            dissect_distances_shared_agwn_synonyms.append(dissect_cos_distance_lemma1_lemma2)
-        except:
-            log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
-            log_file.write("lemma1: " + lemma1 + "\n")
-            log_file.write("lemma2: " + lemma2 + "\n")
-            log_file.write("DISSECT coordinates for lemma1:" + str(dissect_lemma2coordinates[lemma1]) + "\n")
-            log_file.write("DISSECT coordinates for lemma2:" + str(dissect_lemma2coordinates[lemma2]) + "\n")
-            log_file.write("Error with DISSECT cosine distance!\n")
-
-        if count_n % 10000 == 0:
-            log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + " synonyms " + lemma1 +
-                           " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) +
-                           ", AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) +
-            ", DISSECT cosine distance:" + str(dissect_cos_distance_lemma1_lemma2) + "\n")
-
+        # if count_n % 500000 == 0:
+        #    log_file.write("Consider synonyms", lemma1, "and", lemma2, "AGWN IDs are", str(id1), "and", str(id2) + "\n")
 
         if lemma1 == "ἐπιμέλεια" and lemma2 == "κομιδή":
             log_file.write("\tTest!" + "\n")
             log_file.write(
-                "\tSynonyms " + lemma1 + " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) +
-                " AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) + " DISSECT cosine distance: " + str(
-                    dissect_cos_distance_lemma1_lemma2) + "\n")
+                "\tSynonyms " + lemma1 + " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) + "\n")
+            if lemma1 in agwn_dissect_5neighbours and lemma2 in agwn_dissect_5neighbours:
+                log_file.write("\tThey are shared!" + "\n")
+                if id1 < id2:
+                    log_file.write("\t and id1 < id2!" + "\n")
+
+        if (lemma1 in agwn_dissect_5neighbours) and (lemma1 is not lemma2) and (lemma2 in agwn_dissect_5neighbours) and (
+            id1 < id2) and norm_lemma1 > 0 and norm_lemma2 > 0:
+
+            try:
+                agwn_cos_distance_lemma1_lemma2 = distance.cosine(agwn_coordinates[lemma1], agwn_coordinates[lemma2])
+                agwn_distances_shared_agwn_synonyms.append(agwn_cos_distance_lemma1_lemma2)
+            except:
+                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
+                log_file.write("lemma1: " + lemma1 + "\n")
+                log_file.write("lemma2: " + lemma2 + "\n")
+                log_file.write("AGWN non-zero coordinates for lemma1:"+ "\n")
+                l1_c = agwn_coordinates[lemma1]
+                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
+                l1_c = agwn_coordinates[lemma2]
+                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("Error with AGWN cosine distance!\n")
+
+            if not np.isfinite(agwn_coordinates[lemma1]).all() or not np.isfinite(agwn_coordinates[lemma2]).all():
+                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
+                log_file.write("lemma1: " + lemma1 + "\n")
+                log_file.write("lemma2: " + lemma2 + "\n")
+                log_file.write("AGWN non-zero coordinates for lemma1:" + "\n")
+                l1_c = agwn_coordinates[lemma1]
+                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
+                l1_c = agwn_coordinates[lemma2]
+                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                #cos_sim = dot(a, b) / (norm(a) * norm(b))
+                log_file.write("NAN, INF, or NINF Error with AGWN cosine distance!\n")
+
+            if norm(agwn_coordinates[lemma1]) == 0 or norm(agwn_coordinates[lemma1]) == 0:
+                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
+                log_file.write("lemma1: " + lemma1 + "\n")
+                log_file.write("lemma2: " + lemma2 + "\n")
+                log_file.write("AGWN non-zero coordinates for lemma1:" + "\n")
+                l1_c = agwn_coordinates[lemma1]
+                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
+                l1_c = agwn_coordinates[lemma2]
+                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("Norm of agwn_coordinates[lemma1]: " + str(norm(agwn_coordinates[lemma1])) + "\n")
+                log_file.write("Norm of agwn_coordinates[lemma2]: " + str(norm(agwn_coordinates[lemma2])) + "\n")
+                #cos_sim = dot(a, b) / (norm(a) * norm(b))
+                log_file.write("Zeros! Error with AGWN cosine distance!\n")
+
+
+            # log_file.write("DISSECT coordinates for lemma1:", str(dissect_lemma2coordinates[lemma1][0:4]) + "\n")
+            # log_file.write("DISSECT coordinates for lemma2:", str(dissect_lemma2coordinates[lemma2][0:4]) + "\n")
+            try:
+                dissect_cos_distance_lemma1_lemma2 = distance.cosine(dissect_lemma2coordinates[lemma1],
+                                                                 dissect_lemma2coordinates[lemma2])
+                dissect_distances_shared_agwn_synonyms.append(dissect_cos_distance_lemma1_lemma2)
+            except:
+                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
+                log_file.write("lemma1: " + lemma1 + "\n")
+                log_file.write("lemma2: " + lemma2 + "\n")
+                log_file.write("DISSECT coordinates for lemma1:" + str(dissect_lemma2coordinates[lemma1]) + "\n")
+                log_file.write("DISSECT coordinates for lemma2:" + str(dissect_lemma2coordinates[lemma2]) + "\n")
+                log_file.write("Error with DISSECT cosine distance!\n")
+
+            if count_n % 10000 == 0:
+                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + " synonyms " + lemma1 +
+                               " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) +
+                               ", AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) +
+                ", DISSECT cosine distance:" + str(dissect_cos_distance_lemma1_lemma2) + "\n")
+
+
+            if lemma1 == "ἐπιμέλεια" and lemma2 == "κομιδή":
+                log_file.write("\tTest!" + "\n")
+                log_file.write(
+                    "\tSynonyms " + lemma1 + " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) +
+                    " AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) + " DISSECT cosine distance: " + str(
+                        dissect_cos_distance_lemma1_lemma2) + "\n")
 
 log_file.write("agwn_distances_shared_agwn_synonyms:" + str(agwn_distances_shared_agwn_synonyms) + "\n")
 log_file.write("dissect_distances_shared_agwn_synonyms:" + str(dissect_distances_shared_agwn_synonyms) + "\n")
