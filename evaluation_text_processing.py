@@ -98,11 +98,11 @@ file_out_agwn_vocabulary_name = "AGWN_lemmas.txt"
 # file_out_dissect_distances_name = "semantic_space_w" + str(window) + "_t" + str(freq_threshold) + "distances.csv"
 hist_file_name = "cos-distances-5neighbours_semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "hist.png"
 summary_stats_dissect_5neighbours_file_name = "summary_statistics_distance_semantic-space_w" + str(window) + "_t" + \
-                                              str(freq_threshold) + "_5neighbours.txt"
+                                              str(freq_threshold) + "_5neighbours_" + "skip-read-files_" + skip_read_files + ".txt"
 summary_dissect_agwn_distances_file_name = "summary_comparison_distances_AGWN_semantic-space_w" + str(window) + "_t" + \
-                                           str(freq_threshold) + "_5neighbours.txt"
+                                           str(freq_threshold) + "_5neighbours_" + "skip-read-files_" + skip_read_files + ".txt"
 summary_dissect_agwn_overlap_file_name = "summary_overlap_AGWN_semantic-space_w" + str(window) + "_t" + \
-                                         str(freq_threshold) + "_5neighbours.txt"
+                                         str(freq_threshold) + "_5neighbours" + "_skip-read-files_" + skip_read_files + ".txt"
 log_file_name = "log_file_semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "_5neighbours" + \
                 str(now.strftime("%Y-%m-%d")) + "skip-read-files_" + skip_read_files + ".txt"
                 #str(now.strftime("%Y-%m-%d %H:%M")) + ".txt"
@@ -377,15 +377,16 @@ if skip_read_files == "no":
                             str(count_s) + ": " + ", lemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
                             str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
 
-                    if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
+                    if lemma1 in ["κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
                         log_file.write("\tTest!" + "\n")
                         log_file.write("\tLemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
                                        str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
 
     log_file.write("Writing agwn_id2lemma file....\n")
-    agwn_lemma2id_keys = ["0"] + list(agwn_lemma2id.keys()) # I add an empty string as first element of this list, to account for the fact that the
+    #agwn_lemma2id_keys = ["0"] + list(agwn_lemma2id.keys()) # I add an empty string as first element of this list, to account for the fact that the
+    agwn_lemma2id_keys = list(agwn_lemma2id.keys())
     agwn_lemma2id_keys.sort()
-    agwn_lemma2id["0"] = "0"
+    #agwn_lemma2id["0"] = "0"
     # first lemma in the file file_out_agwn_vocabulary_name (in line 1) corresponds to the item at position 1 in the list
 
     with open(os.path.join(dir_out, file_out_agwn_vocabulary_name), 'w', encoding="UTF-8") as agwn_vocabulary_file:
@@ -395,9 +396,11 @@ if skip_read_files == "no":
             if count_n > 1:
                 agwn_vocabulary_file.write(agwn_lemma2id[lemma] + "\t" + lemma + "\n")
 
-            if lemma in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
+            if lemma in ["0", "κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
                 log_file.write("\tTest!\n")
-                log_file.write("\tLine number: " + str(count_n-1) + ", lemma_id: " + agwn_lemma2id[lemma] +
+                #log_file.write("\tLine number: " + str(count_n-1) + ", lemma_id: " + agwn_lemma2id[lemma] +
+                #", lemma: " + lemma + "\n")
+                log_file.write("\tLine number: " + str(count_n - 1) + ", lemma_id: " + agwn_lemma2id[lemma] +
                                ", lemma: " + lemma + "\n")
 
     # -------------------------------------------------------------------------------
@@ -413,10 +416,16 @@ if skip_read_files == "no":
     agwn_dissect_5neighbours = list((set(dissect_lemmas_5neighbours).intersection(set(agwn_id2lemma.values()))))
     agwn_dissect_5neighbours.sort()
 
+    count_n = 0
     with open(os.path.join(dir_out, file_out_shared_lemmas_name), 'w',
               encoding="UTF-8") as out_shared_lemmas_file:
         for lemma in agwn_dissect_5neighbours:
+            count_n += 1
             out_shared_lemmas_file.write("%s\n" % lemma)
+            if lemma in ["0", "κομιδή", "ἐπιμέλεια"]:  # , "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
+                log_file.write("\tTest!\n")
+                log_file.write("\tLine number: " + str(count_n) + ", lemma_id: " + agwn_lemma2id[lemma] +
+                               ", lemma: " + lemma + "\n")
 
     # ------------------------------------------
     # finish defining AGWN co-occurrence pairs:
@@ -433,6 +442,7 @@ if skip_read_files == "no":
               encoding="UTF-8") as file_out_agwn_cooccurrence:
 
         file_out_agwn_cooccurrence_writer = csv.writer(file_out_agwn_cooccurrence, delimiter="\t")
+        file_out_agwn_cooccurrence_writer.writerow([""] + agwn_lemma2id_keys)
 
         for lemma1 in agwn_dissect_5neighbours:
             count_n += 1
@@ -453,7 +463,7 @@ if skip_read_files == "no":
                             ": " + " co-occurrence of shared lemmas " + lemma1 + " and " + lemma2 + ": " +
                             str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
 
-                    if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "πόλις", "αἴθων", "εὐθυθάνατος"]:
+                    if lemma1 in ["κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "πόλις", "αἴθων", "εὐθυθάνατος"]:
                         if agwn_cooccurrence[lemma1, lemma2] > 0:
                             log_file.write("\tTest!" + "\n")
                             log_file.write("\tIndex (in the list of shared lemmas) of lemma1: " +
@@ -465,11 +475,11 @@ if skip_read_files == "no":
 
                     coordinates_lemmaid1.append(agwn_cooccurrence[lemma1, lemma2])
 
-            file_out_agwn_cooccurrence_writer.writerow(coordinates_lemmaid1)
+            file_out_agwn_cooccurrence_writer.writerow([lemma1] + [coordinates_lemmaid1])
 
             agwn_coordinates[lemma1] = coordinates_lemmaid1
 
-            if lemma1 in ["κομιδή", "ἐπιμέλεια", "οἰκήτωρ", "πόλις", "αἴθων", "εὐθυθάνατος"]:
+            if lemma1 in ["κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "πόλις", "αἴθων", "εὐθυθάνατος"]:
                 log_file.write("\tTest!" + "\n")
                 log_file.write(
                     "\tCount: " + str(count_n) + " Lemma1:" + lemma1 + " (id: " + agwn_lemma2id[lemma1] + ")" + "\n")
@@ -612,7 +622,7 @@ else:
 
                 if lemma1 == "κομιδή" or lemma1 == "ἐπιμέλεια":
                     log_file.write("\tTest!" + "\n")
-                    log_file.write("\tlemma: " + lemma1 + ", position: " + str(ic) +
+                    log_file.write("\tlemma: " + lemma1 + ", position: " + str(ic+1) +
                                    ", corresponding to lemma: " + str(agwn_lemma2id_keys[ic]) + ", coordinate value: " +
                                    str(agwn_cooccurrence[lemma1, agwn_lemma2id_keys[ic]]) + "\n")
 
@@ -631,22 +641,22 @@ else:
     log_file.write("ἐπιμέλεια:" + "\n")
     log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
     l1_c = agwn_coordinates["ἐπιμέλεια"]
-    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write(str([(i+1, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
     log_file.write("κομιδή:" + "\n")
     log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
     l1_c = agwn_coordinates["κομιδή"]
-    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write(str([(i+1, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
     log_file.write("οἰκήτωρ:" + "\n")
     log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
     l1_c = agwn_coordinates["οἰκήτωρ"]
-    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write(str([(i+1, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
     log_file.write("πόλις:" + "\n")
     log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
     l1_c = agwn_coordinates["πόλις"]
-    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write(str([(i+1, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
     # read mapping between pairs of lemmas and their cosine distance in the DISSECT semantic space:
 
@@ -1038,8 +1048,8 @@ for [lemma1, lemma2] in agwn_cooccurrence:
                     " AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) + " DISSECT cosine distance: " + str(
                         dissect_cos_distance_lemma1_lemma2) + "\n")
 
-log_file.write("agwn_distances_shared_agwn_synonyms:" + str(agwn_distances_shared_agwn_synonyms) + "\n")
-log_file.write("dissect_distances_shared_agwn_synonyms:" + str(dissect_distances_shared_agwn_synonyms) + "\n")
+#log_file.write("agwn_distances_shared_agwn_synonyms:" + str(agwn_distances_shared_agwn_synonyms) + "\n")
+#log_file.write("dissect_distances_shared_agwn_synonyms:" + str(dissect_distances_shared_agwn_synonyms) + "\n")
 
 # calculate cosine distances in AGWN space between pairs of shared lemmas that are neighbours in DISSECT space:
 # calculate cosine distances in DISSECT space between pairs of shared lemmas that are neighbours in DISSECT space:
@@ -1072,7 +1082,7 @@ for [lemma, neighbour] in lemma_neighbour2distance:
 
         # if count_n % 100 == 0:
         log_file.write(
-            "Consider shared lemma+neighbour " + lemma + " and " + neighbour + " AGWN IDs are: " + str(id1) + str(
+            "Consider shared lemma+neighbour " + lemma + " and " + neighbour + " AGWN IDs are: " + str(id1) + " and " + str(
                 id2) + "\n")
 
         if (lemma is not neighbour) and (id1 < id2):
@@ -1092,14 +1102,12 @@ for [lemma, neighbour] in lemma_neighbour2distance:
 
             # DISSECT distance:
             try:
-                dissect_cos_distance_lemma_neighbour = lemma_neighbour2distance[agwn_lemma2id[lemma]][
-                agwn_lemma2id[neighbour]]
+                dissect_cos_distance_lemma_neighbour = lemma_neighbour2distance[lemma][neighbour]
             except:
                 log_file.write("Count " + str(count_n) + " out of " + str(len(lemma_neighbour2distance)) + "\n")
                 log_file.write("lemma: " + lemma + ", id: " + str(agwn_lemma2id[lemma]) + "\n")
                 log_file.write("neighbour: " + neighbour + ", id: " + str(agwn_lemma2id[neighbour]) + "\n")
-                log_file.write("DISSECT distance:" + str(lemma_neighbour2distance[agwn_lemma2id[lemma]][
-                agwn_lemma2id[neighbour]]) + "\n")
+                log_file.write("DISSECT distance:" + str(lemma_neighbour2distance[lemma][neighbour]) + "\n")
                 log_file.write("Error with DISSECT cosine distance!\n")
 
             if count_n % 10000 == 0:
@@ -1115,7 +1123,7 @@ for [lemma, neighbour] in lemma_neighbour2distance:
                     "\tConsider neighbours " + lemma + " and " + neighbour + "AGWN IDs are " + str(id1) + " and " + str(
                         id2) + "\n")
                 log_file.write("\tAGWN cosine distance: " + str(agwn_cos_distance_lemma_neighbour) + "\n")
-                log_file.write("\tDISSECT cosine distance: " + str(dissect_cos_distance_id1_id2) + "\n")
+                log_file.write("\tDISSECT cosine distance: " + str(dissect_cos_distance_lemma_neighbour) + "\n")
 
             dissect_distances_shared_dissect_neighbours.append(dissect_cos_distance_lemma_neighbour)
 
