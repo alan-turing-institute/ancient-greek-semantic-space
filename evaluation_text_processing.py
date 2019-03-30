@@ -42,7 +42,7 @@ window = input("What is the window size? Leave empty for default (" + str(
 freq_threshold = input("What is the frequency threshold for vocabulary lemmas? Leave empty for default (" +
                        str(freq_threshold_default) + ").")  # 2 or 50 # frequency threshold for lemmas in vocabulary
 istest = input("Is this a test? Leave empty for default (" + str(istest_default) + ").")
-lines_read_testing = 30000  # lines read in test case
+lines_read_testing = 5000  # lines read in test case
 
 if window == "":
     window = window_default
@@ -97,11 +97,16 @@ summary_stats_dissect_5neighbours_file_name = "summary_statistics_distance_seman
                                               str(freq_threshold) + "_5neighbours_" + ".txt"
 summary_dissect_agwn_distances_file_name = "summary_comparison_distances_AGWN_semantic-space_w" + str(window) + "_t" + \
                                            str(freq_threshold) + "_5neighbours_" + ".txt"
+dissect_agwn_distances_synonyms_file_name = "distances_synonyms_AGWN_semantic-space_w" + str(window) + "_t" + \
+                                           str(freq_threshold) + "_5neighbours_" + ".txt"
+dissect_agwn_distances_neighbours_file_name = "distances_neighbours_AGWN_semantic-space_w" + str(window) + "_t" + \
+                                           str(freq_threshold) + "_5neighbours_" + ".txt"
 summary_dissect_agwn_overlap_file_name = "summary_overlap_AGWN_semantic-space_w" + str(window) + "_t" + \
                                          str(freq_threshold) + "_5neighbours" + ".txt"
 log_file_name = "log_file_semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "_5neighbours" + \
                 str(now.strftime("%Y-%m-%d")) + ".txt"
                 #str(now.strftime("%Y-%m-%d %H:%M")) + ".txt"
+
 
 if istest == "yes":
     file_out_agwn_cooccurrence_name = file_out_agwn_cooccurrence_name.replace(".csv", "_test.csv")
@@ -115,6 +120,8 @@ if istest == "yes":
     summary_stats_dissect_5neighbours_file_name = summary_stats_dissect_5neighbours_file_name.replace(".txt",
                                                                                                       "_test.txt")
     summary_dissect_agwn_distances_file_name = summary_dissect_agwn_distances_file_name.replace(".txt", "_test.txt")
+    dissect_agwn_distances_neighbours_file_name = dissect_agwn_distances_neighbours_file_name.replace(".txt", "_test.txt")
+    dissect_agwn_distances_synonyms_file_name = dissect_agwn_distances_synonyms_file_name.replace(".txt", "_test.txt")
     summary_dissect_agwn_overlap_file_name = summary_dissect_agwn_overlap_file_name.replace(".txt", "_test.txt")
     log_file_name = log_file_name.replace(".txt", "_test.txt")
 
@@ -287,9 +294,9 @@ for line in neighbours_file:
             # log_file.write("distance:", neighbour_distance + "\n")
             if neighbour != lemma:
                 dissect_lemmas_5neighbours.append(neighbour)
-                lemma_neighbour2distance[lemma, neighbour] = neighbour_distance
+                lemma_neighbour2distance[lemma, neighbour] = float(neighbour_distance)
                 dissect_distances_5neighbour.append(neighbour_distance)
-                if lemma == "κομιδή" or lemma == "ἐπιμέλεια":
+                if lemma in ["κομιδή", "ἐπιμέλεια", "ἴασις"]:
                     log_file.write("\tTest!" + "\n")
                     log_file.write(
                         "\tlemma: " + lemma + ", neighbour: " + neighbour + ", line: " + str(count_n) +
@@ -300,7 +307,7 @@ neighbours_file.close()
 
 log_file.write("Examples:" + "\n")
 for lemma, neighbour in lemma_neighbour2distance:
-    if lemma == "ἐπιμέλεια" or lemma == "κομιδή":
+    if lemma in ["ἐπιμέλεια", "κομιδή", "ἴασις"]:
         log_file.write("Lemma: " + lemma + ", its neighbour and distance: " + neighbour + " "
                        + str(lemma_neighbour2distance[lemma, neighbour]) + "\n")
 
@@ -564,10 +571,17 @@ ss_file.close()
 log_file.write("Examples:" + "\n")
 log_file.write("lemma: ἐπιμέλεια" + "\n")
 log_file.write("DISSECT coordinates:" + "\n")
-log_file.write(str(dissect_lemma2coordinates["ἐπιμέλεια"]) + "\n")
-log_file.write("lemma: κομιδή" + "\n")
+try:
+    log_file.write(str(dissect_lemma2coordinates["ἐπιμέλεια"]) + "\n")
+except:
+    log_file.write("No ἐπιμέλεια")
+
+log_file.write("lemma: ἐπιμέλεια" + "\n")
 log_file.write("DISSECT coordinates :" + "\n")
-log_file.write(str(dissect_lemma2coordinates["κομιδή"]) + "\n")
+try:
+    log_file.write(str(dissect_lemma2coordinates["κομιδή"]) + "\n")
+except:
+    log_file.write("No κομιδή")
 
 # ---------------------------------------------
 # Evaluation approaches:
@@ -626,7 +640,7 @@ for lemma, neighbour in lemma_neighbour2distance:
         if count_n % 1000 == 0:
             log_file.write("lemma: " + lemma + ", neighbour: " + neighbour + ", distance: " +
                            str(lemma_neighbour2distance[lemma, neighbour]) + "\n")
-        if lemma == "κομιδή" or lemma == "ἐπιμέλεια":
+        if lemma in ["κομιδή", "ἐπιμέλεια", "ἴασις"]:
             log_file.write("\tTest!" + "\n")
             log_file.write("\tlemma: " + lemma + ", neighbour: " + neighbour + ", distance: " +
                            str(lemma_neighbour2distance[lemma, neighbour]) + "\n")
@@ -740,12 +754,16 @@ log_file.write("Calculating AGWN and DISSECT distances between pairs of AGWN syn
 
 # log_file.write("agwn_dissect_5neighbours:", str(agwn_dissect_5neighbours) + "\n")
 
+dissect_agwn_distances_synonyms_file = open(os.path.join(dir_out, dissect_agwn_distances_synonyms_file_name), 'w')
+dissect_agwn_distances_synonyms_file.write("synonym1\tAGWN_id1\tsynonym2\tAGWN_id2\tAGWN_distance\tDISSECT_distance\n")
+
 count_n = 0
 for [lemma1, lemma2] in agwn_cooccurrence:
 
     count_n += 1
 
-    if lemma1 in agwn_dissect_5neighbours and lemma2 in agwn_dissect_5neighbours:
+    if (lemma1 in agwn_dissect_5neighbours and lemma2 in agwn_dissect_5neighbours) and \
+            ((istest == "yes" and count_n < lines_read_testing) or istest == "no"):
         id1 = agwn_lemma2id[lemma1]
         id2 = agwn_lemma2id[lemma2]
         norm_lemma1 = norm(agwn_coordinates[lemma1])
@@ -773,6 +791,8 @@ for [lemma1, lemma2] in agwn_cooccurrence:
             try:
                 agwn_cos_distance_lemma1_lemma2 = distance.cosine(agwn_coordinates[lemma1], agwn_coordinates[lemma2])
                 agwn_distances_shared_agwn_synonyms.append(agwn_cos_distance_lemma1_lemma2)
+                dissect_agwn_distances_synonyms_file.write(
+                    lemma1+"\t"+id1+"\t"+lemma2+"\t"+id2+str(agwn_cos_distance_lemma1_lemma2))
             except:
                 log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
                 log_file.write("lemma1: " + lemma1 + "\n")
@@ -820,12 +840,14 @@ for [lemma1, lemma2] in agwn_cooccurrence:
                 dissect_cos_distance_lemma1_lemma2 = distance.cosine(dissect_lemma2coordinates[lemma1],
                                                                  dissect_lemma2coordinates[lemma2])
                 dissect_distances_shared_agwn_synonyms.append(dissect_cos_distance_lemma1_lemma2)
+                dissect_agwn_distances_synonyms_file.write(
+                    "\t"+str(dissect_cos_distance_lemma1_lemma2)+"\n")
             except:
                 log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
                 log_file.write("lemma1: " + lemma1 + "\n")
                 log_file.write("lemma2: " + lemma2 + "\n")
-                log_file.write("DISSECT coordinates for lemma1:" + str(dissect_lemma2coordinates[lemma1]) + "\n")
-                log_file.write("DISSECT coordinates for lemma2:" + str(dissect_lemma2coordinates[lemma2]) + "\n")
+                #log_file.write("DISSECT coordinates for lemma1:" + str(dissect_lemma2coordinates[lemma1]) + "\n")
+                #log_file.write("DISSECT coordinates for lemma2:" + str(dissect_lemma2coordinates[lemma2]) + "\n")
                 log_file.write("Error with DISSECT cosine distance!\n")
 
             if count_n % 10000 == 0:
@@ -851,13 +873,18 @@ for [lemma1, lemma2] in agwn_cooccurrence:
                     " AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) + " DISSECT cosine distance: " + str(
                         dissect_cos_distance_lemma1_lemma2) + "\n")
 
-#log_file.write("agwn_distances_shared_agwn_synonyms:" + str(agwn_distances_shared_agwn_synonyms) + "\n")
-#log_file.write("dissect_distances_shared_agwn_synonyms:" + str(dissect_distances_shared_agwn_synonyms) + "\n")
+log_file.write("agwn_distances_shared_agwn_synonyms:" + str(agwn_distances_shared_agwn_synonyms) + "\n")
+log_file.write("dissect_distances_shared_agwn_synonyms:" + str(dissect_distances_shared_agwn_synonyms) + "\n")
+
+dissect_agwn_distances_synonyms_file.close()
 
 # calculate cosine distances in AGWN space between pairs of shared lemmas that are neighbours in DISSECT space:
 # calculate cosine distances in DISSECT space between pairs of shared lemmas that are neighbours in DISSECT space:
 
 log_file.write("Calculating AGWN and DISSECT distances between pairs of DISSECT neighbours..." + "\n")
+
+dissect_agwn_distances_neighbours_file = open(os.path.join(dir_out, dissect_agwn_distances_neighbours_file_name), 'w')
+dissect_agwn_distances_neighbours_file.write("lemma\tAGWN_id1\tneighbour\tAGWN_id2\tAGWN_distance\tDISSECT_distance\n")
 
 agwn_distances_shared_dissect_neighbours = list()  # cosine distances in the AGWN space between pairs of DISSECT neighbours
 dissect_distances_shared_dissect_neighbours = list()  # cosine distances in the AGWN space between pairs of DISSECT neighbours
@@ -883,18 +910,23 @@ for [lemma, neighbour] in lemma_neighbour2distance:
         id1 = agwn_lemma2id[lemma]
         id2 = agwn_lemma2id[neighbour]
 
-        # if count_n % 100 == 0:
-        log_file.write(
-            "Consider shared lemma+neighbour " + lemma + " and " + neighbour + " AGWN IDs are: " + str(id1) + " and " + str(
-                id2) + "\n")
+        norm_lemma = norm(agwn_coordinates[lemma])
+        norm_neighbour = norm(agwn_coordinates[neighbour])
 
-        if (lemma is not neighbour) and (id1 < id2):
+        # if count_n % 100 == 0:
+        #log_file.write(
+        #    "Consider shared lemma+neighbour " + lemma + " and " + neighbour + " AGWN IDs are: " + str(id1) + " and " + str(
+        #        id2) + "\n")
+
+        if (lemma is not neighbour) and (id1 < id2) and norm_lemma > 0 and norm_neighbour > 0:
 
             # AGWN distance:
 
             try:
                 agwn_cos_distance_lemma_neighbour = distance.cosine(agwn_coordinates[lemma], agwn_coordinates[neighbour])
                 agwn_distances_shared_dissect_neighbours.append(agwn_cos_distance_lemma_neighbour)
+                dissect_agwn_distances_neighbours_file.write(
+                    lemma+"\t"+id1+"\t"+neighbour+"\t"+id2+"\t"+str(agwn_cos_distance_lemma_neighbour))
             except:
                 log_file.write("Count " + str(count_n) + " out of " + str(len(lemma_neighbour2distance)) + "\n")
                 log_file.write("lemma: " + lemma + "\n")
@@ -905,12 +937,14 @@ for [lemma, neighbour] in lemma_neighbour2distance:
 
             # DISSECT distance:
             try:
-                dissect_cos_distance_lemma_neighbour = lemma_neighbour2distance[lemma][neighbour]
+                dissect_cos_distance_lemma_neighbour = lemma_neighbour2distance[lemma, neighbour]
+                dissect_agwn_distances_neighbours_file.write(
+                    "\t"+str(dissect_cos_distance_lemma_neighbour)+"\n")
             except:
                 log_file.write("Count " + str(count_n) + " out of " + str(len(lemma_neighbour2distance)) + "\n")
                 log_file.write("lemma: " + lemma + ", id: " + str(agwn_lemma2id[lemma]) + "\n")
                 log_file.write("neighbour: " + neighbour + ", id: " + str(agwn_lemma2id[neighbour]) + "\n")
-                log_file.write("DISSECT distance:" + str(lemma_neighbour2distance[lemma][neighbour]) + "\n")
+                #log_file.write("DISSECT distance:" + str(lemma_neighbour2distance[lemma, neighbour]) + "\n")
                 log_file.write("Error with DISSECT cosine distance!\n")
 
             if count_n % 10000 == 0:
@@ -923,14 +957,20 @@ for [lemma, neighbour] in lemma_neighbour2distance:
             if lemma == "ἐπιμέλεια" or lemma == "κομιδή":
                 log_file.write("\tTest!" + "\n")
                 log_file.write(
-                    "\tConsider neighbours " + lemma + " and " + neighbour + "AGWN IDs are " + str(id1) + " and " + str(
+                    "\tConsider neighbours " + lemma + " and " + neighbour + ", AGWN IDs are " + str(id1) + " and " + str(
                         id2) + "\n")
                 log_file.write("\tAGWN cosine distance: " + str(agwn_cos_distance_lemma_neighbour) + "\n")
                 log_file.write("\tDISSECT cosine distance: " + str(dissect_cos_distance_lemma_neighbour) + "\n")
 
             dissect_distances_shared_dissect_neighbours.append(dissect_cos_distance_lemma_neighbour)
 
-# print out results:
+
+log_file.write("agwn_distances_shared_dissect_neighbours:" + str(agwn_distances_shared_dissect_neighbours) + "\n")
+log_file.write("dissect_distances_shared_dissect_neighbours:" + str(dissect_distances_shared_dissect_neighbours) + "\n")
+
+dissect_agwn_distances_neighbours_file.close()
+
+# print out summary results:
 
 summary_dissect_agwn_distances_file = open(os.path.join(dir_out, summary_dissect_agwn_distances_file_name), 'w')
 
@@ -971,7 +1011,7 @@ summary_dissect_agwn_distances_file.write(str(dissect_distances_shared_dissect_n
 
 # Pearson's correlation coefficient:
 corr_p, p_value_p = pearsonr(agwn_distances_shared_dissect_neighbours, dissect_distances_shared_dissect_neighbours)
-log_file.write("Pearson's correlation: " + str(corr_p) + str(p_value_p) + "\n")
+log_file.write("Pearson's correlation: " + str(corr_p) + ", " + str(p_value_p) + "\n")
 summary_dissect_agwn_distances_file.write(
     "Pearson's correlation: " + str(corr_p) + ", p-value:" + str(p_value_p) + "\n")
 
@@ -989,126 +1029,126 @@ summary_dissect_agwn_distances_file.close()
 # -------------------------------------------------------------------------------------
 
 
-print(
-    "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in AGWN and neighbour sets in DISSECT spaces\n-------------------------------------------------")
-log_file.write(
-    "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in AGWN and neighbour sets in DISSECT spaces\n-------------------------------------------------" + "\n")
-
-# Define synsets in AGWN space containing shared lemmas:
-
-log_file.write("Define lemma-to-synset mapping" + "\n")
-
-lemma2synset = dict()  # maps a shared lemma to the list of its AGWN synonyms:
-
-count_n = 0
-for synset_id in synsets:
-
-    count_n += 1
-
-    if count_n % 1000 == 0:
-        log_file.write(str(count_n) + synset_id + "out of " + str(len(synsets)) + "\n")
-
-    synonyms = synsets[synset_id]
-    for synonym in synonyms:
-        if synonym in agwn_dissect_5neighbours:
-            synonyms.remove(synonym)
-            lemma2synset[synonym] = synonyms
-
-        if (synonym == "κομιδή") or (synonym == "ἐπιμέλεια"):
-            log_file.write("\tTest!" + "\n")
-            log_file.write("\t " + synset_id + synonym + str(lemma2synset[synonym]) + "\n")
-
-log_file.write("Examples:" + "\n")
-log_file.write("Synonyms of κομιδή:  " + str(lemma2synset["κομιδή"]) + "\n")
-log_file.write("Synonyms of ἐπιμέλεια:  " + str(lemma2synset["ἐπιμέλεια"]) + "\n")
-
-# Define sets of neighbours in DISSECT space:
-
-log_file.write("Define lemma-to-neighbourset mapping" + "\n")
-
-lemma2neighbourset = dict()  # maps a shared lemma to the list of its DISSECT neighbours:
-
-count_n = 0
-for lemma, neighbour in lemma_neighbour2distance:
-    neighbours = list()
-    count_n += 1
-
-    if lemma in agwn_dissect_5neighbours:
-
-        if count_n % 1000 == 0:
-            log_file.write(str(count_n) + "lemma: " + lemma + " out of " + str(len(lemma_neighbour2distance)) + "\n")
-
-        if lemma in lemma2neighbourset:
-            neighbours_this_lemma = lemma2neighbourset[lemma]
-            neighbours_this_lemma.append(neighbour)
-            lemma2neighbourset[lemma] = neighbours_this_lemma
-        else:
-            lemma2neighbourset[lemma] = [neighbour]
-
-        if (lemma == "κομιδή") or (lemma == "ἐπιμέλεια"):
-            log_file.write("\tTest!" + "\n")
-            log_file.write("\t " + lemma + str(lemma2neighbourset[lemma]) + "\n")
-
-log_file.write("Examples:" + "\n")
-log_file.write("Neighbours of κομιδή:  " + str(lemma2neighbourset["κομιδή"]) + "\n")
-log_file.write("Neighbours of ἐπιμέλεια:  " + str(lemma2neighbourset["ἐπιμέλεια"]) + "\n")
-
-# Calculate overlap between synsets and neighbour sets:
-
-lemma2overlap_ratio = dict()  # maps a shared lemma to the overlap ratio between its AGWN synonyms and its DISSECT neighbours, divided by the union# :
-
-log_file.write("Finding overlap between synsets and neighboursets" + "\n")
-
-count_n = 0
-overlap_ratios = list()  # list of overlap ratio values
-
-for lemma in agwn_dissect_5neighbours:
-    count_n += 1
-    if count_n % 100 == 0:
-        log_file.write(str(count_n) + "lemma: " + lemma + "\n")
-
-    try:
-        synset = set(lemma2synset[lemma])
-        neighbourset = set(lemma2neighbourset[lemma])
-        union = list(set(synset + neighbourset))
-        overlap_ratio = len(list(synset.intersection(neighbourset))) / len(union)
-    except:
-        overlap_ratio = 0
-
-    lemma2overlap_ratio[lemma] = overlap_ratio
-    overlap_ratios.append(overlap_ratio)
-
-    if (lemma == "κομιδή") or (lemma == "ἐπιμέλεια"):
-        log_file.write("\tTest!" + "\n")
-        log_file.write("\t " + lemma + str(lemma2overlap_ratio[lemma]) + "\n")
-
-log_file.write("Examples:" + "\n")
-log_file.write("Overlap ratio for κομιδή: " + str(lemma2overlap_ratio["κομιδή"]) + "\n")
-log_file.write("Overlap ratio for ἐπιμέλεια: " + str(lemma2overlap_ratio["ἐπιμέλεια"]) + "\n")
-
-# print out results:
-
-summary_dissect_agwn_overlap_file = open(os.path.join(dir_out, summary_dissect_agwn_overlap_file_name), 'w')
-
-overlap_ratios = np.array(overlap_ratios, dtype=np.float32)
-
-mean_overlaps = np.mean(overlap_ratios)
-std_overlaps = overlap_ratios.std()
-min_overlaps = overlap_ratios.min()
-max_overlaps = overlap_ratios.max()
-median_overlaps = np.median(overlap_ratios)
-perc25_overlaps = np.percentile(overlap_ratios, 25)
-perc75_overlaps = np.percentile(overlap_ratios, 75)
-
-summary_dissect_agwn_overlap_file.write("Mean of overlap ratios:" + str(mean_overlaps) + "\n")
-summary_dissect_agwn_overlap_file.write("STD of overlap ratios:" + str(std_overlaps) + "\n")
-summary_dissect_agwn_overlap_file.write("Min of overlap ratios:" + str(min_overlaps) + "\n")
-summary_dissect_agwn_overlap_file.write("Max of overlap ratios:" + str(max_overlaps) + "\n")
-summary_dissect_agwn_overlap_file.write("Median of overlap ratios:" + str(median_overlaps) + "\n")
-summary_dissect_agwn_overlap_file.write("25th percentile of overlap ratios:" + str(perc25_overlaps) + "\n")
-summary_dissect_agwn_overlap_file.write("75th percentile of overlap ratios:" + str(perc75_overlaps) + "\n")
-
-summary_dissect_agwn_overlap_file.close()
+# print(
+#     "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in AGWN and neighbour sets in DISSECT spaces\n-------------------------------------------------")
+# log_file.write(
+#     "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in AGWN and neighbour sets in DISSECT spaces\n-------------------------------------------------" + "\n")
+#
+# # Define synsets in AGWN space containing shared lemmas:
+#
+# log_file.write("Define lemma-to-synset mapping" + "\n")
+#
+# lemma2synset = dict()  # maps a shared lemma to the list of its AGWN synonyms:
+#
+# count_n = 0
+# for synset_id in synsets:
+#
+#     count_n += 1
+#
+#     if count_n % 1000 == 0:
+#         log_file.write(str(count_n) + synset_id + "out of " + str(len(synsets)) + "\n")
+#
+#     synonyms = synsets[synset_id]
+#     for synonym in synonyms:
+#         if synonym in agwn_dissect_5neighbours:
+#             synonyms.remove(synonym)
+#             lemma2synset[synonym] = synonyms
+#
+#         if (synonym == "κομιδή") or (synonym == "ἐπιμέλεια"):
+#             log_file.write("\tTest!" + "\n")
+#             log_file.write("\t " + synset_id + synonym + str(lemma2synset[synonym]) + "\n")
+#
+# log_file.write("Examples:" + "\n")
+# log_file.write("Synonyms of κομιδή:  " + str(lemma2synset["κομιδή"]) + "\n")
+# log_file.write("Synonyms of ἐπιμέλεια:  " + str(lemma2synset["ἐπιμέλεια"]) + "\n")
+#
+# # Define sets of neighbours in DISSECT space:
+#
+# log_file.write("Define lemma-to-neighbourset mapping" + "\n")
+#
+# lemma2neighbourset = dict()  # maps a shared lemma to the list of its DISSECT neighbours:
+#
+# count_n = 0
+# for lemma, neighbour in lemma_neighbour2distance:
+#     neighbours = list()
+#     count_n += 1
+#
+#     if lemma in agwn_dissect_5neighbours:
+#
+#         if count_n % 1000 == 0:
+#             log_file.write(str(count_n) + "lemma: " + lemma + " out of " + str(len(lemma_neighbour2distance)) + "\n")
+#
+#         if lemma in lemma2neighbourset:
+#             neighbours_this_lemma = lemma2neighbourset[lemma]
+#             neighbours_this_lemma.append(neighbour)
+#             lemma2neighbourset[lemma] = neighbours_this_lemma
+#         else:
+#             lemma2neighbourset[lemma] = [neighbour]
+#
+#         if (lemma == "κομιδή") or (lemma == "ἐπιμέλεια"):
+#             log_file.write("\tTest!" + "\n")
+#             log_file.write("\t " + lemma + str(lemma2neighbourset[lemma]) + "\n")
+#
+# log_file.write("Examples:" + "\n")
+# log_file.write("Neighbours of κομιδή:  " + str(lemma2neighbourset["κομιδή"]) + "\n")
+# log_file.write("Neighbours of ἐπιμέλεια:  " + str(lemma2neighbourset["ἐπιμέλεια"]) + "\n")
+#
+# # Calculate overlap between synsets and neighbour sets:
+#
+# lemma2overlap_ratio = dict()  # maps a shared lemma to the overlap ratio between its AGWN synonyms and its DISSECT neighbours, divided by the union# :
+#
+# log_file.write("Finding overlap between synsets and neighboursets" + "\n")
+#
+# count_n = 0
+# overlap_ratios = list()  # list of overlap ratio values
+#
+# for lemma in agwn_dissect_5neighbours:
+#     count_n += 1
+#     if count_n % 100 == 0:
+#         log_file.write(str(count_n) + "lemma: " + lemma + "\n")
+#
+#     try:
+#         synset = set(lemma2synset[lemma])
+#         neighbourset = set(lemma2neighbourset[lemma])
+#         union = list(set(synset + neighbourset))
+#         overlap_ratio = len(list(synset.intersection(neighbourset))) / len(union)
+#     except:
+#         overlap_ratio = 0
+#
+#     lemma2overlap_ratio[lemma] = overlap_ratio
+#     overlap_ratios.append(overlap_ratio)
+#
+#     if (lemma == "κομιδή") or (lemma == "ἐπιμέλεια"):
+#         log_file.write("\tTest!" + "\n")
+#         log_file.write("\t " + lemma + str(lemma2overlap_ratio[lemma]) + "\n")
+#
+# log_file.write("Examples:" + "\n")
+# log_file.write("Overlap ratio for κομιδή: " + str(lemma2overlap_ratio["κομιδή"]) + "\n")
+# log_file.write("Overlap ratio for ἐπιμέλεια: " + str(lemma2overlap_ratio["ἐπιμέλεια"]) + "\n")
+#
+# # print out results:
+#
+# summary_dissect_agwn_overlap_file = open(os.path.join(dir_out, summary_dissect_agwn_overlap_file_name), 'w')
+#
+# overlap_ratios = np.array(overlap_ratios, dtype=np.float32)
+#
+# mean_overlaps = np.mean(overlap_ratios)
+# std_overlaps = overlap_ratios.std()
+# min_overlaps = overlap_ratios.min()
+# max_overlaps = overlap_ratios.max()
+# median_overlaps = np.median(overlap_ratios)
+# perc25_overlaps = np.percentile(overlap_ratios, 25)
+# perc75_overlaps = np.percentile(overlap_ratios, 75)
+#
+# summary_dissect_agwn_overlap_file.write("Mean of overlap ratios:" + str(mean_overlaps) + "\n")
+# summary_dissect_agwn_overlap_file.write("STD of overlap ratios:" + str(std_overlaps) + "\n")
+# summary_dissect_agwn_overlap_file.write("Min of overlap ratios:" + str(min_overlaps) + "\n")
+# summary_dissect_agwn_overlap_file.write("Max of overlap ratios:" + str(max_overlaps) + "\n")
+# summary_dissect_agwn_overlap_file.write("Median of overlap ratios:" + str(median_overlaps) + "\n")
+# summary_dissect_agwn_overlap_file.write("25th percentile of overlap ratios:" + str(perc25_overlaps) + "\n")
+# summary_dissect_agwn_overlap_file.write("75th percentile of overlap ratios:" + str(perc75_overlaps) + "\n")
+#
+# summary_dissect_agwn_overlap_file.close()
 
 now = datetime.datetime.now()
 log_file.write("Finished." + "\n")
