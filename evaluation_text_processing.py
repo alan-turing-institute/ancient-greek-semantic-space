@@ -74,7 +74,7 @@ if not os.path.exists(os.path.join(directory, "Evaluation", "input")):
 
 # Input files:
 
-agwn_file_name = "wn-data-grc.tab"
+lexicon_file_name = "wn-data-grc.tab"
 ss_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.dm"
 ssrows_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.rows"
 neighbours_file_name = "NEIGHBOURS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".rows.CORE_SS.matrix_w" \
@@ -82,26 +82,26 @@ neighbours_file_name = "NEIGHBOURS.matrix_w" + str(window) + "_t" + str(freq_thr
 
 # Output files:
 
-file_out_agwn_cooccurrence_name = "AGWN_co-occurrences.csv"  # matrix with 0s and 1s depending on whether two lemmas
-# co-occur in the same AGWN synset
-# file_out_agwn_distances_name = "AGWN_distances.txt"  # matrix with cosine distances between pairs of AGWN lemmas
+file_out_lexicon_cooccurrence_name = "Lexicon_co-occurrences.csv"  # matrix with 0s and 1s depending on whether two lemmas
+# co-occur in the same Lexicon synset
+# file_out_lexicon_distances_name = "Lexicon_distances.txt"  # matrix with cosine distances between pairs of Lexicon lemmas
 file_out_dissect_5neighbour_name = "semantic-space_w" + str(window) + "_t" + str(
     freq_threshold) + "5neighbours_lemmas.txt"
 file_out_dissect_5neighbour_distances_name = "semantic-space_w" + str(window) + "_t" + str(
     freq_threshold) + "5neighbours_distances.txt"
-file_out_shared_lemmas_name = "AGWN-semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "_shared-lemmas.txt"
-file_out_agwn_vocabulary_name = "AGWN_lemmas.txt"
+file_out_shared_lemmas_name = "Lexicon-semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "_shared-lemmas.txt"
+file_out_lexicon_vocabulary_name = "Lexicon_lemmas.txt"
 # file_out_dissect_distances_name = "semantic_space_w" + str(window) + "_t" + str(freq_threshold) + "distances.csv"
 hist_file_name = "cos-distances-5neighbours_semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "hist.png"
 summary_stats_dissect_5neighbours_file_name = "summary_statistics_distance_semantic-space_w" + str(window) + "_t" + \
                                               str(freq_threshold) + "_5neighbours_" + ".txt"
-summary_dissect_agwn_distances_file_name = "summary_comparison_distances_AGWN_semantic-space_w" + str(window) + "_t" + \
+summary_dissect_lexicon_distances_file_name = "summary_comparison_distances_Lexicon_semantic-space_w" + str(window) + "_t" + \
                                            str(freq_threshold) + "_5neighbours_" + ".txt"
-dissect_agwn_distances_synonyms_file_name = "distances_synonyms_AGWN_semantic-space_w" + str(window) + "_t" + \
+dissect_lexicon_distances_synonyms_file_name = "distances_synonyms_Lexicon_semantic-space_w" + str(window) + "_t" + \
                                            str(freq_threshold) + "_5neighbours_" + ".txt"
-dissect_agwn_distances_neighbours_file_name = "distances_neighbours_AGWN_semantic-space_w" + str(window) + "_t" + \
+dissect_lexicon_distances_neighbours_file_name = "distances_neighbours_Lexicon_semantic-space_w" + str(window) + "_t" + \
                                            str(freq_threshold) + "_5neighbours_" + ".txt"
-summary_dissect_agwn_overlap_file_name = "summary_overlap_AGWN_semantic-space_w" + str(window) + "_t" + \
+summary_dissect_lexicon_overlap_file_name = "summary_overlap_Lexicon_semantic-space_w" + str(window) + "_t" + \
                                          str(freq_threshold) + "_5neighbours" + ".txt"
 log_file_name = "log_file_semantic-space_w" + str(window) + "_t" + str(freq_threshold) + "_5neighbours" + \
                 str(now.strftime("%Y-%m-%d")) + ".txt"
@@ -109,34 +109,34 @@ log_file_name = "log_file_semantic-space_w" + str(window) + "_t" + str(freq_thre
 
 
 if istest == "yes":
-    file_out_agwn_cooccurrence_name = file_out_agwn_cooccurrence_name.replace(".csv", "_test.csv")
-    # file_out_agwn_distances_name = file_out_agwn_distances_name.replace(".txt", "_test.txt")
+    file_out_lexicon_cooccurrence_name = file_out_lexicon_cooccurrence_name.replace(".csv", "_test.csv")
+    # file_out_lexicon_distances_name = file_out_lexicon_distances_name.replace(".txt", "_test.txt")
     file_out_dissect_5neighbour_name = file_out_dissect_5neighbour_name.replace(".txt", "_test.txt")
     file_out_dissect_5neighbour_distances_name = file_out_dissect_5neighbour_distances_name.replace(".txt", "_test.txt")
     file_out_shared_lemmas_name = file_out_shared_lemmas_name.replace(".txt", "_test.txt")
-    file_out_agwn_vocabulary_name = file_out_agwn_vocabulary_name.replace(".txt", "_test.txt")
+    file_out_lexicon_vocabulary_name = file_out_lexicon_vocabulary_name.replace(".txt", "_test.txt")
     # file_out_dissect_distances_name = file_out_dissect_distances_name.replace(".csv", "_test.csv")
     hist_file_name = hist_file_name.replace(".png", "_test.png")
     summary_stats_dissect_5neighbours_file_name = summary_stats_dissect_5neighbours_file_name.replace(".txt",
                                                                                                       "_test.txt")
-    summary_dissect_agwn_distances_file_name = summary_dissect_agwn_distances_file_name.replace(".txt", "_test.txt")
-    dissect_agwn_distances_neighbours_file_name = dissect_agwn_distances_neighbours_file_name.replace(".txt", "_test.txt")
-    dissect_agwn_distances_synonyms_file_name = dissect_agwn_distances_synonyms_file_name.replace(".txt", "_test.txt")
-    summary_dissect_agwn_overlap_file_name = summary_dissect_agwn_overlap_file_name.replace(".txt", "_test.txt")
+    summary_dissect_lexicon_distances_file_name = summary_dissect_lexicon_distances_file_name.replace(".txt", "_test.txt")
+    dissect_lexicon_distances_neighbours_file_name = dissect_lexicon_distances_neighbours_file_name.replace(".txt", "_test.txt")
+    dissect_lexicon_distances_synonyms_file_name = dissect_lexicon_distances_synonyms_file_name.replace(".txt", "_test.txt")
+    summary_dissect_lexicon_overlap_file_name = summary_dissect_lexicon_overlap_file_name.replace(".txt", "_test.txt")
     log_file_name = log_file_name.replace(".txt", "_test.txt")
 
 # Initialize objects:
 
-agwn_id2lemma = dict()  # maps an id to its lemma in AG WordNet
-agwn_lemma2id = dict()  # maps an AGWN lemma to its id
+lexicon_id2lemma = dict()  # maps an id to its lemma in AG WordNet
+lexicon_lemma2id = dict()  # maps an Lexicon lemma to its id
 synsets = dict()  # maps a synset ID to the list of its contents
 #synsetid2def = dict()  # maps a synset ID to its English definition
-agwn_cooccurrence = defaultdict(
+lexicon_cooccurrence = defaultdict(
     dict)  # multidimensional dictionary: maps each pair of lemmas to 1 if they co-occur in the same WN synset,
 # and 0 otherwise
-agwn_coordinates = dict()  # maps an AGWN lemma id to the list of its 0/1 coordinates in the AGWN space
-# agwn_distances = list()  # indexes an AGWN lemma id to the array of cosine distances with other AGWN lemmas
-agwn_dissect_5neighbours = list()  # list of lemmas shared between AGWN and DISSECT space with 5 neighbours
+lexicon_coordinates = dict()  # maps an Lexicon lemma id to the list of its 0/1 coordinates in the Lexicon space
+# lexicon_distances = list()  # indexes an Lexicon lemma id to the array of cosine distances with other Lexicon lemmas
+lexicon_dissect_5neighbours = list()  # list of lemmas shared between Lexicon and DISSECT space with 5 neighbours
 dissect_lemmas_5neighbours = list()  # list of lemmas in DISSECT space, for which we have the top 5 neighbours
 lemma_neighbour2distance = defaultdict(
     dict)  # maps a pair of lemma and each of its top 5 DISSECT neighbours to their distance,
@@ -148,8 +148,8 @@ dissect_lemma2cosinedistance = list()  # indexes a lemma to the array of cosine 
 # dissect_distances = list()  # list of distance values from dissect_lemma2cosinedistance
 dissect_distances_5neighbour = list()  # list of distance values from dissect_lemma2cosinedistance only considering
 # the top 5 neighbours for each lemma
-dissect_distances_agwn_dissect_5neighbour = list()  # list of distance values from dissect_lemma2cosinedistance only
-# considering the lemmas shared between top 5 neighbours in DISSECT and AGWN lemmas
+dissect_distances_lexicon_dissect_5neighbour = list()  # list of distance values from dissect_lemma2cosinedistance only
+# considering the lemmas shared between top 5 neighbours in DISSECT and Lexicon lemmas
 
 # Open log file:
 
@@ -197,30 +197,30 @@ log_file.write("dissect id = 188, lemma: " + dissect_id2lemma[188] + "\n")
 # Read WordNet file to collect synsets:
 # --------------------------------------
 
-print("-----------------\nReading AGWN...\n-----------------")
-log_file.write("-----------------\nReading AGWN...\n-----------------" + "\n")
+print("-----------------\nReading Lexicon...\n-----------------")
+log_file.write("-----------------\nReading Lexicon...\n-----------------" + "\n")
 
-agwn_file = open(os.path.join(dir_wn, agwn_file_name), 'r', encoding="UTF-8")
-row_count_agwn = sum(1 for line in agwn_file)
-agwn_file.close()
+lexicon_file = open(os.path.join(dir_wn, lexicon_file_name), 'r', encoding="UTF-8")
+row_count_lexicon = sum(1 for line in lexicon_file)
+lexicon_file.close()
 
 # Read synsets from WordNet file:
 
 count_n = 1  # counts lines read
-agwn_file = open(os.path.join(dir_wn, agwn_file_name), 'r', encoding="UTF-8")
-agwn_reader = csv.reader(agwn_file, delimiter="\t")
-next(agwn_reader)  # This skips the first row of the CSV file
+lexicon_file = open(os.path.join(dir_wn, lexicon_file_name), 'r', encoding="UTF-8")
+lexicon_reader = csv.reader(lexicon_file, delimiter="\t")
+next(lexicon_reader)  # This skips the first row of the CSV file
 
 synset_def = ""
 synset_lemma = ""
 
-for row in agwn_reader:
+for row in lexicon_reader:
     count_n += 1
-    if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_agwn)) and (
+    if ((istest == "yes" and count_n < lines_read_testing) or (istest == "no" and count_n <= row_count_lexicon)) and (
                 count_n > 1):
 
         if count_n % 1000 == 0:
-            log_file.write("WordNet: line " + str(count_n) + " out of " + str(row_count_agwn) + "\n")
+            log_file.write("WordNet: line " + str(count_n) + " out of " + str(row_count_lexicon) + "\n")
 
         row[0] = row[0].replace("#", "")
         synset_id = row[0]
@@ -239,7 +239,7 @@ for row in agwn_reader:
                 synsets[synset_id] = [synset_lemma]
                 # log_file.write("\tSynset ID:", str(synset_id), "; lemma:", synset_lemma + "\n")
 
-agwn_file.close()
+lexicon_file.close()
 
 try:
     log_file.write("Examples:" + "\n")
@@ -337,9 +337,9 @@ with open(os.path.join(dir_out, file_out_dissect_5neighbour_distances_name), 'w'
 # create vocabulary list and co-occurrence pairs:
 
 print(
-    "------------------------------------------\nDefining AGWN co-occurrence pairs...\n------------------------------------------")
+    "------------------------------------------\nDefining Lexicon co-occurrence pairs...\n------------------------------------------")
 log_file.write(
-    "------------------------------------------\nDefining AGWN co-occurrence pairs...\n------------------------------------------" + "\n")
+    "------------------------------------------\nDefining Lexicon co-occurrence pairs...\n------------------------------------------" + "\n")
 
 count_s = 0
 for synset_id in synsets:
@@ -362,176 +362,176 @@ for synset_id in synsets:
         count_l += 1
         id1 = synset_id + str(count_l)
         # log_file.write("Defining co-occurrences of lemma1: "+ lemma1 + "\n")
-        agwn_id2lemma[id1] = lemma1
-        agwn_lemma2id[lemma1] = id1
-        # log_file.write("Vocabulary so far: "+ str(agwn_vocabulary) + "\n")
+        lexicon_id2lemma[id1] = lemma1
+        lexicon_lemma2id[lemma1] = id1
+        # log_file.write("Vocabulary so far: "+ str(lexicon_vocabulary) + "\n")
 
         for lemma2 in synsets_this_lemma:
 
             if lemma1 is not lemma2:
-                if (lemma1, lemma2) in agwn_cooccurrence:
-                    agwn_cooccurrence[lemma1, lemma2] += 1
+                if (lemma1, lemma2) in lexicon_cooccurrence:
+                    lexicon_cooccurrence[lemma1, lemma2] += 1
                 else:
-                    agwn_cooccurrence[lemma1, lemma2] = 1
+                    lexicon_cooccurrence[lemma1, lemma2] = 1
 
                 if count_s % 1000 == 0:
                     log_file.write(
                         str(count_s) + ": " + ", lemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
-                        str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
+                        str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
                 if lemma1 in ["κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
                     log_file.write("\tTest!" + "\n")
                     log_file.write("\tLemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
-                                   str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
+                                   str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
-log_file.write("Writing agwn_id2lemma file....\n")
-#agwn_lemma2id_keys = ["0"] + list(agwn_lemma2id.keys()) # I add an empty string as first element of this list, to account for the fact that the
-agwn_lemma2id_keys = list(agwn_lemma2id.keys())
-agwn_lemma2id_keys.sort()
-#agwn_lemma2id["0"] = "0"
-# first lemma in the file file_out_agwn_vocabulary_name (in line 1) corresponds to the item at position 1 in the list
+log_file.write("Writing lexicon_id2lemma file....\n")
+#lexicon_lemma2id_keys = ["0"] + list(lexicon_lemma2id.keys()) # I add an empty string as first element of this list, to account for the fact that the
+lexicon_lemma2id_keys = list(lexicon_lemma2id.keys())
+lexicon_lemma2id_keys.sort()
+#lexicon_lemma2id["0"] = "0"
+# first lemma in the file file_out_lexicon_vocabulary_name (in line 1) corresponds to the item at position 1 in the list
 
-with open(os.path.join(dir_out, file_out_agwn_vocabulary_name), 'w', encoding="UTF-8") as agwn_vocabulary_file:
+with open(os.path.join(dir_out, file_out_lexicon_vocabulary_name), 'w', encoding="UTF-8") as lexicon_vocabulary_file:
     count_n = 0
-    for lemma in agwn_lemma2id_keys:
+    for lemma in lexicon_lemma2id_keys:
         count_n += 1
         if count_n > 1:
-            agwn_vocabulary_file.write(agwn_lemma2id[lemma] + "\t" + lemma + "\n")
+            lexicon_vocabulary_file.write(lexicon_lemma2id[lemma] + "\t" + lemma + "\n")
 
         if lemma in ["0", "κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
             log_file.write("\tTest!\n")
-            #log_file.write("\tLine number: " + str(count_n-1) + ", lemma_id: " + agwn_lemma2id[lemma] +
+            #log_file.write("\tLine number: " + str(count_n-1) + ", lemma_id: " + lexicon_lemma2id[lemma] +
             #", lemma: " + lemma + "\n")
-            log_file.write("\tLine number: " + str(count_n - 1) + ", lemma_id: " + agwn_lemma2id[lemma] +
+            log_file.write("\tLine number: " + str(count_n - 1) + ", lemma_id: " + lexicon_lemma2id[lemma] +
                            ", lemma: " + lemma + "\n")
 
 # -------------------------------------------------------------------------------
-# find lemmas present in both AGWN and DISSECT space (called “shared lemmas”)
+# find lemmas present in both Lexicon and DISSECT space (called “shared lemmas”)
 # -------------------------------------------------------------------------------
 
 print(
-    "---------------------------------------------\nFind shared lemmas between AGWN and DISSECT space....\n---------------------------------------")
+    "---------------------------------------------\nFind shared lemmas between Lexicon and DISSECT space....\n---------------------------------------")
 log_file.write(
-    "---------------------------------------------\nFind shared lemmas between AGWN and DISSECT "
+    "---------------------------------------------\nFind shared lemmas between Lexicon and DISSECT "
     "space....\n---------------------------------------" + "\n")
 
-agwn_dissect_5neighbours = list((set(dissect_lemmas_5neighbours).intersection(set(agwn_id2lemma.values()))))
-agwn_dissect_5neighbours.sort()
+lexicon_dissect_5neighbours = list((set(dissect_lemmas_5neighbours).intersection(set(lexicon_id2lemma.values()))))
+lexicon_dissect_5neighbours.sort()
 
 count_n = 0
 with open(os.path.join(dir_out, file_out_shared_lemmas_name), 'w',
           encoding="UTF-8") as out_shared_lemmas_file:
-    for lemma in agwn_dissect_5neighbours:
+    for lemma in lexicon_dissect_5neighbours:
         count_n += 1
         out_shared_lemmas_file.write("%s\n" % lemma)
         if lemma in ["0", "κομιδή", "ἐπιμέλεια"]:  # , "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
             log_file.write("\tTest!\n")
-            log_file.write("\tLine number: " + str(count_n) + ", lemma_id: " + agwn_lemma2id[lemma] +
+            log_file.write("\tLine number: " + str(count_n) + ", lemma_id: " + lexicon_lemma2id[lemma] +
                            ", lemma: " + lemma + "\n")
 
 # ------------------------------------------
-# finish defining AGWN co-occurrence pairs:
+# finish defining Lexicon co-occurrence pairs:
 # ------------------------------------------
 
 print(
-    "----------------------------------------\nFinish defining AGWN co-occurrence pairs...\n-------------------------------------------------")
+    "----------------------------------------\nFinish defining Lexicon co-occurrence pairs...\n-------------------------------------------------")
 log_file.write(
-    "----------------------------------------\nFinish defining AGWN co-occurrence pairs...\n-------------------------------------------------" + "\n")
+    "----------------------------------------\nFinish defining Lexicon co-occurrence pairs...\n-------------------------------------------------" + "\n")
 
 count_n = 0
 
-with open(os.path.join(dir_out, file_out_agwn_cooccurrence_name), 'w',
-          encoding="UTF-8") as file_out_agwn_cooccurrence:
+with open(os.path.join(dir_out, file_out_lexicon_cooccurrence_name), 'w',
+          encoding="UTF-8") as file_out_lexicon_cooccurrence:
 
-    file_out_agwn_cooccurrence_writer = csv.writer(file_out_agwn_cooccurrence, delimiter="\t")
-    file_out_agwn_cooccurrence_writer.writerow([""] + agwn_lemma2id_keys)
+    file_out_lexicon_cooccurrence_writer = csv.writer(file_out_lexicon_cooccurrence, delimiter="\t")
+    file_out_lexicon_cooccurrence_writer.writerow([""] + lexicon_lemma2id_keys)
 
-    for lemma1 in agwn_dissect_5neighbours:
+    for lemma1 in lexicon_dissect_5neighbours:
         count_n += 1
         coordinates_lemmaid1 = list()
         count_n2 = 0
 
-        #for lemma2 in agwn_dissect_5neighbours:
-        for lemma2 in agwn_lemma2id_keys:
+        #for lemma2 in lexicon_dissect_5neighbours:
+        for lemma2 in lexicon_lemma2id_keys:
             if lemma2 is not "0":
                 count_n2 += 1
-                if ((lemma1, lemma2) not in agwn_cooccurrence or lemma1 is lemma2):
-                    agwn_cooccurrence[lemma1, lemma2] = 0
+                if ((lemma1, lemma2) not in lexicon_cooccurrence or lemma1 is lemma2):
+                    lexicon_cooccurrence[lemma1, lemma2] = 0
 
                 if count_n % 5000 == 0 and count_n2 % 500 == 0:
                     log_file.write("Index (in the list of shared lemmas) of lemma1: " +
-                        str(count_n) + " out of " + str(len(agwn_dissect_5neighbours)) +
-                                   " and index (in the list of AGWN lemmas) of lemma2 " + str(count_n2) +
+                        str(count_n) + " out of " + str(len(lexicon_dissect_5neighbours)) +
+                                   " and index (in the list of Lexicon lemmas) of lemma2 " + str(count_n2) +
                         ": " + " co-occurrence of shared lemmas " + lemma1 + " and " + lemma2 + ": " +
-                        str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
+                        str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
                 if lemma1 in ["κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "πόλις", "αἴθων", "εὐθυθάνατος"]:
-                    if agwn_cooccurrence[lemma1, lemma2] > 0:
+                    if lexicon_cooccurrence[lemma1, lemma2] > 0:
                         log_file.write("\tTest!" + "\n")
                         log_file.write("\tIndex (in the list of shared lemmas) of lemma1: " +
-                                       str(count_n) + " out of " + str(len(agwn_dissect_5neighbours)) +
-                                   " and index (in the list of AGWN lemmas) of lemma2 " + str(count_n2) +
-                                       ", lemma1: " + lemma1 + " (id: " + agwn_lemma2id[lemma1] + ") " +
-                                       ", lemma2: " + lemma2 + " (id: " + agwn_lemma2id[lemma2] + ") " +
-                                       ", co-occurrence of shared lemmas: " + str(agwn_cooccurrence[lemma1, lemma2]) + "\n")
+                                       str(count_n) + " out of " + str(len(lexicon_dissect_5neighbours)) +
+                                   " and index (in the list of Lexicon lemmas) of lemma2 " + str(count_n2) +
+                                       ", lemma1: " + lemma1 + " (id: " + lexicon_lemma2id[lemma1] + ") " +
+                                       ", lemma2: " + lemma2 + " (id: " + lexicon_lemma2id[lemma2] + ") " +
+                                       ", co-occurrence of shared lemmas: " + str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
-                coordinates_lemmaid1.append(agwn_cooccurrence[lemma1, lemma2])
+                coordinates_lemmaid1.append(lexicon_cooccurrence[lemma1, lemma2])
 
-        file_out_agwn_cooccurrence_writer.writerow([lemma1] + [coordinates_lemmaid1])
+        file_out_lexicon_cooccurrence_writer.writerow([lemma1] + [coordinates_lemmaid1])
 
-        agwn_coordinates[lemma1] = coordinates_lemmaid1
+        lexicon_coordinates[lemma1] = coordinates_lemmaid1
 
         if lemma1 in ["κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "πόλις", "αἴθων", "εὐθυθάνατος"]:
             log_file.write("\tTest!" + "\n")
             log_file.write(
-                "\tCount: " + str(count_n) + " Lemma1:" + lemma1 + " (id: " + agwn_lemma2id[lemma1] + ")" + "\n")
-            log_file.write("\tNon-zero AGWN coordinates at positions/lemmas:" + "\n")
-            l1_c = agwn_coordinates[lemma1]
-            #log_file.write(str([(i, agwn_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-            log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                "\tCount: " + str(count_n) + " Lemma1:" + lemma1 + " (id: " + lexicon_lemma2id[lemma1] + ")" + "\n")
+            log_file.write("\tNon-zero Lexicon coordinates at positions/lemmas:" + "\n")
+            l1_c = lexicon_coordinates[lemma1]
+            #log_file.write(str([(i, lexicon_dissect_5neighbours[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+            log_file.write(str([(i, lexicon_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 
-log_file.write("AGWN co-occurrence:" + "\n")
-# log_file.write(str(agwn_cooccurrence) + "\n")
+log_file.write("Lexicon co-occurrence:" + "\n")
+# log_file.write(str(lexicon_cooccurrence) + "\n")
 log_file.write("Examples:" + "\n")
-log_file.write("κομιδή " + " (id:  " + agwn_lemma2id["κομιδή"] + ") " + ", ἐπιμέλεια " + " (id: " + agwn_lemma2id[
+log_file.write("κομιδή " + " (id:  " + lexicon_lemma2id["κομιδή"] + ") " + ", ἐπιμέλεια " + " (id: " + lexicon_lemma2id[
     "ἐπιμέλεια"] + ") " +
-               str(agwn_cooccurrence["κομιδή", "ἐπιμέλεια"]) + "\n")
-log_file.write("ἐπιμέλεια " + " (id:  " + agwn_lemma2id["ἐπιμέλεια"] + ") " + ", κομιδή " + "(id: " + agwn_lemma2id[
+               str(lexicon_cooccurrence["κομιδή", "ἐπιμέλεια"]) + "\n")
+log_file.write("ἐπιμέλεια " + " (id:  " + lexicon_lemma2id["ἐπιμέλεια"] + ") " + ", κομιδή " + "(id: " + lexicon_lemma2id[
     "κομιδή"] + ") " +
-               str(agwn_cooccurrence["ἐπιμέλεια", "κομιδή"]) + "\n")
+               str(lexicon_cooccurrence["ἐπιμέλεια", "κομιδή"]) + "\n")
 
-log_file.write("AGWN coordinates:" + "\n")
+log_file.write("Lexicon coordinates:" + "\n")
 log_file.write("Examples:" + "\n")
 
 try:
-    log_file.write("κομιδή (id: " + agwn_lemma2id["κομιδή"] + "):" + "\n")
-    log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
-    l1_c = agwn_coordinates["κομιδή"]
-    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write("κομιδή (id: " + lexicon_lemma2id["κομιδή"] + "):" + "\n")
+    log_file.write("Non-zero Lexicon coordinates at positions/lemmas:" + "\n")
+    l1_c = lexicon_coordinates["κομιδή"]
+    log_file.write(str([(i, lexicon_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 except:
     pass
 
 try:
-    log_file.write("ἐπιμέλεια (id: " + agwn_lemma2id["ἐπιμέλεια"] + "):" + "\n")
-    log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
-    l1_c = agwn_coordinates["ἐπιμέλεια"]
-    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write("ἐπιμέλεια (id: " + lexicon_lemma2id["ἐπιμέλεια"] + "):" + "\n")
+    log_file.write("Non-zero Lexicon coordinates at positions/lemmas:" + "\n")
+    l1_c = lexicon_coordinates["ἐπιμέλεια"]
+    log_file.write(str([(i, lexicon_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 except:
     pass
 
 try:
-    log_file.write("οἰκήτωρ (id: " + agwn_lemma2id["οἰκήτωρ"] + "):" + "\n")
-    log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
-    l1_c = agwn_coordinates["οἰκήτωρ"]
-    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write("οἰκήτωρ (id: " + lexicon_lemma2id["οἰκήτωρ"] + "):" + "\n")
+    log_file.write("Non-zero Lexicon coordinates at positions/lemmas:" + "\n")
+    l1_c = lexicon_coordinates["οἰκήτωρ"]
+    log_file.write(str([(i, lexicon_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 except:
     pass
 
 try:
-    log_file.write("πόλις (id: " + agwn_lemma2id["πόλις"] + "):" + "\n")
-    log_file.write("Non-zero AGWN coordinates at positions/lemmas:" + "\n")
-    l1_c = agwn_coordinates["πόλις"]
-    log_file.write(str([(i, agwn_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+    log_file.write("πόλις (id: " + lexicon_lemma2id["πόλις"] + "):" + "\n")
+    log_file.write("Non-zero Lexicon coordinates at positions/lemmas:" + "\n")
+    l1_c = lexicon_coordinates["πόλις"]
+    log_file.write(str([(i, lexicon_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 except:
     pass
 
@@ -588,14 +588,14 @@ except:
 # ---------------------------------------------
 
 
-print("There are", str(len(agwn_id2lemma.values())), " lemmas in AGWN, ", str(len(dissect_lemmas_5neighbours)),
-      " lemmas/neighbours in DISSECT space with 5 top neighbours", " and ", str(len(agwn_dissect_5neighbours)),
+print("There are", str(len(lexicon_id2lemma.values())), " lemmas in Lexicon, ", str(len(dissect_lemmas_5neighbours)),
+      " lemmas/neighbours in DISSECT space with 5 top neighbours", " and ", str(len(lexicon_dissect_5neighbours)),
       " in the intersection.")
 log_file.write(
-    "There are " + str(len(agwn_id2lemma.values())) + " lemmas in AGWN, " + str(len(dissect_lemmas_5neighbours)) +
-    " lemmas/neighbours in DISSECT space with 5 top neighbours " + " and " + str(len(agwn_dissect_5neighbours)) +
+    "There are " + str(len(lexicon_id2lemma.values())) + " lemmas in Lexicon, " + str(len(dissect_lemmas_5neighbours)) +
+    " lemmas/neighbours in DISSECT space with 5 top neighbours " + " and " + str(len(lexicon_dissect_5neighbours)) +
     " in the intersection." + "\n")
-# There are 22828 lemmas in AGWN,  44740 lemmas in DISSECT space with 5 top neighbours and 12899 in the intersection.
+# There are 22828 lemmas in Lexicon,  44740 lemmas in DISSECT space with 5 top neighbours and 12899 in the intersection.
 
 print(
     "---------------------------------------------------------\nFirst evaluation approach: distances in DISSECT space\n---------------------------------------------------------")
@@ -635,7 +635,7 @@ plt.savefig(os.path.join(dir_out, hist_file_name))
 
 count_n = 0
 for lemma, neighbour in lemma_neighbour2distance:
-    if lemma in agwn_dissect_5neighbours and neighbour in agwn_dissect_5neighbours:
+    if lemma in lexicon_dissect_5neighbours and neighbour in lexicon_dissect_5neighbours:
         count_n += 1
         if count_n % 1000 == 0:
             log_file.write("lemma: " + lemma + ", neighbour: " + neighbour + ", distance: " +
@@ -645,67 +645,67 @@ for lemma, neighbour in lemma_neighbour2distance:
             log_file.write("\tlemma: " + lemma + ", neighbour: " + neighbour + ", distance: " +
                            str(lemma_neighbour2distance[lemma, neighbour]) + "\n")
 
-        dissect_distances_agwn_dissect_5neighbour.append(lemma_neighbour2distance[lemma, neighbour])
+        dissect_distances_lexicon_dissect_5neighbour.append(lemma_neighbour2distance[lemma, neighbour])
 
 # Calculate summary statistics of distance between pairs of shared lemmas that are among top 5 neighbours in DISSECT space:
 
-if len(agwn_dissect_5neighbours) > 0:
-    dissect_distances_agwn_dissect_5neighbour = np.array(dissect_distances_agwn_dissect_5neighbour, dtype=np.float32)
+if len(lexicon_dissect_5neighbours) > 0:
+    dissect_distances_lexicon_dissect_5neighbour = np.array(dissect_distances_lexicon_dissect_5neighbour, dtype=np.float32)
 
-    mean_dissect_distances_agwn_dissect_5neighbour = np.mean(dissect_distances_agwn_dissect_5neighbour)
-    std_dissect_distances_agwn_dissect_5neighbour = dissect_distances_agwn_dissect_5neighbour.std()
-    min_dissect_distances_agwn_dissect_5neighbour = dissect_distances_agwn_dissect_5neighbour.min()
-    max_dissect_distances_agwn_dissect_5neighbour = dissect_distances_agwn_dissect_5neighbour.max()
-    median_dissect_distances_agwn_dissect_5neighbour = np.median(dissect_distances_agwn_dissect_5neighbour)
-    perc25_dissect_distances_agwn_dissect_5neighbour = np.percentile(dissect_distances_agwn_dissect_5neighbour, 25)
-    perc75_dissect_distances_agwn_dissect_5neighbour = np.percentile(dissect_distances_agwn_dissect_5neighbour, 75)
+    mean_dissect_distances_lexicon_dissect_5neighbour = np.mean(dissect_distances_lexicon_dissect_5neighbour)
+    std_dissect_distances_lexicon_dissect_5neighbour = dissect_distances_lexicon_dissect_5neighbour.std()
+    min_dissect_distances_lexicon_dissect_5neighbour = dissect_distances_lexicon_dissect_5neighbour.min()
+    max_dissect_distances_lexicon_dissect_5neighbour = dissect_distances_lexicon_dissect_5neighbour.max()
+    median_dissect_distances_lexicon_dissect_5neighbour = np.median(dissect_distances_lexicon_dissect_5neighbour)
+    perc25_dissect_distances_lexicon_dissect_5neighbour = np.percentile(dissect_distances_lexicon_dissect_5neighbour, 25)
+    perc75_dissect_distances_lexicon_dissect_5neighbour = np.percentile(dissect_distances_lexicon_dissect_5neighbour, 75)
 
     summary_stats_dissect_5neighbours_file.write(
         "Mean of DISSECT distances 5 neighbours: " + str(mean_dissect_distances_5neighbour) + "\n")
     summary_stats_dissect_5neighbours_file.write(
         "Mean of DISSECT distances of shared lemmas between DISSECT top 5 neighbours "
-        "and AGWN lemmas: " + str(
-            mean_dissect_distances_agwn_dissect_5neighbour) + "\n")
+        "and Lexicon lemmas: " + str(
+            mean_dissect_distances_lexicon_dissect_5neighbour) + "\n")
     log_file.write("Mean of DISSECT distances 5 neighbours: " + str(mean_dissect_distances_5neighbour) + "\n")
     log_file.write("Mean of DISSECT distances of shared lemmas between DISSECT top 5 neighbours "
-                   "and AGWN lemmas: " + str(mean_dissect_distances_agwn_dissect_5neighbour) + "\n")
+                   "and Lexicon lemmas: " + str(mean_dissect_distances_lexicon_dissect_5neighbour) + "\n")
 
     summary_stats_dissect_5neighbours_file.write(
         "STD of DISSECT distances 5 neighbours: " + str(std_dissect_distances_5neighbour) + "\n")
     summary_stats_dissect_5neighbours_file.write("STD of distances of shared lemmas between DISSECT top 5 neighbours "
-                                                 "and AGWN lemmas: " + str(
-        std_dissect_distances_agwn_dissect_5neighbour) + "\n")
+                                                 "and Lexicon lemmas: " + str(
+        std_dissect_distances_lexicon_dissect_5neighbour) + "\n")
 
     summary_stats_dissect_5neighbours_file.write(
         "Min of DISSECT distances 5 neighbours: " + str(min_dissect_distances_5neighbour) + "\n")
     summary_stats_dissect_5neighbours_file.write(
-        "Min of DISSECT distances of shared lemmas between DISSECT top 5 neighbours and AGWN lemmas: " + str(
-            min_dissect_distances_agwn_dissect_5neighbour) + "\n")
+        "Min of DISSECT distances of shared lemmas between DISSECT top 5 neighbours and Lexicon lemmas: " + str(
+            min_dissect_distances_lexicon_dissect_5neighbour) + "\n")
 
     summary_stats_dissect_5neighbours_file.write(
         "Max of DISSECT distances 5 neighbours: " + str(max_dissect_distances_5neighbour) + "\n")
     summary_stats_dissect_5neighbours_file.write(
-        "Max of DISSECT distances of shared lemmas between DISSECT top 5 neighbours and AGWN lemmas: " + str(
-            max_dissect_distances_agwn_dissect_5neighbour) + "\n")
+        "Max of DISSECT distances of shared lemmas between DISSECT top 5 neighbours and Lexicon lemmas: " + str(
+            max_dissect_distances_lexicon_dissect_5neighbour) + "\n")
 
     summary_stats_dissect_5neighbours_file.write(
         "Median of DISSECT distances 5 neighbours: " + str(median_dissect_distances_5neighbour) + "\n")
     summary_stats_dissect_5neighbours_file.write(
-        "Median of DISSECT distances of shared lemmas between DISSECT top 5 neighbours and AGWN lemmas: " + str(
-            median_dissect_distances_agwn_dissect_5neighbour) + "\n")
+        "Median of DISSECT distances of shared lemmas between DISSECT top 5 neighbours and Lexicon lemmas: " + str(
+            median_dissect_distances_lexicon_dissect_5neighbour) + "\n")
 
     summary_stats_dissect_5neighbours_file.write(
         "25th percentile of DISSECT distances 5 neighbours: " + str(perc25_dissect_distances_5neighbour) + "\n")
     summary_stats_dissect_5neighbours_file.write(
-        "25th percentile of DISSECT distances of shared lemmas between DISSECT top 5 neighbours and AGWN lemmas: " + str(
-            perc25_dissect_distances_agwn_dissect_5neighbour) + "\n")
+        "25th percentile of DISSECT distances of shared lemmas between DISSECT top 5 neighbours and Lexicon lemmas: " + str(
+            perc25_dissect_distances_lexicon_dissect_5neighbour) + "\n")
 
     summary_stats_dissect_5neighbours_file.write(
         "75th percentile of DISSECT distances 5 neighbours: " + str(perc75_dissect_distances_5neighbour) + "\n")
     summary_stats_dissect_5neighbours_file.write(
         "75th percentile of DISSECT distances of shared lemmas between DISSECT top 5 "
-        "neighbours and AGWN lemmas: " + str(
-            perc75_dissect_distances_agwn_dissect_5neighbour) + "\n")
+        "neighbours and Lexicon lemmas: " + str(
+            perc75_dissect_distances_lexicon_dissect_5neighbour) + "\n")
 
 else:
     summary_stats_dissect_5neighbours_file.write(
@@ -729,109 +729,109 @@ else:
 summary_stats_dissect_5neighbours_file.close()
 
 # --------------------------------------------------------------------------------------------
-# 2.	Distances in AGWN vs DISSECT space
-# a.	Calculate distance between pairs of shared lemmas that are synonyms in AGWN space
+# 2.	Distances in Lexicon vs DISSECT space
+# a.	Calculate distance between pairs of shared lemmas that are synonyms in Lexicon space
 # b.	Calculate distance between pairs of shared lemmas that are neighbours in DISSECT space
-# c.	For each pair, compare distance in AGWN space with distance in DISSECT space
+# c.	For each pair, compare distance in Lexicon space with distance in DISSECT space
 # --------------------------------------------------------------------------------------------
 
 print(
-    "---------------------------------------------------------\nSecond evaluation approach: distances in AGWN/DISSECT spaces between synonyms/neighbours\n-------------------------------------------------")
+    "---------------------------------------------------------\nSecond evaluation approach: distances in Lexicon/DISSECT spaces between synonyms/neighbours\n-------------------------------------------------")
 log_file.write(
-    "---------------------------------------------------------\nSecond evaluation approach: distances in AGWN/DISSECT spaces between synonyms/neighbours\n-------------------------------------------------" + "\n")
+    "---------------------------------------------------------\nSecond evaluation approach: distances in Lexicon/DISSECT spaces between synonyms/neighbours\n-------------------------------------------------" + "\n")
 
-# calculate cosine distances in AGWN space between pairs of shared lemmas that are synonyms in AGWN space:
+# calculate cosine distances in Lexicon space between pairs of shared lemmas that are synonyms in Lexicon space:
 
-agwn_distances_shared_agwn_synonyms = list()  # cosine distances in the AGWN space between pairs of AGWN synonyms
+lexicon_distances_shared_lexicon_synonyms = list()  # cosine distances in the Lexicon space between pairs of Lexicon synonyms
 
-# calculate cosine distances in DISSECT space between pairs of shared lemmas that are synonyms in AGWN space:
+# calculate cosine distances in DISSECT space between pairs of shared lemmas that are synonyms in Lexicon space:
 
-dissect_distances_shared_agwn_synonyms = list()
+dissect_distances_shared_lexicon_synonyms = list()
 
-# loop over all pairs of AGWN synonyms and collect AGWN/DISSECT distances between them:
+# loop over all pairs of Lexicon synonyms and collect Lexicon/DISSECT distances between them:
 
-log_file.write("Calculating AGWN and DISSECT distances between pairs of AGWN synonyms..." + "\n")
+log_file.write("Calculating Lexicon and DISSECT distances between pairs of Lexicon synonyms..." + "\n")
 
-# log_file.write("agwn_dissect_5neighbours:", str(agwn_dissect_5neighbours) + "\n")
+# log_file.write("lexicon_dissect_5neighbours:", str(lexicon_dissect_5neighbours) + "\n")
 
-dissect_agwn_distances_synonyms_file = open(os.path.join(dir_out, dissect_agwn_distances_synonyms_file_name), 'w')
-dissect_agwn_distances_synonyms_file.write("synonym1\tAGWN_id1\tsynonym2\tAGWN_id2\tAGWN_distance\tDISSECT_distance\n")
+dissect_lexicon_distances_synonyms_file = open(os.path.join(dir_out, dissect_lexicon_distances_synonyms_file_name), 'w')
+dissect_lexicon_distances_synonyms_file.write("synonym1\tLexicon_id1\tsynonym2\tLexicon_id2\tLexicon_distance\tDISSECT_distance\n")
 
 count_n = 0
-for (lemma1, lemma2) in agwn_cooccurrence:
+for (lemma1, lemma2) in lexicon_cooccurrence:
 
     count_n += 1
 
-    if (lemma1 in agwn_dissect_5neighbours and lemma2 in agwn_dissect_5neighbours) and \
+    if (lemma1 in lexicon_dissect_5neighbours and lemma2 in lexicon_dissect_5neighbours) and \
             ((istest == "yes" and count_n < lines_read_testing) or istest == "no"):
-        id1 = agwn_lemma2id[lemma1]
-        id2 = agwn_lemma2id[lemma2]
-        norm_lemma1 = norm(agwn_coordinates[lemma1])
-        norm_lemma2 = norm(agwn_coordinates[lemma2])
+        id1 = lexicon_lemma2id[lemma1]
+        id2 = lexicon_lemma2id[lemma2]
+        norm_lemma1 = norm(lexicon_coordinates[lemma1])
+        norm_lemma2 = norm(lexicon_coordinates[lemma2])
 
         # if count_n % 500000 == 0:
-        #    log_file.write("Consider synonyms", lemma1, "and", lemma2, "AGWN IDs are", str(id1), "and", str(id2) + "\n")
+        #    log_file.write("Consider synonyms", lemma1, "and", lemma2, "Lexicon IDs are", str(id1), "and", str(id2) + "\n")
 
         if lemma1 == "ἐπιμέλεια" and lemma2 == "κομιδή":
             log_file.write("\tTest!" + "\n")
             log_file.write(
-                "\tSynonyms " + lemma1 + " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) + "\n")
-            if lemma1 in agwn_dissect_5neighbours and lemma2 in agwn_dissect_5neighbours:
+                "\tSynonyms " + lemma1 + " and " + lemma2 + ", Lexicon IDs are " + str(id1) + " and " + str(id2) + "\n")
+            if lemma1 in lexicon_dissect_5neighbours and lemma2 in lexicon_dissect_5neighbours:
                 log_file.write("\tThey are shared!" + "\n")
                 if id1 < id2:
                     log_file.write("\t and id1 < id2!" + "\n")
                 log_file.write("DISSECT coordinates for lemma1:" + str(dissect_lemma2coordinates[lemma1]) + "\n")
                 log_file.write("DISSECT coordinates for lemma2:" + str(dissect_lemma2coordinates[lemma2]) + "\n")
-                log_file.write(" AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) + " DISSECT cosine distance: " + str(
+                log_file.write(" Lexicon cosine distance: " + str(lexicon_cos_distance_lemma1_lemma2) + " DISSECT cosine distance: " + str(
                         dissect_cos_distance_lemma1_lemma2) + "\n")
 
-        if (lemma1 in agwn_dissect_5neighbours) and (lemma1 is not lemma2) and (lemma2 in agwn_dissect_5neighbours) and (
+        if (lemma1 in lexicon_dissect_5neighbours) and (lemma1 is not lemma2) and (lemma2 in lexicon_dissect_5neighbours) and (
             id1 < id2) and norm_lemma1 > 0 and norm_lemma2 > 0:
 
             try:
-                agwn_cos_distance_lemma1_lemma2 = distance.cosine(agwn_coordinates[lemma1], agwn_coordinates[lemma2])
-                agwn_distances_shared_agwn_synonyms.append(agwn_cos_distance_lemma1_lemma2)
-                dissect_agwn_distances_synonyms_file.write(
-                    lemma1+"\t"+id1+"\t"+lemma2+"\t"+id2+"\t"+str(agwn_cos_distance_lemma1_lemma2))
+                lexicon_cos_distance_lemma1_lemma2 = distance.cosine(lexicon_coordinates[lemma1], lexicon_coordinates[lemma2])
+                lexicon_distances_shared_lexicon_synonyms.append(lexicon_cos_distance_lemma1_lemma2)
+                dissect_lexicon_distances_synonyms_file.write(
+                    lemma1+"\t"+id1+"\t"+lemma2+"\t"+id2+"\t"+str(lexicon_cos_distance_lemma1_lemma2))
             except:
-                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
+                log_file.write("Count " + str(count_n) + " out of " + str(len(lexicon_cooccurrence)) + "\n")
                 log_file.write("lemma1: " + lemma1 + "\n")
                 log_file.write("lemma2: " + lemma2 + "\n")
-                log_file.write("AGWN non-zero coordinates for lemma1:"+ "\n")
-                l1_c = agwn_coordinates[lemma1]
-                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-                log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
-                l1_c = agwn_coordinates[lemma2]
-                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-                log_file.write("Error with AGWN cosine distance!\n")
+                log_file.write("Lexicon non-zero coordinates for lemma1:"+ "\n")
+                l1_c = lexicon_coordinates[lemma1]
+                log_file.write(str([(i, lexicon_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("Lexicon non-zero coordinates for lemma2:" + "\n")
+                l1_c = lexicon_coordinates[lemma2]
+                log_file.write(str([(i, lexicon_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("Error with Lexicon cosine distance!\n")
 
-            if not np.isfinite(agwn_coordinates[lemma1]).all() or not np.isfinite(agwn_coordinates[lemma2]).all():
-                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
+            if not np.isfinite(lexicon_coordinates[lemma1]).all() or not np.isfinite(lexicon_coordinates[lemma2]).all():
+                log_file.write("Count " + str(count_n) + " out of " + str(len(lexicon_cooccurrence)) + "\n")
                 log_file.write("lemma1: " + lemma1 + "\n")
                 log_file.write("lemma2: " + lemma2 + "\n")
-                log_file.write("AGWN non-zero coordinates for lemma1:" + "\n")
-                l1_c = agwn_coordinates[lemma1]
-                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-                log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
-                l1_c = agwn_coordinates[lemma2]
-                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("Lexicon non-zero coordinates for lemma1:" + "\n")
+                l1_c = lexicon_coordinates[lemma1]
+                log_file.write(str([(i, lexicon_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("Lexicon non-zero coordinates for lemma2:" + "\n")
+                l1_c = lexicon_coordinates[lemma2]
+                log_file.write(str([(i, lexicon_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
                 #cos_sim = dot(a, b) / (norm(a) * norm(b))
-                log_file.write("NAN, INF, or NINF Error with AGWN cosine distance!\n")
+                log_file.write("NAN, INF, or NINF Error with Lexicon cosine distance!\n")
 
-            if norm(agwn_coordinates[lemma1]) == 0 or norm(agwn_coordinates[lemma1]) == 0:
-                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
+            if norm(lexicon_coordinates[lemma1]) == 0 or norm(lexicon_coordinates[lemma1]) == 0:
+                log_file.write("Count " + str(count_n) + " out of " + str(len(lexicon_cooccurrence)) + "\n")
                 log_file.write("lemma1: " + lemma1 + "\n")
                 log_file.write("lemma2: " + lemma2 + "\n")
-                log_file.write("AGWN non-zero coordinates for lemma1:" + "\n")
-                l1_c = agwn_coordinates[lemma1]
-                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-                log_file.write("AGWN non-zero coordinates for lemma2:" + "\n")
-                l1_c = agwn_coordinates[lemma2]
-                log_file.write(str([(i, agwn_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
-                log_file.write("Norm of agwn_coordinates[lemma1]: " + str(norm(agwn_coordinates[lemma1])) + "\n")
-                log_file.write("Norm of agwn_coordinates[lemma2]: " + str(norm(agwn_coordinates[lemma2])) + "\n")
+                log_file.write("Lexicon non-zero coordinates for lemma1:" + "\n")
+                l1_c = lexicon_coordinates[lemma1]
+                log_file.write(str([(i, lexicon_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("Lexicon non-zero coordinates for lemma2:" + "\n")
+                l1_c = lexicon_coordinates[lemma2]
+                log_file.write(str([(i, lexicon_lemma2id_keys[i], e) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+                log_file.write("Norm of lexicon_coordinates[lemma1]: " + str(norm(lexicon_coordinates[lemma1])) + "\n")
+                log_file.write("Norm of lexicon_coordinates[lemma2]: " + str(norm(lexicon_coordinates[lemma2])) + "\n")
                 #cos_sim = dot(a, b) / (norm(a) * norm(b))
-                log_file.write("Zeros! Error with AGWN cosine distance!\n")
+                log_file.write("Zeros! Error with Lexicon cosine distance!\n")
 
 
             # log_file.write("DISSECT coordinates for lemma1:", str(dissect_lemma2coordinates[lemma1][0:4]) + "\n")
@@ -839,11 +839,11 @@ for (lemma1, lemma2) in agwn_cooccurrence:
             try:
                 dissect_cos_distance_lemma1_lemma2 = distance.cosine(dissect_lemma2coordinates[lemma1],
                                                                  dissect_lemma2coordinates[lemma2])
-                dissect_distances_shared_agwn_synonyms.append(dissect_cos_distance_lemma1_lemma2)
-                dissect_agwn_distances_synonyms_file.write(
+                dissect_distances_shared_lexicon_synonyms.append(dissect_cos_distance_lemma1_lemma2)
+                dissect_lexicon_distances_synonyms_file.write(
                     "\t"+str(dissect_cos_distance_lemma1_lemma2)+"\n")
             except:
-                log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
+                log_file.write("Count " + str(count_n) + " out of " + str(len(lexicon_cooccurrence)) + "\n")
                 log_file.write("lemma1: " + lemma1 + "\n")
                 log_file.write("lemma2: " + lemma2 + "\n")
                 #log_file.write("DISSECT coordinates for lemma1:" + str(dissect_lemma2coordinates[lemma1]) + "\n")
@@ -853,41 +853,41 @@ for (lemma1, lemma2) in agwn_cooccurrence:
             if count_n % 10000 == 0:
 
                 log_file.write("Count " + str(locale.format("%d", count_n, grouping=True)) +
-                               " out of " + str(locale.format("%d", len(agwn_cooccurrence), grouping=True)) +
+                               " out of " + str(locale.format("%d", len(lexicon_cooccurrence), grouping=True)) +
                                " synonyms " + lemma1 +
-                               " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) +
-                               ", AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) +
+                               " and " + lemma2 + ", Lexicon IDs are " + str(id1) + " and " + str(id2) +
+                               ", Lexicon cosine distance: " + str(lexicon_cos_distance_lemma1_lemma2) +
                 ", DISSECT cosine distance:" + str(dissect_cos_distance_lemma1_lemma2) + "\n")
                 print("Count " + str(locale.format("%d", count_n, grouping=True)) +
-                               " out of " + str(locale.format("%d", len(agwn_cooccurrence), grouping=True)) +
+                               " out of " + str(locale.format("%d", len(lexicon_cooccurrence), grouping=True)) +
                                " synonyms " + lemma1 +
-                               " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) +
-                               ", AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) +
+                               " and " + lemma2 + ", Lexicon IDs are " + str(id1) + " and " + str(id2) +
+                               ", Lexicon cosine distance: " + str(lexicon_cos_distance_lemma1_lemma2) +
                                ", DISSECT cosine distance:" + str(dissect_cos_distance_lemma1_lemma2) + "\n")
 
 
             if lemma1 == "ἐπιμέλεια" and lemma2 == "κομιδή":
                 log_file.write("\tTest!" + "\n")
                 log_file.write(
-                    "\tSynonyms " + lemma1 + " and " + lemma2 + ", AGWN IDs are " + str(id1) + " and " + str(id2) +
-                    " AGWN cosine distance: " + str(agwn_cos_distance_lemma1_lemma2) + " DISSECT cosine distance: " + str(
+                    "\tSynonyms " + lemma1 + " and " + lemma2 + ", Lexicon IDs are " + str(id1) + " and " + str(id2) +
+                    " Lexicon cosine distance: " + str(lexicon_cos_distance_lemma1_lemma2) + " DISSECT cosine distance: " + str(
                         dissect_cos_distance_lemma1_lemma2) + "\n")
 
-log_file.write("agwn_distances_shared_agwn_synonyms:" + str(agwn_distances_shared_agwn_synonyms) + "\n")
-log_file.write("dissect_distances_shared_agwn_synonyms:" + str(dissect_distances_shared_agwn_synonyms) + "\n")
+log_file.write("lexicon_distances_shared_lexicon_synonyms:" + str(lexicon_distances_shared_lexicon_synonyms) + "\n")
+log_file.write("dissect_distances_shared_lexicon_synonyms:" + str(dissect_distances_shared_lexicon_synonyms) + "\n")
 
-dissect_agwn_distances_synonyms_file.close()
+dissect_lexicon_distances_synonyms_file.close()
 
-# calculate cosine distances in AGWN space between pairs of shared lemmas that are neighbours in DISSECT space:
+# calculate cosine distances in Lexicon space between pairs of shared lemmas that are neighbours in DISSECT space:
 # calculate cosine distances in DISSECT space between pairs of shared lemmas that are neighbours in DISSECT space:
 
-log_file.write("Calculating AGWN and DISSECT distances between pairs of DISSECT neighbours..." + "\n")
+log_file.write("Calculating Lexicon and DISSECT distances between pairs of DISSECT neighbours..." + "\n")
 
-dissect_agwn_distances_neighbours_file = open(os.path.join(dir_out, dissect_agwn_distances_neighbours_file_name), 'w')
-dissect_agwn_distances_neighbours_file.write("lemma\tAGWN_id1\tneighbour\tAGWN_id2\tAGWN_distance\tDISSECT_distance\n")
+dissect_lexicon_distances_neighbours_file = open(os.path.join(dir_out, dissect_lexicon_distances_neighbours_file_name), 'w')
+dissect_lexicon_distances_neighbours_file.write("lemma\tLexicon_id1\tneighbour\tLexicon_id2\tLexicon_distance\tDISSECT_distance\n")
 
-agwn_distances_shared_dissect_neighbours = list()  # cosine distances in the AGWN space between pairs of DISSECT neighbours
-dissect_distances_shared_dissect_neighbours = list()  # cosine distances in the AGWN space between pairs of DISSECT neighbours
+lexicon_distances_shared_dissect_neighbours = list()  # cosine distances in the Lexicon space between pairs of DISSECT neighbours
+dissect_distances_shared_dissect_neighbours = list()  # cosine distances in the Lexicon space between pairs of DISSECT neighbours
 
 # loop over all pairs of lemma and its neighbours:
 
@@ -905,140 +905,140 @@ for (lemma, neighbour) in lemma_neighbour2distance:
                        " out of " + str(locale.format("%d", len(lemma_neighbour2distance), grouping=True)) +
                        "Consider lemma+neighbour " + lemma + " and " + neighbour + "\n")
 
-    if (lemma in agwn_dissect_5neighbours) and (neighbour in agwn_dissect_5neighbours):
+    if (lemma in lexicon_dissect_5neighbours) and (neighbour in lexicon_dissect_5neighbours):
 
-        id1 = agwn_lemma2id[lemma]
-        id2 = agwn_lemma2id[neighbour]
+        id1 = lexicon_lemma2id[lemma]
+        id2 = lexicon_lemma2id[neighbour]
 
-        norm_lemma = norm(agwn_coordinates[lemma])
-        norm_neighbour = norm(agwn_coordinates[neighbour])
+        norm_lemma = norm(lexicon_coordinates[lemma])
+        norm_neighbour = norm(lexicon_coordinates[neighbour])
 
         # if count_n % 100 == 0:
         #log_file.write(
-        #    "Consider shared lemma+neighbour " + lemma + " and " + neighbour + " AGWN IDs are: " + str(id1) + " and " + str(
+        #    "Consider shared lemma+neighbour " + lemma + " and " + neighbour + " Lexicon IDs are: " + str(id1) + " and " + str(
         #        id2) + "\n")
 
         if (lemma is not neighbour) and (id1 < id2) and norm_lemma > 0 and norm_neighbour > 0:
 
-            # AGWN distance:
+            # Lexicon distance:
 
             try:
-                agwn_cos_distance_lemma_neighbour = distance.cosine(agwn_coordinates[lemma], agwn_coordinates[neighbour])
-                agwn_distances_shared_dissect_neighbours.append(agwn_cos_distance_lemma_neighbour)
-                dissect_agwn_distances_neighbours_file.write(
-                    lemma+"\t"+id1+"\t"+neighbour+"\t"+id2+"\t"+str(agwn_cos_distance_lemma_neighbour))
+                lexicon_cos_distance_lemma_neighbour = distance.cosine(lexicon_coordinates[lemma], lexicon_coordinates[neighbour])
+                lexicon_distances_shared_dissect_neighbours.append(lexicon_cos_distance_lemma_neighbour)
+                dissect_lexicon_distances_neighbours_file.write(
+                    lemma+"\t"+id1+"\t"+neighbour+"\t"+id2+"\t"+str(lexicon_cos_distance_lemma_neighbour))
             except:
                 log_file.write("Count " + str(count_n) + " out of " + str(len(lemma_neighbour2distance)) + "\n")
                 log_file.write("lemma: " + lemma + "\n")
                 log_file.write("neighbour: " + neighbour + "\n")
-                log_file.write("AGWN coordinates for lemma:" + str(agwn_coordinates[lemma]) + "\n")
-                log_file.write("AGWN coordinates for neighbour:" + str(agwn_coordinates[neighbour]) + "\n")
-                log_file.write("Error with AGWN cosine distance!\n")
+                log_file.write("Lexicon coordinates for lemma:" + str(lexicon_coordinates[lemma]) + "\n")
+                log_file.write("Lexicon coordinates for neighbour:" + str(lexicon_coordinates[neighbour]) + "\n")
+                log_file.write("Error with Lexicon cosine distance!\n")
 
             # DISSECT distance:
             try:
                 dissect_cos_distance_lemma_neighbour = lemma_neighbour2distance[lemma, neighbour]
-                dissect_agwn_distances_neighbours_file.write(
+                dissect_lexicon_distances_neighbours_file.write(
                     "\t"+str(dissect_cos_distance_lemma_neighbour)+"\n")
             except:
                 log_file.write("Count " + str(count_n) + " out of " + str(len(lemma_neighbour2distance)) + "\n")
-                log_file.write("lemma: " + lemma + ", id: " + str(agwn_lemma2id[lemma]) + "\n")
-                log_file.write("neighbour: " + neighbour + ", id: " + str(agwn_lemma2id[neighbour]) + "\n")
+                log_file.write("lemma: " + lemma + ", id: " + str(lexicon_lemma2id[lemma]) + "\n")
+                log_file.write("neighbour: " + neighbour + ", id: " + str(lexicon_lemma2id[neighbour]) + "\n")
                 #log_file.write("DISSECT distance:" + str(lemma_neighbour2distance[lemma, neighbour]) + "\n")
                 log_file.write("Error with DISSECT cosine distance!\n")
 
             if count_n % 10000 == 0:
                 log_file.write(str(count_n) + "out of " + str(
                     len(lemma_neighbour2distance)) + " consider neighbours " + lemma + " and " +
-                               neighbour + "AGWN IDs are " + str(id1) + " and " + str(id2) + "\n")
-                log_file.write("AGWN cosine distance: " + str(agwn_cos_distance_lemma_neighbour) + "\n")
+                               neighbour + "Lexicon IDs are " + str(id1) + " and " + str(id2) + "\n")
+                log_file.write("Lexicon cosine distance: " + str(lexicon_cos_distance_lemma_neighbour) + "\n")
                 log_file.write("DISSECT cosine distance: " + str(dissect_cos_distance_lemma_neighbour) + "\n")
 
             if lemma == "ἐπιμέλεια" or lemma == "κομιδή":
                 log_file.write("\tTest!" + "\n")
                 log_file.write(
-                    "\tConsider neighbours " + lemma + " and " + neighbour + ", AGWN IDs are " + str(id1) + " and " + str(
+                    "\tConsider neighbours " + lemma + " and " + neighbour + ", Lexicon IDs are " + str(id1) + " and " + str(
                         id2) + "\n")
-                log_file.write("\tAGWN cosine distance: " + str(agwn_cos_distance_lemma_neighbour) + "\n")
+                log_file.write("\tLexicon cosine distance: " + str(lexicon_cos_distance_lemma_neighbour) + "\n")
                 log_file.write("\tDISSECT cosine distance: " + str(dissect_cos_distance_lemma_neighbour) + "\n")
 
             dissect_distances_shared_dissect_neighbours.append(dissect_cos_distance_lemma_neighbour)
 
 
-#log_file.write("agwn_distances_shared_dissect_neighbours:" + str(agwn_distances_shared_dissect_neighbours) + "\n")
+#log_file.write("lexicon_distances_shared_dissect_neighbours:" + str(lexicon_distances_shared_dissect_neighbours) + "\n")
 #log_file.write("dissect_distances_shared_dissect_neighbours:" + str(dissect_distances_shared_dissect_neighbours) + "\n")
 
-dissect_agwn_distances_neighbours_file.close()
+dissect_lexicon_distances_neighbours_file.close()
 
 # print out summary results:
 
-summary_dissect_agwn_distances_file = open(os.path.join(dir_out, summary_dissect_agwn_distances_file_name), 'w')
+summary_dissect_lexicon_distances_file = open(os.path.join(dir_out, summary_dissect_lexicon_distances_file_name), 'w')
 
 # Synonyms:
 
-log_file.write("length of agwn_distances_shared_agwn_synonyms: " + str(len(agwn_distances_shared_agwn_synonyms)) + "\n")
-summary_dissect_agwn_distances_file.write("agwn_distances_shared_agwn_synonyms: ")
-summary_dissect_agwn_distances_file.write(str(agwn_distances_shared_agwn_synonyms) + "\n")
+log_file.write("length of lexicon_distances_shared_lexicon_synonyms: " + str(len(lexicon_distances_shared_lexicon_synonyms)) + "\n")
+summary_dissect_lexicon_distances_file.write("lexicon_distances_shared_lexicon_synonyms: ")
+summary_dissect_lexicon_distances_file.write(str(lexicon_distances_shared_lexicon_synonyms) + "\n")
 
 log_file.write(
-    "length of dissect_distances_shared_agwn_synonyms: " + str(len(dissect_distances_shared_agwn_synonyms)) + "\n")
-summary_dissect_agwn_distances_file.write("dissect_distances_shared_agwn_synonyms: ")
-summary_dissect_agwn_distances_file.write(str(dissect_distances_shared_agwn_synonyms) + "\n")
+    "length of dissect_distances_shared_lexicon_synonyms: " + str(len(dissect_distances_shared_lexicon_synonyms)) + "\n")
+summary_dissect_lexicon_distances_file.write("dissect_distances_shared_lexicon_synonyms: ")
+summary_dissect_lexicon_distances_file.write(str(dissect_distances_shared_lexicon_synonyms) + "\n")
 
 # Pearson's correlation coefficient:
-corr_p, p_value_p = pearsonr(agwn_distances_shared_agwn_synonyms, dissect_distances_shared_agwn_synonyms)
+corr_p, p_value_p = pearsonr(lexicon_distances_shared_lexicon_synonyms, dissect_distances_shared_lexicon_synonyms)
 log_file.write("Pearson's correlation: " + str(corr_p) + str(p_value_p) + "\n")
-summary_dissect_agwn_distances_file.write(
+summary_dissect_lexicon_distances_file.write(
     "Pearson's correlation: " + str(corr_p) + ", p-value: " + str(p_value_p) + "\n")
 
 # Spearman's correlation coefficient:
-corr_s, p_value_s = spearmanr(agwn_distances_shared_agwn_synonyms, dissect_distances_shared_agwn_synonyms)
+corr_s, p_value_s = spearmanr(lexicon_distances_shared_lexicon_synonyms, dissect_distances_shared_lexicon_synonyms)
 log_file.write("Spearmnan's correlation: " + str(corr_s) + str(p_value_s) + "\n")
-summary_dissect_agwn_distances_file.write(
+summary_dissect_lexicon_distances_file.write(
     "Spearman's correlation: " + str(corr_s) + ", p-value:" + str(p_value_s) + "\n")
 
 # Neighbours:
 
 log_file.write(
-    "length of agwn_distances_shared_dissect_neighbours: " + str(len(agwn_distances_shared_dissect_neighbours)) + "\n")
-#summary_dissect_agwn_distances_file.write("agwn_distances_shared_dissect_neighbours: ")
-#summary_dissect_agwn_distances_file.write(str(agwn_distances_shared_dissect_neighbours) + "\n")
+    "length of lexicon_distances_shared_dissect_neighbours: " + str(len(lexicon_distances_shared_dissect_neighbours)) + "\n")
+#summary_dissect_lexicon_distances_file.write("lexicon_distances_shared_dissect_neighbours: ")
+#summary_dissect_lexicon_distances_file.write(str(lexicon_distances_shared_dissect_neighbours) + "\n")
 
 log_file.write("length of dissect_distances_shared_dissect_neighbours: " + str(
     len(dissect_distances_shared_dissect_neighbours)) + "\n")
-#summary_dissect_agwn_distances_file.write("dissect_distances_shared_dissect_neighbours: ")
-#summary_dissect_agwn_distances_file.write(str(dissect_distances_shared_dissect_neighbours) + "\n")
+#summary_dissect_lexicon_distances_file.write("dissect_distances_shared_dissect_neighbours: ")
+#summary_dissect_lexicon_distances_file.write(str(dissect_distances_shared_dissect_neighbours) + "\n")
 
 # Pearson's correlation coefficient:
-corr_p, p_value_p = pearsonr(agwn_distances_shared_dissect_neighbours, dissect_distances_shared_dissect_neighbours)
+corr_p, p_value_p = pearsonr(lexicon_distances_shared_dissect_neighbours, dissect_distances_shared_dissect_neighbours)
 log_file.write("Pearson's correlation: " + str(corr_p) + ", " + str(p_value_p) + "\n")
-summary_dissect_agwn_distances_file.write(
+summary_dissect_lexicon_distances_file.write(
     "Pearson's correlation: " + str(corr_p) + ", p-value:" + str(p_value_p) + "\n")
 
 # Spearman's correlation coefficient:
-corr_s, p_value_s = spearmanr(agwn_distances_shared_dissect_neighbours, dissect_distances_shared_dissect_neighbours)
+corr_s, p_value_s = spearmanr(lexicon_distances_shared_dissect_neighbours, dissect_distances_shared_dissect_neighbours)
 log_file.write("Spearmnan's correlation: " + str(corr_s) + str(p_value_s) + "\n")
-summary_dissect_agwn_distances_file.write(
+summary_dissect_lexicon_distances_file.write(
     "Spearman's correlation: " + str(corr_s) + ", p-value:" + str(p_value_s) + "\n")
 
-summary_dissect_agwn_distances_file.close()
+summary_dissect_lexicon_distances_file.close()
 
 # -------------------------------------------------------------------------------------
 # 3.	Synonym/neighbour comparison
-# a.	Compare overlap between synsets in AGWN space and neighbours in DISSECT space
+# a.	Compare overlap between synsets in Lexicon space and neighbours in DISSECT space
 # -------------------------------------------------------------------------------------
 
 
 # print(
-#     "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in AGWN and neighbour sets in DISSECT spaces\n-------------------------------------------------")
+#     "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in Lexicon and neighbour sets in DISSECT spaces\n-------------------------------------------------")
 # log_file.write(
-#     "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in AGWN and neighbour sets in DISSECT spaces\n-------------------------------------------------" + "\n")
+#     "---------------------------------------------------------\nThird evaluation approach: overlap between synsets in Lexicon and neighbour sets in DISSECT spaces\n-------------------------------------------------" + "\n")
 #
-# # Define synsets in AGWN space containing shared lemmas:
+# # Define synsets in Lexicon space containing shared lemmas:
 #
 # log_file.write("Define lemma-to-synset mapping" + "\n")
 #
-# lemma2synset = dict()  # maps a shared lemma to the list of its AGWN synonyms:
+# lemma2synset = dict()  # maps a shared lemma to the list of its Lexicon synonyms:
 #
 # count_n = 0
 # for synset_id in synsets:
@@ -1050,7 +1050,7 @@ summary_dissect_agwn_distances_file.close()
 #
 #     synonyms = synsets[synset_id]
 #     for synonym in synonyms:
-#         if synonym in agwn_dissect_5neighbours:
+#         if synonym in lexicon_dissect_5neighbours:
 #             synonyms.remove(synonym)
 #             lemma2synset[synonym] = synonyms
 #
@@ -1073,7 +1073,7 @@ summary_dissect_agwn_distances_file.close()
 #     neighbours = list()
 #     count_n += 1
 #
-#     if lemma in agwn_dissect_5neighbours:
+#     if lemma in lexicon_dissect_5neighbours:
 #
 #         if count_n % 1000 == 0:
 #             log_file.write(str(count_n) + "lemma: " + lemma + " out of " + str(len(lemma_neighbour2distance)) + "\n")
@@ -1095,14 +1095,14 @@ summary_dissect_agwn_distances_file.close()
 #
 # # Calculate overlap between synsets and neighbour sets:
 #
-# lemma2overlap_ratio = dict()  # maps a shared lemma to the overlap ratio between its AGWN synonyms and its DISSECT neighbours, divided by the union# :
+# lemma2overlap_ratio = dict()  # maps a shared lemma to the overlap ratio between its Lexicon synonyms and its DISSECT neighbours, divided by the union# :
 #
 # log_file.write("Finding overlap between synsets and neighboursets" + "\n")
 #
 # count_n = 0
 # overlap_ratios = list()  # list of overlap ratio values
 #
-# for lemma in agwn_dissect_5neighbours:
+# for lemma in lexicon_dissect_5neighbours:
 #     count_n += 1
 #     if count_n % 100 == 0:
 #         log_file.write(str(count_n) + "lemma: " + lemma + "\n")
@@ -1128,7 +1128,7 @@ summary_dissect_agwn_distances_file.close()
 #
 # # print out results:
 #
-# summary_dissect_agwn_overlap_file = open(os.path.join(dir_out, summary_dissect_agwn_overlap_file_name), 'w')
+# summary_dissect_lexicon_overlap_file = open(os.path.join(dir_out, summary_dissect_lexicon_overlap_file_name), 'w')
 #
 # overlap_ratios = np.array(overlap_ratios, dtype=np.float32)
 #
@@ -1140,15 +1140,15 @@ summary_dissect_agwn_distances_file.close()
 # perc25_overlaps = np.percentile(overlap_ratios, 25)
 # perc75_overlaps = np.percentile(overlap_ratios, 75)
 #
-# summary_dissect_agwn_overlap_file.write("Mean of overlap ratios:" + str(mean_overlaps) + "\n")
-# summary_dissect_agwn_overlap_file.write("STD of overlap ratios:" + str(std_overlaps) + "\n")
-# summary_dissect_agwn_overlap_file.write("Min of overlap ratios:" + str(min_overlaps) + "\n")
-# summary_dissect_agwn_overlap_file.write("Max of overlap ratios:" + str(max_overlaps) + "\n")
-# summary_dissect_agwn_overlap_file.write("Median of overlap ratios:" + str(median_overlaps) + "\n")
-# summary_dissect_agwn_overlap_file.write("25th percentile of overlap ratios:" + str(perc25_overlaps) + "\n")
-# summary_dissect_agwn_overlap_file.write("75th percentile of overlap ratios:" + str(perc75_overlaps) + "\n")
+# summary_dissect_lexicon_overlap_file.write("Mean of overlap ratios:" + str(mean_overlaps) + "\n")
+# summary_dissect_lexicon_overlap_file.write("STD of overlap ratios:" + str(std_overlaps) + "\n")
+# summary_dissect_lexicon_overlap_file.write("Min of overlap ratios:" + str(min_overlaps) + "\n")
+# summary_dissect_lexicon_overlap_file.write("Max of overlap ratios:" + str(max_overlaps) + "\n")
+# summary_dissect_lexicon_overlap_file.write("Median of overlap ratios:" + str(median_overlaps) + "\n")
+# summary_dissect_lexicon_overlap_file.write("25th percentile of overlap ratios:" + str(perc25_overlaps) + "\n")
+# summary_dissect_lexicon_overlap_file.write("75th percentile of overlap ratios:" + str(perc75_overlaps) + "\n")
 #
-# summary_dissect_agwn_overlap_file.close()
+# summary_dissect_lexicon_overlap_file.close()
 
 now = datetime.datetime.now()
 log_file.write("Finished." + "\n")
