@@ -758,7 +758,7 @@ dissect_agwn_distances_synonyms_file = open(os.path.join(dir_out, dissect_agwn_d
 dissect_agwn_distances_synonyms_file.write("synonym1\tAGWN_id1\tsynonym2\tAGWN_id2\tAGWN_distance\tDISSECT_distance\n")
 
 count_n = 0
-for [lemma1, lemma2] in agwn_cooccurrence:
+for (lemma1, lemma2) in agwn_cooccurrence:
 
     count_n += 1
 
@@ -792,7 +792,7 @@ for [lemma1, lemma2] in agwn_cooccurrence:
                 agwn_cos_distance_lemma1_lemma2 = distance.cosine(agwn_coordinates[lemma1], agwn_coordinates[lemma2])
                 agwn_distances_shared_agwn_synonyms.append(agwn_cos_distance_lemma1_lemma2)
                 dissect_agwn_distances_synonyms_file.write(
-                    lemma1+"\t"+id1+"\t"+lemma2+"\t"+id2+str(agwn_cos_distance_lemma1_lemma2))
+                    lemma1+"\t"+id1+"\t"+lemma2+"\t"+id2+"\t"+str(agwn_cos_distance_lemma1_lemma2))
             except:
                 log_file.write("Count " + str(count_n) + " out of " + str(len(agwn_cooccurrence)) + "\n")
                 log_file.write("lemma1: " + lemma1 + "\n")
@@ -893,7 +893,7 @@ dissect_distances_shared_dissect_neighbours = list()  # cosine distances in the 
 
 
 count_n = 0
-for [lemma, neighbour] in lemma_neighbour2distance:
+for (lemma, neighbour) in lemma_neighbour2distance:
 
     count_n += 1
 
@@ -965,8 +965,8 @@ for [lemma, neighbour] in lemma_neighbour2distance:
             dissect_distances_shared_dissect_neighbours.append(dissect_cos_distance_lemma_neighbour)
 
 
-log_file.write("agwn_distances_shared_dissect_neighbours:" + str(agwn_distances_shared_dissect_neighbours) + "\n")
-log_file.write("dissect_distances_shared_dissect_neighbours:" + str(dissect_distances_shared_dissect_neighbours) + "\n")
+#log_file.write("agwn_distances_shared_dissect_neighbours:" + str(agwn_distances_shared_dissect_neighbours) + "\n")
+#log_file.write("dissect_distances_shared_dissect_neighbours:" + str(dissect_distances_shared_dissect_neighbours) + "\n")
 
 dissect_agwn_distances_neighbours_file.close()
 
@@ -1001,13 +1001,13 @@ summary_dissect_agwn_distances_file.write(
 
 log_file.write(
     "length of agwn_distances_shared_dissect_neighbours: " + str(len(agwn_distances_shared_dissect_neighbours)) + "\n")
-summary_dissect_agwn_distances_file.write("agwn_distances_shared_dissect_neighbours: ")
-summary_dissect_agwn_distances_file.write(str(agwn_distances_shared_dissect_neighbours) + "\n")
+#summary_dissect_agwn_distances_file.write("agwn_distances_shared_dissect_neighbours: ")
+#summary_dissect_agwn_distances_file.write(str(agwn_distances_shared_dissect_neighbours) + "\n")
 
 log_file.write("length of dissect_distances_shared_dissect_neighbours: " + str(
     len(dissect_distances_shared_dissect_neighbours)) + "\n")
-summary_dissect_agwn_distances_file.write("dissect_distances_shared_dissect_neighbours: ")
-summary_dissect_agwn_distances_file.write(str(dissect_distances_shared_dissect_neighbours) + "\n")
+#summary_dissect_agwn_distances_file.write("dissect_distances_shared_dissect_neighbours: ")
+#summary_dissect_agwn_distances_file.write(str(dissect_distances_shared_dissect_neighbours) + "\n")
 
 # Pearson's correlation coefficient:
 corr_p, p_value_p = pearsonr(agwn_distances_shared_dissect_neighbours, dissect_distances_shared_dissect_neighbours)
