@@ -393,20 +393,20 @@ for synset_id in synsets:
 
         for lemma2 in synsets_this_lemma:
 
-            if lemma1 is not lemma2:
-                if (lemma1, lemma2) in lexicon_cooccurrence:
-                    lexicon_cooccurrence[lemma1, lemma2] += 1
-                else:
-                    lexicon_cooccurrence[lemma1, lemma2] = 1
+            #if lemma1 is not lemma2:
+            if (lemma1, lemma2) in lexicon_cooccurrence:
+                lexicon_cooccurrence[lemma1, lemma2] += 1
+            else:
+                lexicon_cooccurrence[lemma1, lemma2] = 1
 
-                if count_s % 1000 == 0:
-                    log_file.write(
+            if count_s % 1000 == 0:
+                log_file.write(
                         str(count_s) + ": " + ", lemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
                         str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
-                if lemma1 in ["κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
-                    log_file.write("\tTest!" + "\n")
-                    log_file.write("\tLemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
+            if lemma1 in ["κομιδή", "ἐπιμέλεια"]: #, "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
+                log_file.write("\tTest!" + "\n")
+                log_file.write("\tLemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
                                    str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
 log_file.write("Writing lexicon_id2lemma file....\n")
@@ -480,7 +480,7 @@ with open(os.path.join(dir_out, file_out_lexicon_cooccurrence_name), 'w',
         for lemma2 in lexicon_lemma2id_keys:
             if lemma2 is not "0":
                 count_n2 += 1
-                if ((lemma1, lemma2) not in lexicon_cooccurrence or lemma1 is lemma2):
+                if ((lemma1, lemma2) not in lexicon_cooccurrence ): #or lemma1 is lemma2):
                     lexicon_cooccurrence[lemma1, lemma2] = 0
 
                 if count_n % 5000 == 0 and count_n2 % 500 == 0:
