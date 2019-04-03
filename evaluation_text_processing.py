@@ -386,12 +386,12 @@ for synset_id in synsets:
 
     count_s += 1
     if count_s % 1000 == 0:
-        log_file.write("Line " + str(count_s) + ": " + "synset ID: " + synset_id + "\n")
+        log_file.write(f"Line {count_s}: synset ID: {synset_id}\n")
         log_file.write("Lemmas: " + str(synsets[synset_id]) + "\n")
 
     if synset_id == "09620078-n":
-        log_file.write("\tTest!" + "\n")
-        log_file.write("Line " + str(count_s) + ": " + "synset ID: " + synset_id + "\n")
+        log_file.write(f"\tTest! \n")
+        log_file.write(f"Line {count_s}: synset ID: {synset_id} \n")
         log_file.write("Synset_id: " + str(synset_id) + ", lemmas: " + str(synsets[synset_id]) + "\n")
 
     synsets_this_lemma = synsets[synset_id]
@@ -420,7 +420,7 @@ for synset_id in synsets:
                     str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
             if lemma1 in ["κομιδή", "ἐπιμέλεια"]:  # , "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
-                log_file.write("\tTest!" + "\n")
+                log_file.write("\tTest!\n")
                 log_file.write("\tLemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
                                str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
