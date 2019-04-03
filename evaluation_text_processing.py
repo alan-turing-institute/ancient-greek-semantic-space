@@ -49,7 +49,8 @@ window = input("What is the window size? Leave empty for default (" + str(
 freq_threshold = input("What is the frequency threshold for vocabulary lemmas? Leave empty for default (" +
                        str(freq_threshold_default) + ").")  # 2 or 50 # frequency threshold for lemmas in vocabulary
 istest = input("Is this a test? Leave empty for default (" + str(istest_default) + ").")
-lexicon = input("Which lexicon do you want to consider? Leave empty for default (" + str(lexicon_default) + ").")
+lexicon = input("Which lexicon do you want to consider? Leave empty for default (" + str(lexicon_default) +
+                "). Another option is SCHMIDT.")
 first_evaluation_approach_yes = input("Do you want to follow the first evaluation approach? Leave empty for default (" +
                                       first_evaluation_approach_yes_default + ").")
 second_evaluation_approach_yes = input(
@@ -170,9 +171,9 @@ lexicon_lemma2id = dict()  # maps an Lexicon lemma to its id
 synsets = dict()  # maps a synset ID to the list of its contents
 # synsetid2def = dict()  # maps a synset ID to its English definition
 lexicon_cooccurrence = defaultdict(
-    dict)  # multidimensional dictionary: maps each pair of lemmas to 1 if they co-occur in the same lexicon synset,
+    dict)  # multidimensional dictionary: maps each pair of *shared* lemmas to 1 if they co-occur in the same lexicon synset,
 # and 0 otherwise
-lexicon_coordinates = dict()  # maps an Lexicon lemma id to the list of its 0/1 coordinates in the Lexicon space
+lexicon_coordinates = dict()  # maps a *shared* Lexicon lemma id to the list of its 0/1 coordinates in the Lexicon space
 # lexicon_distances = list()  # indexes an Lexicon lemma id to the array of cosine distances with other Lexicon lemmas
 lexicon_dissect_5neighbours = list()  # list of lemmas shared between Lexicon and DISSECT space with 5 neighbours
 dissect_lemmas_5neighbours = list()  # list of lemmas in DISSECT space, for which we have the top 5 neighbours
@@ -408,21 +409,22 @@ for synset_id in synsets:
 
         for lemma2 in synsets_this_lemma:
 
-            # if lemma1 is not lemma2:
-            if (lemma1, lemma2) in lexicon_cooccurrence:
-                lexicon_cooccurrence[lemma1, lemma2] += 1
-            else:
-                lexicon_cooccurrence[lemma1, lemma2] = 1
+            if lemma1 in dissect_lemmas_5neighbours and lemma2 in dissect_lemmas_5neighbours:
+                # if lemma1 is not lemma2:
+                if (lemma1, lemma2) in lexicon_cooccurrence:
+                    lexicon_cooccurrence[lemma1, lemma2] += 1
+                else:
+                    lexicon_cooccurrence[lemma1, lemma2] = 1
 
-            if count_s % 1000 == 0:
-                log_file.write(
-                    str(count_s) + ": " + ", lemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
-                    str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
+                if count_s % 1000 == 0:
+                    log_file.write(
+                        str(count_s) + ": " + ", lemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
+                        str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
-            if lemma1 in ["κομιδή", "ἐπιμέλεια"]:  # , "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
-                log_file.write("\tTest!\n")
-                log_file.write("\tLemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
-                               str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
+                if lemma1 in ["κομιδή", "ἐπιμέλεια"]:  # , "οἰκήτωρ", "οἰκήτωρ", "αἴθων", "εὐθυθάνατος"]:
+                    log_file.write("\tTest!\n")
+                    log_file.write("\tLemma1: " + lemma1 + ", lemma2: " + lemma2 + ", co-occurrence: " +
+                                   str(lexicon_cooccurrence[lemma1, lemma2]) + "\n")
 
 log_file.write("Writing lexicon_id2lemma file....\n")
 # lexicon_lemma2id_keys = ["0"] + list(lexicon_lemma2id.keys()) # I add an empty string as first element of this list, to account for the fact that the
@@ -490,8 +492,8 @@ with open(os.path.join(dir_out, file_out_lexicon_cooccurrence_name), 'w',
         coordinates_lemmaid1 = list()
         count_n2 = 0
 
-        # for lemma2 in lexicon_dissect_5neighbours:
-        for lemma2 in lexicon_lemma2id_keys:
+        for lemma2 in lexicon_dissect_5neighbours:
+        # for lemma2 in lexicon_lemma2id_keys:
             if lemma2 is not "0":
                 count_n2 += 1
                 if ((lemma1, lemma2) not in lexicon_cooccurrence):  # or lemma1 is lemma2):
@@ -576,6 +578,14 @@ try:
     log_file.write("πόλις (id: " + lexicon_lemma2id["πόλις"] + "):" + "\n")
     log_file.write("Non-zero Lexicon coordinates at positions/lemmas:" + "\n")
     l1_c = lexicon_coordinates["πόλις"]
+    log_file.write(str([(i, lexicon_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
+except:
+    pass
+
+try:
+    log_file.write("βάξις (id: " + lexicon_lemma2id["βάξις"] + "):" + "\n")
+    log_file.write("Non-zero Lexicon coordinates at positions/lemmas:" + "\n")
+    l1_c = lexicon_coordinates["βάξις"]
     log_file.write(str([(i, lexicon_lemma2id_keys[i]) for i, e in enumerate(l1_c) if e != 0]) + "\n")
 except:
     pass
@@ -713,7 +723,7 @@ if first_evaluation_approach_yes == "yes":
             "Mean of DISSECT distances 5 neighbours: " + str(mean_dissect_distances_5neighbour) + "\n")
         summary_stats_dissect_5neighbours_file.write(
             "Mean of DISSECT distances of shared lemmas between DISSECT top 5 neighbours "
-            "and Lexicon lemmas: " + str(
+            "and Lexicon " + lexicon + " lemmas: " + str(
                 mean_dissect_distances_lexicon_dissect_5neighbour) + "\n")
         log_file.write("Mean of DISSECT distances 5 neighbours: " + str(mean_dissect_distances_5neighbour) + "\n")
         log_file.write("Mean of DISSECT distances of shared lemmas between DISSECT top 5 neighbours "
