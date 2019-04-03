@@ -78,10 +78,10 @@ directory = os.path.join("/Users", "bmcgillivray", "Documents", "OneDrive", "The
                          "Martina Astrid Rodda - MAR dphil project")
 dir_ss = os.path.join(directory, "semantic_space", "sem_space_output")
 dir_ss_rows = os.path.join(dir_ss, "ppmi_svd300", "w" + str(window), "w" + str(window) + "_spaces")
-# dir_ss_neighbours = os.path.join(dir_ss, "ppmi_svd300", "w" + str(window), "w" + str(window) + "_nns")
+dir_ss_neighbours = os.path.join(dir_ss, "ppmi_svd300", "w" + str(window), "w" + str(window) + "_nns")
 dir_out = os.path.join(directory, "Evaluation", "output", "semantic-space-w"
                        + str(window) + "_t" + str(freq_threshold), "Lexicon_" + lexicon)
-dir_ss_neighbours = dir_ss
+#dir_ss_neighbours = dir_ss
 dir_lexicon = ""
 if lexicon == "AGWN":
     dir_lexicon = os.path.join(directory, "TAL paper", "wordnet", "Open Ancient Greek WordNet 0.5")
@@ -106,7 +106,7 @@ else:
 ss_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.dm"
 ssrows_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.rows"
 neighbours_file_name = "NEIGHBOURS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".rows.CORE_SS.matrix_w" \
-                       + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300_test.cos"
+                       + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.cos"
 
 # Output files:
 
@@ -829,7 +829,8 @@ if second_evaluation_approach_yes == "yes":
 
         count_n += 1
 
-        if (istest == "yes" and count_n < lines_read_testing) or istest == "no":
+        if (istest == "yes" and count_n < lines_read_testing) or istest == "no" and \
+                        lemma1 in lexicon_dissect_5neighbours and lemma2 in lexicon_dissect_5neighbours:
             id1 = lexicon_lemma2id[lemma1]
             id2 = lexicon_lemma2id[lemma2]
             norm_lemma1 = norm(lexicon_coordinates[lemma1])
