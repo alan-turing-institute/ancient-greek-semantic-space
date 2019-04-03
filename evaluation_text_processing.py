@@ -23,11 +23,10 @@ import matplotlib.pyplot as plt
 from scipy.stats import pearsonr, spearmanr
 import datetime
 
-import locale
-
-locale.setlocale(locale.LC_ALL, 'en_GB')
-
-# import seaborn; seaborn.set()  # set plot style
+vm = input("Are you using the VM? Reply yes or no.")
+if vm != "yes":
+    import locale
+    locale.setlocale(locale.LC_ALL, 'en_GB')
 
 # Default parameters:
 
@@ -74,8 +73,12 @@ now = datetime.datetime.now()
 
 # Directory and file names:
 
-directory = os.path.join("/Users", "bmcgillivray", "Documents", "OneDrive", "The Alan Turing Institute",
+if vm != "yes":
+    directory = os.path.join("/Users", "bmcgillivray", "Documents", "OneDrive", "The Alan Turing Institute",
                          "Martina Astrid Rodda - MAR dphil project")
+else:
+    directory = os.path.join("/home", "bmcgillivray",
+            "_Users_bmcgillivray_Documents_OneDrive_The_Alan_Turing_Institute_Martina_Astrid_Rodda_-_MAR_dphil_project")
 dir_ss = os.path.join(directory, "semantic_space", "sem_space_output")
 dir_ss_rows = os.path.join(dir_ss, "ppmi_svd300", "w" + str(window), "w" + str(window) + "_spaces")
 dir_ss_neighbours = os.path.join(dir_ss, "ppmi_svd300", "w" + str(window), "w" + str(window) + "_nns")
@@ -387,12 +390,12 @@ for synset_id in synsets:
 
     count_s += 1
     if count_s % 1000 == 0:
-        log_file.write(f"Line {count_s}: synset ID: {synset_id}\n")
+        log_file.write("Line: "+str(count_s) + ", synset ID: " + str(synset_id) + "\n")
         log_file.write("Lemmas: " + str(synsets[synset_id]) + "\n")
 
     if synset_id == "09620078-n":
-        log_file.write(f"\tTest! \n")
-        log_file.write(f"Line {count_s}: synset ID: {synset_id} \n")
+        log_file.write("\tTest! \n")
+        log_file.write("Line: "+str(count_s) + ", synset ID: " + str(synset_id) + "\n")
         log_file.write("Synset_id: " + str(synset_id) + ", lemmas: " + str(synsets[synset_id]) + "\n")
 
     synsets_this_lemma = synsets[synset_id]
@@ -925,18 +928,32 @@ if second_evaluation_approach_yes == "yes":
                             dissect_cos_distance_lemma1_lemma2) + "\n")
 
                 if count_n % 10000 == 0:
-                    log_file.write("Count " + str(locale.format("%d", count_n, grouping=True)) +
+                    if vm != "yes":
+                        log_file.write("Count " + str(locale.format("%d", count_n, grouping=True)) +
                                    " out of " + str(locale.format("%d", len(lexicon_cooccurrence), grouping=True)) +
                                    " synonyms " + lemma1 +
                                    " and " + lemma2 + ", Lexicon IDs are " + str(id1) + " and " + str(id2) +
                                    ", Lexicon cosine distance: " + str(lexicon_cos_distance_lemma1_lemma2) +
                                    ", DISSECT cosine distance:" + str(dissect_cos_distance_lemma1_lemma2) + "\n")
-                    print("Count " + str(locale.format("%d", count_n, grouping=True)) +
+                        print("Count " + str(locale.format("%d", count_n, grouping=True)) +
                           " out of " + str(locale.format("%d", len(lexicon_cooccurrence), grouping=True)) +
                           " synonyms " + lemma1 +
                           " and " + lemma2 + ", Lexicon IDs are " + str(id1) + " and " + str(id2) +
                           ", Lexicon cosine distance: " + str(lexicon_cos_distance_lemma1_lemma2) +
                           ", DISSECT cosine distance:" + str(dissect_cos_distance_lemma1_lemma2) + "\n")
+                    else:
+                        log_file.write("Count " + str(count_n) +
+                                       " out of " + str(len(lexicon_cooccurrence)) +
+                                       " synonyms " + lemma1 +
+                                       " and " + lemma2 + ", Lexicon IDs are " + str(id1) + " and " + str(id2) +
+                                       ", Lexicon cosine distance: " + str(lexicon_cos_distance_lemma1_lemma2) +
+                                       ", DISSECT cosine distance:" + str(dissect_cos_distance_lemma1_lemma2) + "\n")
+                        print("Count " + str(count_n) +
+                              " out of " + str(len(lexicon_cooccurrence)) +
+                              " synonyms " + lemma1 +
+                              " and " + lemma2 + ", Lexicon IDs are " + str(id1) + " and " + str(id2) +
+                              ", Lexicon cosine distance: " + str(lexicon_cos_distance_lemma1_lemma2) +
+                              ", DISSECT cosine distance:" + str(dissect_cos_distance_lemma1_lemma2) + "\n")
 
                 if lemma1 == "ἐπιμέλεια" and lemma2 == "κομιδή":
                     log_file.write("\tTest!" + "\n")
@@ -983,12 +1000,20 @@ if second_evaluation_approach_yes == "yes":
         count_n += 1
 
         if count_n % 10000 == 0:
-            log_file.write("Count " + str(locale.format("%d", count_n, grouping=True)) +
+            if vm != "yes":
+                log_file.write("Count " + str(locale.format("%d", count_n, grouping=True)) +
                            " out of " + str(locale.format("%d", len(lemma_neighbour2distance), grouping=True)) +
                            "Consider lemma+neighbour " + lemma + " and " + neighbour + "\n")
-            print("Count " + str(locale.format("%d", count_n, grouping=True)) +
+                print("Count " + str(locale.format("%d", count_n, grouping=True)) +
                   " out of " + str(locale.format("%d", len(lemma_neighbour2distance), grouping=True)) +
                   "Consider lemma+neighbour " + lemma + " and " + neighbour + "\n")
+            else:
+                log_file.write("Count " + str(count_n) +
+                               " out of " + str(len(lemma_neighbour2distance)) +
+                               "Consider lemma+neighbour " + lemma + " and " + neighbour + "\n")
+                print("Count " + str(count_n) +
+                      " out of " + str(len(lemma_neighbour2distance)) +
+                      "Consider lemma+neighbour " + lemma + " and " + neighbour + "\n")
 
         if (lemma in lexicon_dissect_5neighbours) and (neighbour in lexicon_dissect_5neighbours):
 
