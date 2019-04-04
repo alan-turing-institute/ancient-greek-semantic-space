@@ -192,9 +192,12 @@ dissect_distances_5neighbour = list()  # list of distance values from dissect_le
 # the top 5 neighbours for each lemma
 dissect_distances_lexicon_dissect_5neighbour = list()  # list of distance values from dissect_lemma2cosinedistance only
 # considering the lemmas shared between top 5 neighbours in DISSECT and Lexicon lemmas
-overlap_ratios = list()  # list of overlap ratio values for third evaluation approach
-lemma2overlap_ratio = dict()  # maps a shared lemma to the overlap ratio between its Lexicon synonyms and its DISSECT neighbours, divided by the union# :
-
+precisions = list()  # list of precision values for third evaluation approach
+recalls = list()  # list of recall values for third evaluation approach
+lemma2precision = dict()  # maps a shared lemma to the precision calculated from the overlap between its Lexicon
+# synonyms and its DISSECT neighbours, divided by the length of the neighbourset
+lemma2recall = dict()  # maps a shared lemma to the precision calculated from the overlap between its Lexicon
+# synonyms and its DISSECT neighbours, divided by the length of the synset
 # Open log file:
 
 log_file = open(os.path.join(dir_out, log_file_name), 'w', encoding="UTF-8")
@@ -389,9 +392,12 @@ count_s = 0
 for synset_id in synsets:
 
     count_s += 1
+    print("Line: " + str(count_s) + ", synset ID: " + str(synset_id) + "\n")
+
     if count_s % 1000 == 0:
         log_file.write("Line: "+str(count_s) + ", synset ID: " + str(synset_id) + "\n")
         log_file.write("Lemmas: " + str(synsets[synset_id]) + "\n")
+
 
     if synset_id == "09620078-n":
         log_file.write("\tTest! \n")
@@ -488,7 +494,7 @@ count_n = 0
 with open(os.path.join(dir_out, file_out_lexicon_cooccurrence_name), 'w',
           encoding="UTF-8") as file_out_lexicon_cooccurrence:
     file_out_lexicon_cooccurrence_writer = csv.writer(file_out_lexicon_cooccurrence, delimiter="\t")
-    file_out_lexicon_cooccurrence_writer.writerow([""] + lexicon_lemma2id_keys)
+    file_out_lexicon_cooccurrence_writer.writerow([""] + lexicon_dissect_5neighbours)
 
     for lemma1 in lexicon_dissect_5neighbours:
         count_n += 1
@@ -1252,8 +1258,17 @@ if third_evaluation_approach_yes:
 
     count_n = 0
 
+    # print out results:
+
+    summary_dissect_lexicon_overlap_file = open(os.path.join(dir_out, summary_dissect_lexicon_overlap_file_name), 'w')
+
+    summary_dissect_lexicon_overlap_file.write("lemma\tsynset\tneighbourset\toverlap\tprecision\trecall\n")
+
     for lemma in lexicon_dissect_5neighbours:
         count_n += 1
+        synset = []
+        neighbourset = []
+        overlap = []
         if count_n % 100 == 0:
             log_file.write(str(count_n) + "lemma: " + lemma + "\n")
 
@@ -1263,19 +1278,24 @@ if third_evaluation_approach_yes:
             synset = set(lemma2synset[lemma])
             neighbourset = set(lemma2neighbourset[lemma])
             overlap = list(synset.intersection(neighbourset))
-            overlap_ratio = len(overlap) / len(union)
-            union = list(synset) + list(neighbourset)
+            precision = len(overlap)/float(len(neighbourset))
+            recall = len(overlap) / float(len(synset))
             if count_n % 100 == 0:
                 log_file.write(str(count_n) + "lemma: " + lemma + "\n")
                 log_file.write("synset: " + str(synset) + "\n")
                 log_file.write("neighbourset: " + str(neighbourset) + "\n")
                 log_file.write("overlap: " + str(overlap) + "\n")
-                log_file.write("overlap ratio: " + str(len(overlap) / len(union)) + "\n")
+                log_file.write("precision: " + str(precision) + "\n")
+                log_file.write("recall: " + str(recall) + "\n")
         except:
-            overlap_ratio = 0
+            log_file.write("error for lemma " + lemma + "\n")
 
-        lemma2overlap_ratio[lemma] = overlap_ratio
-        overlap_ratios.append(overlap_ratio)
+        lemma2precision[lemma] = precision
+        lemma2recall[lemma] = recall
+        summary_dissect_lexicon_overlap_file.write(lemma+"\t"+str(synset)+"\t"+str(neighbourset)+"\t"+str(overlap)+
+        "\t"+str(precision)+"\t"+str(recall)+"\n")
+        precisions.append(precision)
+        recalls.append(recall)
 
         if lemma in ["κομιδή", "ἐπιμέλεια", "ἄατος"]:
             log_file.write("\tTest!" + "lemma: " + lemma + "\n")
@@ -1290,16 +1310,18 @@ if third_evaluation_approach_yes:
                         synset = set(lemma2synset[lemma])
                         neighbourset = set(lemma2neighbourset[lemma])
                         overlap = list(synset.intersection(neighbourset))
-                        union = list(synset) + list(neighbourset)
+                        precision = len(overlap) / float(len(neighbourset))
+                        recall = len(overlap) / float(len(synset))
                         log_file.write("\toverlap: " + str(overlap) + "\n")
                         try:
-                            overlap_ratio = len(overlap) / len(union)
-                            lemma2overlap_ratio[lemma] = overlap_ratio
-                            log_file.write("\toverlap_ratio: " + str(len(overlap)) + "/" + str(len(union)) + "=" +
-                                           str(len(overlap) / len(union)) + "=" + str(overlap_ratio) + "\n")
-                            log_file.write("\t " + lemma + str(lemma2overlap_ratio[lemma]) + "\n")
+                            log_file.write("\tprecision: " + str(len(overlap)) + "/" + str(len(neighbourset)) + "=" +
+                                           str(len(overlap) / len(neighbourset)) + "=" + str(precision) + "\n")
+                            log_file.write("\t " + lemma + str(lemma2precision[lemma]) + "\n")
+                            log_file.write("\trecall: " + str(len(overlap)) + "/" + str(len(synset)) + "=" +
+                                           str(len(overlap) / len(synset)) + "=" + str(recall) + "\n")
+                            log_file.write("\t " + lemma + str(lemma2recall[lemma]) + "\n")
                         except:
-                            log_file.write("No overlap ratio for lemma " + lemma + "\n")
+                            log_file.write("No precision/recall for lemma " + lemma + "\n")
                     except:
                         log_file.write("No overlap for lemma " + lemma + "\n")
                 except:
@@ -1309,35 +1331,51 @@ if third_evaluation_approach_yes:
 
     try:
         log_file.write("Examples:" + "\n")
-        log_file.write("Overlap ratio for κομιδή: " + str(lemma2overlap_ratio["κομιδή"]) + "\n")
-        log_file.write("Overlap ratio for ἐπιμέλεια: " + str(lemma2overlap_ratio["ἐπιμέλεια"]) + "\n")
-        log_file.write("Overlap ratio for ἄατος: " + str(lemma2overlap_ratio["ἄατος"]) + "\n")
+        log_file.write("Precision for κομιδή: " + str(lemma2precision["κομιδή"]) + "\n")
+        log_file.write("Recall for κομιδή: " + str(lemma2recall["κομιδή"]) + "\n")
+        log_file.write("Precision for ἐπιμέλεια: " + str(lemma2precision["ἐπιμέλεια"]) + "\n")
+        log_file.write("Recall for ἐπιμέλεια: " + str(lemma2recall["ἐπιμέλεια"]) + "\n")
+        log_file.write("Precision for ἄατος: " + str(lemma2precision["ἄατος"]) + "\n")
+        log_file.write("Recall for ἄατος: " + str(lemma2recall["ἄατος"]) + "\n")
     except:
         pass
 
-    # print out results:
 
-    summary_dissect_lexicon_overlap_file = open(os.path.join(dir_out, summary_dissect_lexicon_overlap_file_name), 'w')
+    precisions = np.array(precisions, dtype=np.float32)
 
-    summary_dissect_lexicon_overlap_file.write("Overlap ratios:" + str(lemma2overlap_ratio) + "\n")
+    mean_precisions = np.mean(precisions)
+    std_precisions = precisions.std()
+    min_precisions = precisions.min()
+    max_precisions = precisions.max()
+    median_precisions = np.median(precisions)
+    perc25_precisions = np.percentile(precisions, 25)
+    perc75_precisions = np.percentile(precisions, 75)
 
-    overlap_ratios = np.array(overlap_ratios, dtype=np.float32)
+    summary_dissect_lexicon_overlap_file.write("Mean of precision:" + str(mean_precisions) + "\n")
+    summary_dissect_lexicon_overlap_file.write("STD of precision:" + str(std_precisions) + "\n")
+    summary_dissect_lexicon_overlap_file.write("Min of precision:" + str(min_precisions) + "\n")
+    summary_dissect_lexicon_overlap_file.write("Max of precision:" + str(max_precisions) + "\n")
+    summary_dissect_lexicon_overlap_file.write("Median of precision:" + str(median_precisions) + "\n")
+    summary_dissect_lexicon_overlap_file.write("25th percentile of precision:" + str(perc25_precisions) + "\n")
+    summary_dissect_lexicon_overlap_file.write("75th percentile of precision:" + str(perc75_precisions) + "\n")
 
-    mean_overlaps = np.mean(overlap_ratios)
-    std_overlaps = overlap_ratios.std()
-    min_overlaps = overlap_ratios.min()
-    max_overlaps = overlap_ratios.max()
-    median_overlaps = np.median(overlap_ratios)
-    perc25_overlaps = np.percentile(overlap_ratios, 25)
-    perc75_overlaps = np.percentile(overlap_ratios, 75)
+    recalls = np.array(recalls, dtype=np.float32)
 
-    summary_dissect_lexicon_overlap_file.write("Mean of overlap ratios:" + str(mean_overlaps) + "\n")
-    summary_dissect_lexicon_overlap_file.write("STD of overlap ratios:" + str(std_overlaps) + "\n")
-    summary_dissect_lexicon_overlap_file.write("Min of overlap ratios:" + str(min_overlaps) + "\n")
-    summary_dissect_lexicon_overlap_file.write("Max of overlap ratios:" + str(max_overlaps) + "\n")
-    summary_dissect_lexicon_overlap_file.write("Median of overlap ratios:" + str(median_overlaps) + "\n")
-    summary_dissect_lexicon_overlap_file.write("25th percentile of overlap ratios:" + str(perc25_overlaps) + "\n")
-    summary_dissect_lexicon_overlap_file.write("75th percentile of overlap ratios:" + str(perc75_overlaps) + "\n")
+    mean_recalls = np.mean(recalls)
+    std_recalls = recalls.std()
+    min_recalls = recalls.min()
+    max_recalls = recalls.max()
+    median_recalls = np.median(recalls)
+    perc25_recalls = np.percentile(recalls, 25)
+    perc75_recalls = np.percentile(recalls, 75)
+
+    summary_dissect_lexicon_overlap_file.write("Mean of recall:" + str(mean_recalls) + "\n")
+    summary_dissect_lexicon_overlap_file.write("STD of recall:" + str(std_recalls) + "\n")
+    summary_dissect_lexicon_overlap_file.write("Min of recall:" + str(min_recalls) + "\n")
+    summary_dissect_lexicon_overlap_file.write("Max of recall:" + str(max_recalls) + "\n")
+    summary_dissect_lexicon_overlap_file.write("Median of recall:" + str(median_recalls) + "\n")
+    summary_dissect_lexicon_overlap_file.write("25th percentile of recall:" + str(perc25_recalls) + "\n")
+    summary_dissect_lexicon_overlap_file.write("75th percentile of recall:" + str(perc75_recalls) + "\n")
 
     summary_dissect_lexicon_overlap_file.close()
 
