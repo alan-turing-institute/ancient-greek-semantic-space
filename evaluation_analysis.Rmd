@@ -1,0 +1,206 @@
+title: "Ancient Greek semantic spaces: Analysis of evaluation results"
+output: html_document
+---
+
+Global options:
+
+```{r global_options}
+knitr::opts_chunk$set(fig.width=7)
+```
+
+# Initialization:
+
+## Load libraries and data, and set initial parameters
+
+Load libraries
+
+```{r message=FALSE}
+op <- options(warn = (-1)) # suppress warnings 
+library(readtext)
+library(stringr)
+
+library(dplyr)
+#library(lattice)
+#library(ca)
+#library(rtf)
+#library(gplots)
+#library(vcd)
+#library(party)
+#library(lme4)
+#library(leaps)
+library(knitr)
+#library(pander)
+library(plyr)
+#library(xlsx)
+#library(ggplot2)
+#library(stringi)
+#library(tm)
+#library(languageR)
+#library(googleVis)
+#library(tseries)
+#library(astsa)
+#library(fractal)
+options(op) # reset the default value
+```
+
+Initial parameters:
+
+```{r Initial parameters}
+path =  file.path("/Users", "bmcgillivray", "Documents", "OneDrive", "The Alan Turing Institute", "Martina Astrid Rodda - MAR dphil project", fsep = "/")
+window = 1
+freq_threshold = 1
+lexicon = "SCHMIDT"
+path_ev = paste(path, "Evaluation", "output", paste("semantic-space-w", window, "_t", freq_threshold, sep = ""), paste("Lexicon_", lexicon, sep = ""), sep = "/")
+path_wl = paste(path, "TAL paper", "ancient lexicography", sep = "/")
+word_list_file_name = 'word lists for philomen.txt'
+evaluation_file_name = paste("summary_overlap_Lexicon_", lexicon, "_semantic-space_w", window, "_t", freq_threshold, "_neighbours.txt", sep = "")
+```
+
+# Word list
+
+Read word list:
+
+```{r}
+word_list_file = readtext(file = paste(path_wl, word_list_file_name, sep = "/"), encoding = "UTF-8")
+word_list_text = word_list_file$text
+```
+
+Process word list:
+
+```{r}
+word_list_text = gsub("^.+?asterisk\n", "", word_list_text)
+word_list = strsplit(word_list_text, "\n")[[1]]
+#word_list = strsplit(word_list, "\t")
+#word_list = as.list(word_list, recursive = F)
+word_list = data.frame(word_list)
+word_list = word_list[!word_list$word_list == "",] # remove empty rows
+word_list = gsub("*", "", word_list, fixed = T) # remove *
+word_list = gsub("\t$", "", word_list, perl = T) # remove *
+word_list = data.frame(word_list)
+word_list = str_split(word_list$word_list, "\t", 3) # split by tab
+word_list = data.frame(matrix(unlist(word_list), ncol = 3, byrow = T))
+colnames(word_list) = c("ID", "lemma", "cat")
+word_list2 = str_split(word_list$cat, "/", 2) # split by /
+word_list2 = data.frame(matrix(unlist(word_list2), ncol = 2, byrow = T))
+colnames(word_list2) = c("frequency_class", "polysemy_class")
+word_list2$frequent = ifelse(word_list2$frequency_class == "F", T, F)
+word_list2$polysemous = ifelse(word_list2$polysemy_class == "P", T, F)
+word_list = data.frame(word_list[,c("lemma")], word_list2[,c("frequent", "polysemous")])
+colnames(word_list)[1] = "lemma"
+word_list
+```
+
+# Evaluation files
+
+Read evaluation file:
+
+```{r}
+evaluation_file = readtext(file = paste(path_ev, evaluation_file_name, sep = "/"), encoding = "UTF-8")
+evaluation_text = evaluation_file$text
+```
+
+Process evaluation text:
+
+```{r}
+evaluation_text = gsub("Mean of precision.+$", "", evaluation_text)
+evaluation = strsplit(evaluation_text, "\n")[[1]]
+evaluation = data.frame(evaluation)
+evaluation = str_split(evaluation$evaluation, "\t", 6) # split by tab
+cnames = evaluation[[1]]
+evaluation = data.frame(matrix(unlist(evaluation), ncol = 6, byrow = T))
+colnames(evaluation) = cnames
+evaluation = evaluation[2:nrow(evaluation),]
+evaluation$precision = as.numeric(as.character(evaluation$precision))
+evaluation$recall = as.numeric(as.character(evaluation$recall))
+```
+
+# Combine datasets
+
+Combine word list with evaluation dataset:
+
+```{r}
+data = merge(word_list, evaluation, by = c("lemma"))
+```
+
+##Distributions
+
+```{r}
+hist(data$precision)
+hist(data$recall)
+shapiro.test(data$precision)
+shapiro.test(data$recall)
+```
+
+The distributions are not normal. However, The t-test assumes that the means of the different samples are normally distributed; it does not assume that the population is normally distributed. By the central limit theorem, means of samples from a population with finite variance approach a normal distribution regardless of the distribution of the population. Rules of thumb say that the sample means are basically normally distributed as long as the sample size is at least 20 or 30. For a t-test to be valid on a sample of smaller size, the population distribution would have to be approximately normal. The t-test is invalid for small samples from non-normal distributions, but it is valid for large samples from non-normal distributions. In our case we have `r nrow(data)` data points.
+
+
+# Relationship between frequency and evaluation metrics
+
+```{r}
+par(mfrow = c(1,2))
+boxplot(precision ~ frequent, data = data, main = "Precision by frequency")
+boxplot(recall ~ frequent, data = data, main = "Recall by frequency")
+par(mfrow = c(1,1))
+```
+
+Frequency does not seem to make a difference to evaluation metrics.
+
+Is there a difference between frequent and non-frequent lemmas in terms of their precision?
+
+```{r}
+tapply(data$precision, data$frequent, mean)
+tapply(data$precision, data$frequent, sd)
+boxplot(data$precision ~ data$frequent)
+t.test(precision ~ frequent, data = data, paired = F)
+```
+
+No.
+
+Is there a difference between frequent and non-frequent lemmas in terms of their recall?
+
+```{r}
+tapply(data$recall, data$frequent, mean)
+tapply(data$recall, data$frequent, sd)
+boxplot(data$recall ~ data$frequent)
+t.test(recall ~ frequent, data = data, paired = F)
+```
+
+No.
+
+The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+
+
+# Relationship between polysemy and evaluation metrics
+
+```{r}
+par(mfrow = c(1,2))
+boxplot(precision ~ polysemous, data = data, main = "Precision by polysemy")
+boxplot(recall ~ polysemous, data = data, main= "Recall by polysemy")
+par(mfrow = c(1,1))
+```
+
+Polysemy, rather than frequency, seems to make a difference to evaluation metrics, with polysemous lemmas performing worse than monosemous ones.
+
+Is there a difference between polysemous and monosemous lemmas in terms of their precision?
+
+```{r}
+tapply(data$precision, data$polysemous, mean)
+tapply(data$precision, data$polysemous, sd)
+boxplot(data$precision ~ data$polysemous)
+t.test(precision ~ polysemous, data = data, paired = F)
+```
+
+No. The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+
+
+Is there a difference between polysemous and monosemous lemmas in terms of their recall?
+
+```{r}
+tapply(data$recall, data$polysemous, mean)
+tapply(data$recall, data$polysemous, sd)
+boxplot(data$recall ~ data$polysemous)
+t.test(recall ~ polysemous, data = data, paired = F)
+```
+
+No.The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+

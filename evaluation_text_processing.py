@@ -113,13 +113,13 @@ neighbours_file_name = "NEIGHBOURS.matrix_w" + str(window) + "_t" + str(freq_thr
 
 # Output files:
 
-file_out_lexicon_cooccurrence_name = "Lexicon_" + lexicon + "co-occurrences.csv"  # matrix with 0s and 1s depending on whether two lemmas
+file_out_lexicon_cooccurrence_name = "Lexicon_" + lexicon + "_co-occurrences.csv"  # matrix with 0s and 1s depending on whether two lemmas
 # co-occur in the same Lexicon synset
 # file_out_lexicon_distances_name = "Lexicon_distances.txt"  # matrix with cosine distances between pairs of Lexicon lemmas
 file_out_dissect_neighbour_name = "semantic-space_w" + str(window) + "_t" + str(
-    freq_threshold) + "neighbours_lemmas.txt"
+    freq_threshold) + "_neighbours_lemmas.txt"
 file_out_dissect_neighbour_distances_name = "semantic-space_w" + str(window) + "_t" + str(
-    freq_threshold) + "neighbours_distances.txt"
+    freq_threshold) + "_neighbours_distances.txt"
 file_out_shared_lemmas_name = "Lexicon_" + lexicon + "-semantic-space_w" + str(window) + "_t" + str(
     freq_threshold) + "_shared-lemmas.txt"
 file_out_lexicon_vocabulary_name = "Lexicon_" + lexicon + "_lemmas.txt"
