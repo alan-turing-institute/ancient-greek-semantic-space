@@ -3,13 +3,13 @@
 Code relative to the project on Ancient Greek semantic space. 
 Project team (in alphabetical order): Barbara McGillivray (Turing/Cambridge), Philomen Probert (Oxford), Martina Astrid Rodda (Oxford/Turing), enrichment student at Turing from January to June 2019.
 
-* evaluation_text_processing.py. This script was developed by Barbara McGillivray in March-April 2019. It takes as input a series of parameter values, as well as files relative to various semantic spaces created by the DISSECT tool on the Diorisis Ancient Greek corpus and files relative to three Ancient Greek lexicons, and returns a series of files containing the results of three evaluation approaches.
+* evaluation_text_processing.py. This Python 3 script was developed by Barbara McGillivray in March-April 2019. It takes as input a series of parameter values, as well as files relative to various semantic spaces created by the DISSECT tool on the Diorisis Ancient Greek corpus and files relative to three Ancient Greek lexicons, and returns a series of files containing the results of three evaluation approaches.
 
-The script can be run on a local computer, or on a linux virtual machine. It uses Python 3.
+The script can be run on a local computer, or on a linux virtual machine. 
 
 Use:
 
-1. Change definition of main directory on lines 77-81.
+1. Change definition of main directory in lines 77-81.
 2. Run script from command line: python evaluation_text_processing.py
 3. Enter values of parameters:
   a. "What is the window size?". Enter 1, 5, or 10, depending on the size of context window for co-occurrence matrix.
@@ -20,4 +20,10 @@ Use:
   f. "Do you want to follow the second evaluation approach?". Enter yes or no, depending on whether you want to run the second evaluation approach or not.
   g. "Do you want to follow the third evaluation approach?". Enter yes or no, depending on whether you want to run the third evaluation approach or not.
 
-* evaluation_analysis.Rmd. This script was developed by Barbara McGillivray in April 2019.
+* evaluation_analysis.Rmd. This R markdown script was developed by Barbara McGillivray in April 2019 and runs on RStudio. It analyses the results of the third evaluation approach (see below) on all combinations of parameters for the semantic spaces, to see if there is any association between precision/recall metrics and polysemy/frequency of lemmas. 
+
+Use:
+
+1. Change definition of directories (variables "path" and "path_wl") in lines 29-30.
+2. Knit file.
+
