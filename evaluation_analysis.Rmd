@@ -1,62 +1,48 @@
+---
 title: "Ancient Greek semantic spaces: Analysis of evaluation results"
 output: html_document
+author: Barbara McGillivray
 ---
 
-Global options:
 
-```{r global_options}
+
+```{r global_options, echo=FALSE}
+#Global options:
 knitr::opts_chunk$set(fig.width=7)
 ```
 
-# Initialization:
+# Initialization
 
 ## Load libraries and data, and set initial parameters
 
-Load libraries
+Load libraries:
 
 ```{r message=FALSE}
 op <- options(warn = (-1)) # suppress warnings 
 library(readtext)
 library(stringr)
-
-library(dplyr)
-#library(lattice)
-#library(ca)
-#library(rtf)
-#library(gplots)
-#library(vcd)
-#library(party)
-#library(lme4)
-#library(leaps)
-library(knitr)
-#library(pander)
-library(plyr)
-#library(xlsx)
-#library(ggplot2)
-#library(stringi)
-#library(tm)
-#library(languageR)
-#library(googleVis)
-#library(tseries)
-#library(astsa)
-#library(fractal)
 options(op) # reset the default value
 ```
 
-Initial parameters:
+Directory and file names:
+
+```{r}
+path =  file.path("/Users", "bmcgillivray", "Documents", "OneDrive", "The Alan Turing Institute", "Martina Astrid Rodda - MAR dphil project", fsep = "/")
+path_wl = paste(path, "TAL paper", "ancient lexicography", sep = "/")
+word_list_file_name = 'word lists for philomen.txt'
+```
+
+# Initial parameters
+
+Set parameters for initial exploration:
 
 ```{r Initial parameters}
-path =  file.path("/Users", "bmcgillivray", "Documents", "OneDrive", "The Alan Turing Institute", "Martina Astrid Rodda - MAR dphil project", fsep = "/")
 window = 1
 freq_threshold = 1
 lexicon = "SCHMIDT"
-path_ev = paste(path, "Evaluation", "output", paste("semantic-space-w", window, "_t", freq_threshold, sep = ""), paste("Lexicon_", lexicon, sep = ""), sep = "/")
-path_wl = paste(path, "TAL paper", "ancient lexicography", sep = "/")
-word_list_file_name = 'word lists for philomen.txt'
-evaluation_file_name = paste("summary_overlap_Lexicon_", lexicon, "_semantic-space_w", window, "_t", freq_threshold, "_neighbours.txt", sep = "")
 ```
 
-# Word list
+## Word list
 
 Read word list:
 
@@ -90,31 +76,65 @@ colnames(word_list)[1] = "lemma"
 word_list
 ```
 
-# Evaluation files
+## Evaluation files
 
-Read evaluation file:
-
-```{r}
-evaluation_file = readtext(file = paste(path_ev, evaluation_file_name, sep = "/"), encoding = "UTF-8")
-evaluation_text = evaluation_file$text
-```
-
-Process evaluation text:
+Function for creating name of evaluation file from parameters:
 
 ```{r}
-evaluation_text = gsub("Mean of precision.+$", "", evaluation_text)
-evaluation = strsplit(evaluation_text, "\n")[[1]]
-evaluation = data.frame(evaluation)
-evaluation = str_split(evaluation$evaluation, "\t", 6) # split by tab
-cnames = evaluation[[1]]
-evaluation = data.frame(matrix(unlist(evaluation), ncol = 6, byrow = T))
-colnames(evaluation) = cnames
-evaluation = evaluation[2:nrow(evaluation),]
-evaluation$precision = as.numeric(as.character(evaluation$precision))
-evaluation$recall = as.numeric(as.character(evaluation$recall))
+path_ev_fun = function(path_var, window_var, freq_threshold_var, lexicon_var) {
+  print(paste("Creating name of evaluation file for", path_var, window_var, freq_threshold_var, lexicon_var, sep = " "))
+  path_ev = paste(path_var, "Evaluation", "output", paste("semantic-space-w", window_var, "_t", freq_threshold_var, sep = ""), paste("Lexicon_", lexicon_var, sep = ""), sep = "/")
+  evaluation_file_name = paste("summary_overlap_Lexicon_", lexicon_var, "_semantic-space_w", window_var, "_t", freq_threshold_var, "_neighbours.txt", sep = "")
+  print(paste("Path_ev:", path_ev, sep = " "))
+  print(paste("Evaluation_file_name:", evaluation_file_name, sep = " "))
+  outlist <- list("path_ev" = path_ev, "evaluation_file_name" = evaluation_file_name)
+return(outlist) 
+}
 ```
 
-# Combine datasets
+Function for reading evaluation file:
+
+```{r}
+read_ev_file_fun = function(path_var, window_var, freq_threshold_var, lexicon_var){
+  print(paste("Reading evaluation file for ", path_var, window_var, freq_threshold_var, lexicon_var, sep = " "))
+  ev_list = path_ev_fun(path_var, window_var, freq_threshold_var, lexicon_var)
+  path_ev = ev_list$path_ev
+  evaluation_file_name = ev_list$evaluation_file_name 
+  evaluation_file = readtext(file = paste(path_ev, evaluation_file_name, sep = "/"), encoding = "UTF-8")
+  evaluation_text = evaluation_file$text
+  print(paste("Length of evaluation text:", length(evaluation_text[[1]])), sep = " ")
+  return (evaluation_text)
+}
+```
+
+Function for processing evaluation text:
+
+```{r}
+process_evaluation_text_fun = function(path_var, window_var, freq_threshold_var, lexicon_var){
+  print(paste("Processing evaluation text for ", path_var, window_var, freq_threshold_var, lexicon_var, sep = " "))
+  evaluation_text = read_ev_file_fun(path_var, window_var, freq_threshold_var, lexicon_var)
+  evaluation_text = gsub("Mean of precision.+$", "", evaluation_text)
+  evaluation = strsplit(evaluation_text, "\n")[[1]]
+  evaluation = data.frame(evaluation)
+  evaluation = str_split(evaluation$evaluation, "\t", 6) # split by tab
+  cnames = evaluation[[1]]
+  evaluation = data.frame(matrix(unlist(evaluation), ncol = 6, byrow = T))
+  colnames(evaluation) = cnames
+  evaluation = evaluation[2:nrow(evaluation),]
+  evaluation$precision = as.numeric(as.character(evaluation$precision))
+  evaluation$recall = as.numeric(as.character(evaluation$recall)) 
+  print(paste("Dimension of evaluation data frame:", dim(evaluation), sep = " "))
+  return (evaluation)
+}
+```
+
+Create evaluation dataset:
+
+```{r}
+evaluation = process_evaluation_text_fun(path, window, freq_threshold, lexicon)
+```
+
+## Combine datasets
 
 Combine word list with evaluation dataset:
 
@@ -134,7 +154,7 @@ shapiro.test(data$recall)
 The distributions are not normal. However, The t-test assumes that the means of the different samples are normally distributed; it does not assume that the population is normally distributed. By the central limit theorem, means of samples from a population with finite variance approach a normal distribution regardless of the distribution of the population. Rules of thumb say that the sample means are basically normally distributed as long as the sample size is at least 20 or 30. For a t-test to be valid on a sample of smaller size, the population distribution would have to be approximately normal. The t-test is invalid for small samples from non-normal distributions, but it is valid for large samples from non-normal distributions. In our case we have `r nrow(data)` data points.
 
 
-# Relationship between frequency and evaluation metrics
+## Relationship between frequency and evaluation metrics
 
 ```{r}
 par(mfrow = c(1,2))
@@ -170,12 +190,12 @@ No.
 The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
 
 
-# Relationship between polysemy and evaluation metrics
+## Relationship between polysemy and evaluation metrics
 
 ```{r}
 par(mfrow = c(1,2))
 boxplot(precision ~ polysemous, data = data, main = "Precision by polysemy")
-boxplot(recall ~ polysemous, data = data, main= "Recall by polysemy")
+boxplot(recall ~ polysemous, data = data, main = "Recall by polysemy")
 par(mfrow = c(1,1))
 ```
 
@@ -202,5 +222,245 @@ boxplot(data$recall ~ data$polysemous)
 t.test(recall ~ polysemous, data = data, paired = F)
 ```
 
-No.The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+No. The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+
+## Regression models
+
+```{r}
+ev.pr.lm <- lm(precision ~ frequent + polysemous, data = data)
+summary(ev.pr.lm)
+```
+
+Model diagnostics:
+
+```{r}
+par(mfrow = c(2,2))
+plot(ev.pr.lm)
+par(mfrow = c(1,1))
+```
+
+
+Not a good model.
+
+```{r}
+ev.re.lm <- lm(recall ~ frequent + polysemous, data = data)
+summary(ev.re.lm)
+```
+
+Model diagnostics:
+
+```{r}
+par(mfrow = c(2,2))
+plot(ev.re.lm)
+par(mfrow = c(1,1))
+```
+
+Not a good model.
+
+# All parameter combinations
+
+Loop over all parameter combinations:
+
+```{r Initial parameters1}
+windows = c(5,10)
+#freq_thresholds = c(1,20,50,100)
+freq_thresholds = c(50)
+#lexicons = c("SCHMIDT", "AGWN", "POLLUX")
+lexicons = c("SCHMIDT", "AGWN")
+```
+
+## Create datasets
+
+```{r}
+evaluations = data.frame(lemma=(character()),
+                 precision=double(), 
+                 recall=double(), 
+                 window=integer(),
+                 freq_threshold=integer(),
+                 lexicon=factor(),
+                 stringsAsFactors=FALSE) 
+for (window in windows) {
+  print(paste("Window:", window, sep = ""))
+  for (f in freq_thresholds) {
+    print(paste("Freq threshold:", f, sep = ""))
+    for (lexicon in lexicons){
+      print(paste("Lexicon:", lexicon, sep = ""))
+      evaluation = process_evaluation_text_fun(path, window, f, lexicon)
+      evaluation = evaluation[,c("lemma", "precision", "recall")]
+      evaluation$window = window
+      evaluation$freq_threshold = f
+      evaluation$lexicon = lexicon
+      evaluations = rbind(evaluations, evaluation)
+    }
+  }
+}
+```
+
+Prepare final dataset:
+
+```{r}
+data = merge(word_list, evaluations, by = c("lemma"))
+data$lexicon = as.factor(data$lexicon)
+dim(data)
+summary(data)
+```
+
+
+##Distributions
+
+```{r}
+hist(data$precision)
+hist(data$recall)
+shapiro.test(data$precision)
+shapiro.test(data$recall)
+```
+
+The distributions are not normal. However, The t-test assumes that the means of the different samples are normally distributed; it does not assume that the population is normally distributed. By the central limit theorem, means of samples from a population with finite variance approach a normal distribution regardless of the distribution of the population. Rules of thumb say that the sample means are basically normally distributed as long as the sample size is at least 20 or 30. For a t-test to be valid on a sample of smaller size, the population distribution would have to be approximately normal. The t-test is invalid for small samples from non-normal distributions, but it is valid for large samples from non-normal distributions. In our case we have `r nrow(data)` data points.
+
+
+# Relationship between frequency and evaluation metrics
+
+```{r}
+par(mfrow = c(1,2))
+boxplot(precision ~ frequent, data = data, main = "Precision by frequency")
+boxplot(recall ~ frequent, data = data, main = "Recall by frequency")
+par(mfrow = c(1,1))
+```
+
+Frequency does not seem to make a difference to evaluation metrics.
+
+Is there a statistically significant difference between frequent and non-frequent lemmas in terms of their precision?
+
+```{r}
+tapply(data$precision, data$frequent, mean)
+tapply(data$precision, data$frequent, sd)
+boxplot(data$precision ~ data$frequent)
+t.test(precision ~ frequent, data = data, paired = F)
+```
+
+No.
+
+Is there a statistically significant difference between frequent and non-frequent lemmas in terms of their recall?
+
+```{r}
+tapply(data$recall, data$frequent, mean)
+tapply(data$recall, data$frequent, sd)
+boxplot(data$recall ~ data$frequent)
+t.test(recall ~ frequent, data = data, paired = F)
+```
+
+No.
+
+The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+
+
+# Relationship between polysemy and evaluation metrics
+
+```{r}
+par(mfrow = c(1,2))
+boxplot(precision ~ polysemous, data = data, main = "Precision by polysemy")
+boxplot(recall ~ polysemous, data = data, main = "Recall by polysemy")
+par(mfrow = c(1,1))
+```
+
+Polysemy, rather than frequency, seems to make a difference to evaluation metrics, with polysemous lemmas performing worse than monosemous ones.
+
+Is there a statistically significant difference between polysemous and monosemous lemmas in terms of their precision?
+
+```{r}
+tapply(data$precision, data$polysemous, mean)
+tapply(data$precision, data$polysemous, sd)
+boxplot(data$precision ~ data$polysemous)
+t.test(precision ~ polysemous, data = data, paired = F)
+```
+
+No. The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+
+
+Is there a statistically significant difference between polysemous and monosemous lemmas in terms of their recall?
+
+```{r}
+tapply(data$recall, data$polysemous, mean)
+tapply(data$recall, data$polysemous, sd)
+boxplot(data$recall ~ data$polysemous)
+t.test(recall ~ polysemous, data = data, paired = F)
+```
+
+No. The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+
+## Regression models
+
+```{r}
+ev.pr.lm <- lm(precision ~ frequent + polysemous, data = data)
+summary(ev.pr.lm)
+```
+
+Model diagnostics:
+
+```{r}
+par(mfrow = c(2,2))
+plot(ev.pr.lm)
+par(mfrow = c(1,1))
+```
+
+
+Not a good model.
+
+```{r}
+ev.re.lm <- lm(recall ~ frequent + polysemous, data = data)
+summary(ev.re.lm)
+par(mfrow = c(2,2))
+plot(ev.re.lm)
+par(mfrow = c(1,1))
+```
+
+Not a good model.
+
+
+```{r}
+ev.pr.lm2 <- lm(precision ~ frequent + polysemous + lexicon + window, data = data)
+summary(ev.pr.lm2)
+par(mfrow = c(2,2))
+plot(ev.pr.lm2)
+par(mfrow = c(1,1))
+```
+
+Not a good model.
+
+NB: I get an error if I add freq_theshold to the list of predictors: "Error in model.frame.default(formula = precision ~ frequent + polysemous +  : 
+  variable lengths differ (found for 'freq_theshold')", probably because in this test case freq_threshold has only value 50.
+
+Stepwise regression:
+
+```{r}
+ev.pr.m0 <- lm(precision ~ 1, data = data)
+ev.pr.lm.step <- step(ev.pr.m0, scope = ~ frequent + polysemous + lexicon + window + recall, direction = "forward")
+summary(ev.pr.lm.step)
+```
+
+The higher the recall, the higher the precision, as expected. More interestingly, Schmidt's lexicon is associated to lower precision compared to the baseline, AGWN.
+
+Model diagnostics:
+
+```{r}
+par(mfrow = c(2,2))
+plot(ev.pr.lm.step)
+par(mfrow = c(1,1))
+```
+
+Not a great model.
+
+```{r}
+ev.re.m0 <- lm(recall ~ 1, data = data)
+ev.re.lm.step <- step(ev.re.m0, scope = ~ frequent + polysemous + lexicon + window + precision, direction = "forward")
+summary(ev.re.lm.step)
+par(mfrow = c(2,2))
+plot(ev.re.lm.step)
+par(mfrow = c(1,1))
+```
+
+The higher the precision, the higher the recall, as expected. More interestingly, Schmidt's lexicon is associated to higher recall compared to the baseline, AGWN.
+
+Check https://data.library.virginia.edu/diagnostic-plots/.
+
 
