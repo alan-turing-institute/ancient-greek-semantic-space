@@ -1,7 +1,8 @@
 # Ancient Greek Semantic Spaces
 
 Code relative to the project on Ancient Greek semantic space. 
-Project team (in alphabetical order): Barbara McGillivray (Turing/Cambridge), Philomen Probert (Oxford), Martina Astrid Rodda (Oxford/Turing), enrichment student at Turing from January to June 2019.
+
+Project team (in alphabetical order): Barbara McGillivray (Turing/Cambridge), Philomen Probert (Oxford), Martina Astrid Rodda (Oxford/Turing), enrichment student at the Turing from January to June 2019.
 
 ## evaluation_text_processing.py
 
