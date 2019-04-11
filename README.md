@@ -37,5 +37,6 @@ This R markdown script was developed by Barbara McGillivray in April 2019 and ru
 Use:
 
 1. Change definition of directories (variables "path" and "path_wl") in lines 29-30.
-2. Knit file and check evaluation_analysis.html.
+2. Update chunk on line 265 ff.
+3. Knit file and check evaluation_analysis.html.
 
