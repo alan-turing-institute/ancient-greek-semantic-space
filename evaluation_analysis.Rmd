@@ -151,7 +151,7 @@ shapiro.test(data$precision)
 shapiro.test(data$recall)
 ```
 
-The distributions are not normal. However, The t-test assumes that the means of the different samples are normally distributed; it does not assume that the population is normally distributed. By the central limit theorem, means of samples from a population with finite variance approach a normal distribution regardless of the distribution of the population. Rules of thumb say that the sample means are basically normally distributed as long as the sample size is at least 20 or 30. For a t-test to be valid on a sample of smaller size, the population distribution would have to be approximately normal. The t-test is invalid for small samples from non-normal distributions, but it is valid for large samples from non-normal distributions. In our case we have `r nrow(data)` data points.
+The distributions are not normal. However, the t-test assumes that the means of the different samples are normally distributed; it does not assume that the population is normally distributed. By the central limit theorem, means of samples from a population with finite variance approach a normal distribution regardless of the distribution of the population. Rules of thumb say that the sample means are basically normally distributed as long as the sample size is at least 20 or 30. For a t-test to be valid on a sample of smaller size, the population distribution would have to be approximately normal. The t-test is invalid for small samples from non-normal distributions, but it is valid for large samples from non-normal distributions. In our case we have `r nrow(data)` data points.
 
 
 ## Relationship between frequency and evaluation metrics
