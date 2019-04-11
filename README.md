@@ -29,6 +29,16 @@ Use:
   f. "Do you want to follow the second evaluation approach?". Enter yes or no, depending on whether you want to run the second evaluation approach or not.
   
   g. "Do you want to follow the third evaluation approach?". Enter yes or no, depending on whether you want to run the third evaluation approach or not.
+  
+  The output files are saved in folders like .../evaluation/output/semantic-space-w1_t20/SCHMIDT and are called:
+  
+  summary_comparison_distances_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt
+  
+  summary_overlap_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt
+  
+  summary_statistics_distance_Lexicon_SCHMIDT-semantic-space_w1_t20_neighbours.txt
+  
+(examples for window 1, frequency threshold 20, Schmidt's lexicon).
 
 ## evaluation_analysis.Rmd
 
