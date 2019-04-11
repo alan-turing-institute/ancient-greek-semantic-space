@@ -1,7 +1,8 @@
 # Ancient Greek Semantic Spaces
 
 Code relative to the project on Ancient Greek semantic space. 
-Project team (in alphabetical order): Barbara McGillivray (Turing/Cambridge), Philomen Probert (Oxford), Martina Astrid Rodda (Oxford/Turing), enrichment student at Turing from January to June 2019.
+
+Project team (in alphabetical order): Barbara McGillivray (Turing/Cambridge), Philomen Probert (Oxford), Martina Astrid Rodda (Oxford/Turing), enrichment student at the Turing from January to June 2019.
 
 ## evaluation_text_processing.py
 
@@ -14,13 +15,32 @@ Use:
 1. Change definition of main directory in lines 77-81.
 2. Run script from command line: python evaluation_text_processing.py
 3. Enter values of parameters:
+
   a. "What is the window size?". Enter 1, 5, or 10, depending on the size of context window for co-occurrence matrix.
+  
   b. "What is the frequency threshold for vocabulary lemmas?" Enter 1, 20, 50, or 100, depending on the frequency threshold for lemmas in vocabulary used to create the semantic space.
+  
   c. "Is this a test?". Enter yes or no, depending on whether you want to run the script in test mode (i.e. only reading the first lines of the input files) or not.
+  
   d. "Which lexicon do you want to consider?" Enter AGWN, SCHMIDT, or POLLUX, depending on which lexicon you're interested in comparing the semantic space with.
+  
   e. "Do you want to follow the first evaluation approach?". Enter yes or no, depending on whether you want to run the first evaluation approach or not.
+  
   f. "Do you want to follow the second evaluation approach?". Enter yes or no, depending on whether you want to run the second evaluation approach or not.
+  
   g. "Do you want to follow the third evaluation approach?". Enter yes or no, depending on whether you want to run the third evaluation approach or not.
+  
+  The output files are saved in folders like .../evaluation/output/semantic-space-w1_t20/SCHMIDT and are called:
+  
+  summary_statistics_distance_Lexicon_SCHMIDT-semantic-space_w1_t20_neighbours.txt: contains various statistics about cosine distance in DISSECT space. You can ignore it.
+  
+  summary_comparison_distances_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: contains result of Pearson and Spearman correlation tests (see article).
+  
+  summary_overlap_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: contains synsets, neighboursets, overlap, precision and recall by lemma, and summary statistics of precision and recall (see article).
+  
+  
+  
+(examples for window 1, frequency threshold 20, Schmidt's lexicon).
 
 ## evaluation_analysis.Rmd
 
@@ -29,5 +49,6 @@ This R markdown script was developed by Barbara McGillivray in April 2019 and ru
 Use:
 
 1. Change definition of directories (variables "path" and "path_wl") in lines 29-30.
-2. Knit file.
+2. Update chunk on line 265 ff.
+3. Knit file and check evaluation_analysis.html.
 
