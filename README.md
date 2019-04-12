@@ -32,11 +32,11 @@ Use:
   
   The output files are saved in folders like .../evaluation/output/semantic-space-w1_t20/SCHMIDT and are called:
   
-  summary_statistics_distance_Lexicon_SCHMIDT-semantic-space_w1_t20_neighbours.txt: contains various statistics about cosine distance in DISSECT space. You can ignore it.
+  * summary_statistics_distance_Lexicon_SCHMIDT-semantic-space_w1_t20_neighbours.txt: contains various statistics about cosine distance in DISSECT space. You can ignore it.
   
-  summary_comparison_distances_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: contains result of Pearson and Spearman correlation tests (see article).
+  * summary_comparison_distances_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: contains result of Pearson and Spearman correlation tests (see article).
   
-  summary_overlap_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: contains synsets, neighboursets, overlap, precision and recall by lemma, and summary statistics of precision and recall (see article).
+  * summary_overlap_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: contains synsets, neighboursets, overlap, precision and recall by lemma, and summary statistics of precision and recall (see article).
   
   
   
