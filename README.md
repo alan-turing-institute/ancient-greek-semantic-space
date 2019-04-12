@@ -30,17 +30,14 @@ Use:
   
   g. "Do you want to follow the third evaluation approach?". Enter yes or no, depending on whether you want to run the third evaluation approach or not.
   
-  The output files are saved in folders like .../evaluation/output/semantic-space-w1_t20/SCHMIDT and are called:
+  The output files are saved in folders like .../evaluation/output/semantic-space-w1_t20/SCHMIDT (this is an example for window 1, frequency threshold 20, Schmidt's lexicon), and contain:
   
-  * summary_statistics_distance_Lexicon_SCHMIDT-semantic-space_w1_t20_neighbours.txt: contains various statistics about cosine distance in DISSECT space. You can ignore it.
+  * summary_statistics_distance_Lexicon_SCHMIDT-semantic-space_w1_t20_neighbours.txt: various statistics about cosine distance in DISSECT space. You can ignore it.
   
-  * summary_comparison_distances_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: contains result of Pearson and Spearman correlation tests (see article).
+  * summary_comparison_distances_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: results of Pearson and Spearman correlation tests (see article).
   
-  * summary_overlap_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: contains synsets, neighboursets, overlap, precision and recall by lemma, and summary statistics of precision and recall (see article).
-  
-  
-  
-(examples for window 1, frequency threshold 20, Schmidt's lexicon).
+  * summary_overlap_Lexicon_SCHMIDT_semantic-space_w1_t20_neighbours.txt: synsets, neighboursets, overlap, precision and recall by lemma, and summary statistics of precision and recall (see article).
+
 
 ## evaluation_analysis.Rmd
 
@@ -52,3 +49,7 @@ Use:
 2. Update chunk on line 265 ff.
 3. Knit file and check evaluation_analysis.html.
 
+
+## References
+
+Rodda, M. A., Probert, P. and McGillivray, B. (forthcoming). "Vector space models of Ancient Greek word meaning, and a case study on Homer".
