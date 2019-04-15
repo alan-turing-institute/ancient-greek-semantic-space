@@ -49,7 +49,7 @@ freq_threshold = input("What is the frequency threshold for vocabulary lemmas? L
                        str(freq_threshold_default) + ").")  # 2 or 50 # frequency threshold for lemmas in vocabulary
 istest = input("Is this a test? Leave empty for default (" + str(istest_default) + ").")
 lexicon = input("Which lexicon do you want to consider? Leave empty for default (" + str(lexicon_default) +
-                "). Another option is SCHMIDT.")
+                "). Other options are SCHMIDT and POLLUX.")
 first_evaluation_approach_yes = input("Do you want to follow the first evaluation approach? Leave empty for default (" +
                                       first_evaluation_approach_yes_default + ").")
 second_evaluation_approach_yes = input(
@@ -88,8 +88,10 @@ dir_out = os.path.join(directory, "Evaluation", "output", "semantic-space-w"
 dir_lexicon = ""
 if lexicon == "AGWN":
     dir_lexicon = os.path.join(directory, "TAL paper", "wordnet", "Open Ancient Greek WordNet 0.5")
-else:
+elif lexicon == "SCHMIDT":
     dir_lexicon = os.path.join(directory, "TAL paper", "modern lexicography")
+else:
+    dir_lexicon = os.path.join(directory, "TAL paper", "ancient lexicography")
 
 # create output directory if it doesn't exist:
 if not os.path.exists(os.path.join(directory, "Evaluation", "output", "semantic-space-w"
@@ -102,9 +104,10 @@ if not os.path.exists(os.path.join(directory, "Evaluation", "output", "semantic-
 lexicon_file_name = ""
 if lexicon == "AGWN":
     lexicon_file_name = "wn-data-grc.tab"
+elif lexicon == "SCHMIDT":
+   lexicon_file_name = "schmidt.csv"
 else:
-    if lexicon == "SCHMIDT":
-        lexicon_file_name = "schmidt.csv"
+    lexicon_file_name = "Pollux - csv file03"
 
 ss_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.dm"
 ssrows_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.rows"
