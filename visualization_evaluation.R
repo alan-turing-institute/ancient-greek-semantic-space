@@ -28,15 +28,20 @@ ev_summ = ev_summ[,c(2,3,4,7,9,10)]
 summary(ev_summ)
 colnames(ev_summ)[4] = "Sp.corr"
 ev_summ = ev_summ[complete.cases(ev_summ), ]
+summary(round(ev_summ$Mean.of.precision, 3))
+summary(round(ev_summ$Mean.of.recall, 3))
 
 # Visualize data:
 
-bmp(paste(path, "plots", "evaluation_visualization.bmp", sep = "/"))
+boxplot(Mean.of.precision ~ lexicon, data = ev_summ, main = "Mean precision")
+boxplot(Mean.of.recall ~ lexicon, data = ev_summ, main = "Mean recall")
+
+png(paste(path, "plots", "evaluation_visualization.png", sep = "/"))
 ggplot(ev_summ, aes(Mean.of.precision, Mean.of.recall)) + 
   geom_point(aes(size = Sp.corr, shape = as.factor(window), colour = freq.threshold), alpha = 0.7) + 
   facet_wrap( ~ lexicon )
 dev.off()
 
-bmp(paste(path, "plots", "evaluation_visualization_variables.bmp", sep = "/"))
+png(paste(path, "plots", "evaluation_visualization_variables.png", sep = "/"))
 ggpairs(ev_summ)
 dev.off()
