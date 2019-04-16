@@ -45,10 +45,20 @@ This R markdown script was developed by Barbara McGillivray in April 2019 and ru
 
 Use:
 
-1. Change definition of directories (variable "path") on line 29.
+1. Change definition of main directory (variable "path") on line 29.
 2. Update chunk on line 265 ff. by uncommenting lines 265, 267, and 269 and commenting lines 266, 268, and 270.
 3. Knit file and check evaluation_analysis.html.
 
+
+## visualization_evaluation.R
+
+This R script was developed by Barbara McGillivray in April 2019. It visualizes the patterns of association displayed in the evaluation summary contained in Summary_evaluation.xlsx.
+
+Use:
+
+1. Change definition of directory (variable "path") on line 13.
+2. Run script.
+3. Use plots in subdirectory "plots".
 
 ## References
 
