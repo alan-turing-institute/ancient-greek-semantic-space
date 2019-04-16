@@ -30,6 +30,7 @@ colnames(ev_summ)[4] = "Sp.corr"
 ev_summ = ev_summ[complete.cases(ev_summ), ]
 summary(round(ev_summ$Mean.of.precision, 3))
 summary(round(ev_summ$Mean.of.recall, 3))
+summary(round(ev_summ$Sp.corr, 3))
 
 # Visualize data:
 

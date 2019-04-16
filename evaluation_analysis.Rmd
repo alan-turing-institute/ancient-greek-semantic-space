@@ -262,12 +262,12 @@ Not a good model.
 Loop over all parameter combinations:
 
 ```{r Initial parameters1}
-#windows = c(1,5,10)
-windows = c(5,10)
-#freq_thresholds = c(1,20,50,100)
-freq_thresholds = c(50)
-#lexicons = c("SCHMIDT", "AGWN", "POLLUX")
-lexicons = c("SCHMIDT", "AGWN")
+windows = c(1,5,10)
+#windows = c(5,10)
+freq_thresholds = c(1,20,50,100)
+#freq_thresholds = c(50)
+lexicons = c("SCHMIDT", "AGWN", "POLLUX")
+#lexicons = c("POLLUX")
 ```
 
 ## Create datasets
@@ -286,15 +286,19 @@ for (window in windows) {
     print(paste("Freq threshold:", f, sep = ""))
     for (lexicon in lexicons){
       print(paste("Lexicon:", lexicon, sep = ""))
+      if (!(window == 1 && f ==	1 && lexicon ==	"AGWN") && !(window == 5 && freq_threshold ==	1	&& lexicon ==	"AGWN") && !(window == 10	&& freq_threshold ==1 && lexicon ==	"AGWN") && !(window == 10 && freq_threshold ==	20	&& lexicon ==	"AGWN")
+          ){
+        print(paste("Continue with", "window:", window, "Freq threshold:", f, "Lexicon:", lexicon, sep = " "))
       evaluation = process_evaluation_text_fun(path, window, f, lexicon)
       evaluation = evaluation[,c("lemma", "precision", "recall")]
       evaluation$window = window
       evaluation$freq_threshold = f
       evaluation$lexicon = lexicon
-      evaluations = rbind(evaluations, evaluation)
+      evaluations = rbind(evaluations, evaluation)}
     }
   }
 }
+evaluations$lexicon = as.factor(evaluations$lexicon)
 ```
 
 Prepare final dataset:
@@ -375,7 +379,7 @@ boxplot(data$precision ~ data$polysemous)
 t.test(precision ~ polysemous, data = data, paired = F)
 ```
 
-No. The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+Yes. The low p-value indicates that we can reject the null hypothesis that the two groups have the same mean.
 
 
 Is there a statistically significant difference between polysemous and monosemous lemmas in terms of their recall?
@@ -387,7 +391,7 @@ boxplot(data$recall ~ data$polysemous)
 t.test(recall ~ polysemous, data = data, paired = F)
 ```
 
-No. The high p-value indicates that we cannot reject the null hypothesis that the two groups have the same mean.
+Yes. The low p-value indicates that we can reject the null hypothesis that the two groups have the same mean.
 
 ## Regression models
 
