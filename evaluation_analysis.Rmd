@@ -423,7 +423,7 @@ Not a good model.
 
 
 ```{r}
-ev.pr.lm2 <- lm(precision ~ frequent + polysemous + lexicon + window, data = data)
+ev.pr.lm2 <- lm(precision ~ frequent + polysemous + lexicon + window + freq_threshold, data = data)
 summary(ev.pr.lm2)
 par(mfrow = c(2,2))
 plot(ev.pr.lm2)
@@ -432,14 +432,11 @@ par(mfrow = c(1,1))
 
 Not a good model.
 
-NB: I get an error if I add freq_theshold to the list of predictors: "Error in model.frame.default(formula = precision ~ frequent + polysemous +  : 
-  variable lengths differ (found for 'freq_theshold')", probably because in this test case freq_threshold has only value 50.
-
 Stepwise regression:
 
 ```{r}
 ev.pr.m0 <- lm(precision ~ 1, data = data)
-ev.pr.lm.step <- step(ev.pr.m0, scope = ~ frequent + polysemous + lexicon + window + recall, direction = "forward")
+ev.pr.lm.step <- step(ev.pr.m0, scope = ~ frequent + polysemous + lexicon + window + recall + freq_threshold)#, direction = "forward")
 summary(ev.pr.lm.step)
 ```
 
@@ -457,12 +454,20 @@ Not a great model.
 
 ```{r}
 ev.re.m0 <- lm(recall ~ 1, data = data)
-ev.re.lm.step <- step(ev.re.m0, scope = ~ frequent + polysemous + lexicon + window + precision, direction = "forward")
+ev.re.lm.step <- step(ev.re.m0, 
+                      scope = ~ frequent + polysemous + lexicon + window + precision)
+                      #direction = "forward"
 summary(ev.re.lm.step)
+png(paste(path, "Evaluation", "plots", "model_diagnostics.png", sep = "/"))
 par(mfrow = c(2,2))
 plot(ev.re.lm.step)
 par(mfrow = c(1,1))
+dev.off()
+hist(resid(ev.re.lm.step))
+plot(ev.re.lm.step, which = 1)
 ```
+
+The histogram of standardised residuals shows that the assumption of normality is valid. The fitted values and residuals plot shows that the assumption of homoscedasticity is valid, as there is no pattern in the scatterplot and the width of the scatterplot as predicted values increase is roughly the same.
 
 The higher the precision, the higher the recall, as expected. More interestingly, Schmidt's lexicon is associated to higher recall compared to the baseline, AGWN.
 
