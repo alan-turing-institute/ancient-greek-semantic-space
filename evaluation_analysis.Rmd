@@ -265,7 +265,7 @@ Loop over all parameter combinations:
 windows = c(1,5,10)
 #windows = c(5,10)
 freq_thresholds = c(1,20,50,100)
-#freq_thresholds = c(50)
+freq_thresholds = c(20,50,100)
 lexicons = c("SCHMIDT", "AGWN", "POLLUX")
 #lexicons = c("POLLUX")
 ```
@@ -286,8 +286,7 @@ for (window in windows) {
     print(paste("Freq threshold:", f, sep = ""))
     for (lexicon in lexicons){
       print(paste("Lexicon:", lexicon, sep = ""))
-      if (!(window == 1 && f ==	1 && lexicon ==	"AGWN") && !(window == 5 && freq_threshold ==	1	&& lexicon ==	"AGWN") && !(window == 10	&& freq_threshold ==1 && lexicon ==	"AGWN") && !(window == 10 && freq_threshold ==	20	&& lexicon ==	"AGWN")
-          ){
+      #if ((!(window == 1 && f ==	1 && lexicon ==	"AGWN") && !(window == 5 && freq_threshold ==	1	&& lexicon ==	"AGWN") && !(window == 10	&& freq_threshold ==1 && lexicon ==	"AGWN") && !(window == 10 && )freq_threshold ==	20	&& lexicon ==	"AGWN")){
         print(paste("Continue with", "window:", window, "Freq threshold:", f, "Lexicon:", lexicon, sep = " "))
       evaluation = process_evaluation_text_fun(path, window, f, lexicon)
       evaluation = evaluation[,c("lemma", "precision", "recall")]
@@ -295,7 +294,7 @@ for (window in windows) {
       evaluation$freq_threshold = f
       evaluation$lexicon = lexicon
       evaluations = rbind(evaluations, evaluation)}
-    }
+    #}
   }
 }
 evaluations$lexicon = as.factor(evaluations$lexicon)
