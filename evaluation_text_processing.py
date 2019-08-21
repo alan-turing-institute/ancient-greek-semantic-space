@@ -732,7 +732,10 @@ if first_evaluation_approach_yes == "yes":
             dissect_distances_lexicon_dissect_neighbour, 75)
 
         summary_stats_dissect_neighbours_file.write(
-            "Mean of DISSECT distances  neighbours: " + str(mean_dissect_distances_neighbour) + "\n")
+            "Mean of DISSECT distances neighbours: " + str(mean_dissect_distances_neighbour) + "\n")
+        print(
+            "Mean of DISSECT distances neighbours: " + str(mean_dissect_distances_neighbour) + "\n")
+
         summary_stats_dissect_neighbours_file.write(
             "Mean of DISSECT distances of shared lemmas between DISSECT top neighbours "
             "and Lexicon " + lexicon + " lemmas: " + str(
