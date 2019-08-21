@@ -107,7 +107,7 @@ if lexicon == "AGWN":
 elif lexicon == "SCHMIDT":
    lexicon_file_name = "schmidt.csv"
 else:
-    lexicon_file_name = "Pollux - csv file03"
+    lexicon_file_name = "Pollux for revision.csv"
 
 ss_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.dm"
 ssrows_file_name = "CORE_SS.matrix_w" + str(window) + "_t" + str(freq_threshold) + ".ppmi.svd_300.rows"
