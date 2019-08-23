@@ -318,27 +318,30 @@ for lexicon in lexicons:
                         neighbour = row[2]
                         lexicon_distance = row[4]
                         dissect_distance = row[5]
-                        rank_neighbour_lemma = lemma_neighbour2rank[lemma, neighbour]
-                        inv_rank = float(1 / rank_neighbour_lemma)
-                        log_file.write("Shared lemma: " + lemma + "\n")
-                        log_file.write("\tNeighbour: " + neighbour + "\n")
-                        log_file.write("\t\tRank: " + str(rank_neighbour_lemma) + "\n")
-                        log_file.write("\t\t\tInverse rank: " + str(inv_rank) + "\n")
-                        if lemma == lemma_old:
-                            sum_inv_ranks_lemma += inv_rank
-                            log_file.write("Sum of inverse ranks for lemma " + lemma + ": " + str(sum_inv_ranks_lemma) + "\n")
-                        else:
-                            #dissect_lexicon_sumranks_neighbours_file.write(lemma + "\t" + str(sum_inv_ranks_lemma) + "\n")
-                            sum_inv_ranks_lemma = inv_rank
-                            sum_inv_ranks += sum_inv_ranks_lemma
-                            num_lemmas += 1
-                            log_file.write(str(num_lemmas) + " lemmas so far\n")
-                            log_file.write("Sum of inverse ranks for lemma " + lemma + " so far: " + str(sum_inv_ranks_lemma) + "\n")
-                            #sum_inv_ranks_lemma = 0
-                        dissect_lexicon_ranks_neighbours_file.write(lemma + "\t" + neighbour + "\t" +
-                                                              str(rank_neighbour_lemma) + "\t" + str(inv_rank) + "\n")
+                        #print(str(lexicon_distance))
+                        if float(lexicon_distance) < 1: # this means that the neighbour and the lemma share some synonyms in
+                        # the lexicon
+                            rank_neighbour_lemma = lemma_neighbour2rank[lemma, neighbour]
+                            inv_rank = float(1 / rank_neighbour_lemma)
+                            log_file.write("Shared lemma: " + lemma + "\n")
+                            log_file.write("\tNeighbour: " + neighbour + "\n")
+                            log_file.write("\t\tRank: " + str(rank_neighbour_lemma) + "\n")
+                            log_file.write("\t\t\tInverse rank: " + str(inv_rank) + "\n")
+                            if lemma == lemma_old:
+                                sum_inv_ranks_lemma += inv_rank
+                                log_file.write("Sum of inverse ranks for lemma " + lemma + ": " + str(sum_inv_ranks_lemma) + "\n")
+                            else:
+                                #dissect_lexicon_sumranks_neighbours_file.write(lemma + "\t" + str(sum_inv_ranks_lemma) + "\n")
+                                sum_inv_ranks_lemma = inv_rank
+                                sum_inv_ranks += sum_inv_ranks_lemma
+                                num_lemmas += 1
+                                log_file.write(str(num_lemmas) + " lemmas so far\n")
+                                log_file.write("Sum of inverse ranks for lemma " + lemma + " so far: " + str(sum_inv_ranks_lemma) + "\n")
+                                #sum_inv_ranks_lemma = 0
+                            dissect_lexicon_ranks_neighbours_file.write(lemma + "\t" + neighbour + "\t" +
+                                                                  str(rank_neighbour_lemma) + "\t" + str(inv_rank) + "\n")
 
-                        lemma_old = lemma
+                            lemma_old = lemma
 
                 dissect_lexicon_distances_neighbours_file.close()
                 dissect_lexicon_ranks_neighbours_file.close()
