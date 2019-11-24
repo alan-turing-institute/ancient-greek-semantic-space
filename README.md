@@ -4,6 +4,17 @@ Code relative to the project on Ancient Greek semantic space.
 
 Project team (in alphabetical order): Barbara McGillivray (Turing/Cambridge), Philomen Probert (Oxford), Martina Astrid Rodda (Oxford/Turing), enrichment student at the Turing from January to June 2019.
 
+## corpusprocess_2.0.py
+
+This Python 3 script was developed by Martina Astrid Rodda in February-April 2019. It takes as input a series of parameter values, as well as .xml files from the Diorisis Ancient Greek corpus, and returns a series of files that can be used as input for the DISSECT tool.
+
+Use:
+
+1. Set window size and frequency filter on lines 18-19.
+2. Set input and output path on lines 22, 25.
+
+The script produces three output files (a sparse matrix, .sm, plus a .rows and .cols file indexing the matrix) that can be used to build a semantic space using DISSECT (https://github.com/composes-toolkit/dissect).
+
 ## evaluation_text_processing.py
 
 This Python 3 script was developed by Barbara McGillivray in March-April 2019. It takes as input a series of parameter values, as well as files relative to various semantic spaces created by the DISSECT tool on the Diorisis Ancient Greek corpus and files relative to three Ancient Greek lexicons, and returns a series of files containing the results of three evaluation approaches.
@@ -59,6 +70,21 @@ Use:
 1. Change definition of directory (variable "path") on line 13.
 2. Run script.
 3. Use plots in subdirectory "plots".
+
+## proximity_1.3_centroid.py
+
+This Python 3 script was developed by Martina Astrid Rodda in May 2019. It takes as input a series of parameter values, a plaintext file with a list of target words, as well as .dm file produced by DISSECT (containing a semantic space), and computes the cosine distance between the centroid of all target words and each individual target word.
+
+Use:
+
+1. Set directory and file names for input and output files in lines 31-49.
+2. Enter values of parameters:
+
+  a. "What is the window size?". Enter 1, 5, or 10, depending on the size of context window for co-occurrence matrix.
+  
+  b. "What is the frequency threshold for vocabulary lemmas?" Enter 1, 20, 50, or 100, depending on the frequency threshold for lemmas in vocabulary used to create the semantic space.
+  
+  c. "What is the target file name? (format: target_$, enter $)" Enter the second half of the name for the list of target words.
 
 ## References
 
