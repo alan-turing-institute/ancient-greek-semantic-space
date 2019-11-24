@@ -1,4 +1,4 @@
-#initialisation from BmG code -- https://github.com/alan-turing-institute/ancient-greek-semantic-space/blob/5a64675f95aff1f98b85a4f51416beec279d390f/evaluation_text_processing.py
+#author: Martina Astrid Rodda
 
 # Import modules:
 
@@ -102,7 +102,7 @@ centroid_targets = np.sum(centroid_array,axis=0)/len(dissect_target2coordinates)
 #print check
 # print(centroid_targets)
 
-#second snippet of BmG code (modified) -- computes cosine distance
+#compute cosine distance
 with open(os.path.join(dir_out, file_out_cos_distance), 'w', encoding = 'UTF-8') as output:
     for target in dissect_target2coordinates:
         cos_distance_target2centroid = distance.cosine(dissect_target2coordinates[target], centroid_targets)
