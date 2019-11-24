@@ -10,20 +10,14 @@ from os import listdir
 from os.path import isfile, join
 import csv
 
-#todo: for parameters: use argparse
-    #remember to update all parameter-defined elements below, 'welp!'
-
 #open xml files with ElementTree
-    #todo: iterate over all files in corpus
 import xml.etree.ElementTree as ET
 
-#todo: set up window size parameter and delete this
+#set up window size and frequency threshold parameters
 window_size = 1
-
-#todo: set up frequency threshold parameter and delete this
 freq_threshold = 50
 
-#todo: path variable
+#set path variable
 path = "C:/Users/mrodda/OneDrive - The Alan Turing Institute/desktop files/Diorisis"
 
 #define output path
@@ -35,10 +29,7 @@ out_cols = 'debug_w'+str(window_size)+'_t'+str(freq_threshold)+'.cols'
 out_rows = 'debug_w'+str(window_size)+'_t'+str(freq_threshold)+'.rows'
 
 #step: import stoplist
-#todo: add link to AVatri github repo
-#parameter: exclude_stops
-    # todo: set parameter
-
+#the list of stop-words, compiled by Alessandro Vatri based on the Perseus Hopper source, is available at https://figshare.com/articles/Ancient_Greek_stop_words/9724613.
     # """This list comes from the Perseus Hopper source [http://sourceforge.net/projects/perseus-hopper],
     # found at "/sgml/reading/build/stoplists", though this only contained acute accents on the ultima.
     # There has been added to this grave accents to the ultima of each.
@@ -225,10 +216,6 @@ for file in files:
     print(file)
     tree = ET.parse(join(path,file))
     root = tree.getroot()
-
-#parameter: exclude BC/AD
-#todo: set up parameter
-    #extract date from teiHeader/profileDesc/creation/date
 
 #step: extract lemmas from xml files
     #todo: for None lemmatag extract word form
