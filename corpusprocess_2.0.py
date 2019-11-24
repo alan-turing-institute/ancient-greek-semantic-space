@@ -25,9 +25,9 @@ path = "C:/Users/mrodda/OneDrive - The Alan Turing Institute/desktop files/Diori
 path_out = "C:/Users/mrodda/OneDrive - The Alan Turing Institute/MAR dphil project"
 
 #define output file
-out_file = 'debug_w'+str(window_size)+'_t'+str(freq_threshold)+'.sm'
-out_cols = 'debug_w'+str(window_size)+'_t'+str(freq_threshold)+'.cols'
-out_rows = 'debug_w'+str(window_size)+'_t'+str(freq_threshold)+'.rows'
+out_file = 'w'+str(window_size)+'_t'+str(freq_threshold)+'.sm'
+out_cols = 'w'+str(window_size)+'_t'+str(freq_threshold)+'.cols'
+out_rows = 'w'+str(window_size)+'_t'+str(freq_threshold)+'.rows'
 
 #step: import stoplist
 #the list of stop-words, compiled by Alessandro Vatri based on the Perseus Hopper source, is available at https://figshare.com/articles/Ancient_Greek_stop_words/9724613.
