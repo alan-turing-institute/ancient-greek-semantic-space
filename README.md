@@ -15,6 +15,16 @@ Use:
 
 The script produces three output files (a sparse matrix, .sm, plus a .rows and .cols file indexing the matrix) that can be used to build a semantic space using DISSECT (https://github.com/composes-toolkit/dissect).
 
+## pollux_lexicon.txt and schmidt_lexicon.txt
+
+These two text files contain lists of lemmas used as a benchmark for the accuracy of the semantic space.
+
+The former, compiled by Philomen Probert, is from Pollux's *Onomasticon* (2nd century AD), and lists 'headwords' used to search for nouns that are listed as synonyms of said headwords by Pollux.
+
+The latter, compiled by Martina Astrid Rodda is from J.H.H. Schmidt's *Synonymik der Griechischen Sprache* (1876-1886), and lists all of the nouns in each section of Schmidt's dictionary, indexed by an English definition for each section.
+
+These files have been used as input for evaluation_text_processing.py.
+
 ## evaluation_text_processing.py
 
 This Python 3 script was developed by Barbara McGillivray in March-April 2019. It takes as input a series of parameter values, as well as files relative to various semantic spaces created by the DISSECT tool on the Diorisis Ancient Greek corpus and files relative to three Ancient Greek lexicons, and returns a series of files containing the results of three evaluation approaches.
