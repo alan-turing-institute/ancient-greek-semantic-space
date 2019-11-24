@@ -1,0 +1,1418 @@
+#SCHMIDT			
+#1	eng:def	0	speech, word	
+1	grc:lemma	μῦθος	
+1	grc:lemma	λόγος	
+1	grc:lemma	λέξις	
+1	grc:lemma	διάλεκτος	
+1	grc:lemma	βάξις	
+1	grc:lemma	ἔπος	
+1	grc:lemma	ὄψ	
+1	grc:lemma	ὀμφή	
+1	grc:lemma	ἐνοπή	
+1	grc:lemma	αὐδή	
+1	grc:lemma	φωνή	
+1	grc:lemma	ἀφωνία	
+1	grc:lemma	φθέγμα	
+1	grc:lemma	φθόγγος	
+1	grc:lemma	φθογγή	
+1	grc:lemma	γῆρυς	
+1	grc:lemma	θρόος	
+1	grc:lemma	ῥῆσις	
+1	grc:lemma	ῥῆμα	
+1	grc:lemma	ῥητήρ	
+1	grc:lemma	ῥήτωρ	
+1	grc:lemma	ῥήτρη	
+1	grc:lemma	ἀφασία	
+1	grc:lemma	φήμη	
+1	grc:lemma	φῆμις	
+1	grc:lemma	φάτις	
+1	grc:lemma	φράσις	
+1	grc:lemma	ἀγορητύς	
+1	grc:lemma	ἀγορητής	
+#2	eng:def	0	name, appellation	
+2	grc:lemma	ὄνομα	
+2	grc:lemma	ἐπωνυμία	
+2	grc:lemma	ἐπίκλησις	
+2	grc:lemma	προσηγορία	
+#3	eng:def	0	shout, call	
+3	grc:lemma	κραυγή	
+3	grc:lemma	ἀυτή	
+3	grc:lemma	ἰαχή	
+3	grc:lemma	βοή	
+3	grc:lemma	ὁμοκλή	
+3	grc:lemma	κλῆσις	
+#4	eng:def	0	blame, reproach	
+4	grc:lemma	ἐνιπή	
+4	grc:lemma	κύδος	
+4	grc:lemma	λοιδορία	
+4	grc:lemma	ὄνειδος	
+4	grc:lemma	δέννος	
+4	grc:lemma	κακολογία	
+4	grc:lemma	κακήγορος	
+4	grc:lemma	κακηγορία	
+4	grc:lemma	αἰσχρολόγος	
+4	grc:lemma	αἰσχρολογία	
+4	grc:lemma	αἰσχροεπής	
+4	grc:lemma	μομφή	
+4	grc:lemma	μέμψις	
+4	grc:lemma	ψόγος	
+4	grc:lemma	ἐπιτίμησις	
+4	grc:lemma	ἔλεγχος	
+#5	eng:def	0	accusation	
+5	grc:lemma	αἰτία	
+5	grc:lemma	αἰτίασις	
+5	grc:lemma	κατήγορος	
+5	grc:lemma	κατηγορία	
+5	grc:lemma	κατηγόρημα	
+5	grc:lemma	ἔγκλημα	
+5	grc:lemma	ἐπίκλημα	
+5	grc:lemma	διαβολή	
+5	grc:lemma	διάβολος	
+5	grc:lemma	κακισμός	
+5	grc:lemma	ἐπίπληξις	
+#6	eng:def	0	chatter, small talk	
+6	grc:lemma	στωμυλία	
+6	grc:lemma	στώμυλμα	
+6	grc:lemma	λαλιά	
+6	grc:lemma	λέσχη	
+6	grc:lemma	λέσχης	
+6	grc:lemma	λεσχηνεία	
+6	grc:lemma	λεσχηνευτής	
+6	grc:lemma	πολυμυθία	
+6	grc:lemma	στομαργία	
+6	grc:lemma	γλωσσαλγία	
+6	grc:lemma	κωτιλία	
+6	grc:lemma	κόπις	
+6	grc:lemma	τερθρεία	
+6	grc:lemma	ἀδολέσχης	
+6	grc:lemma	ἀδολεσχία	
+6	grc:lemma	φληναφία	
+6	grc:lemma	φλέδων	
+6	grc:lemma	φλεδονεία	
+6	grc:lemma	φλεδών	
+6	grc:lemma	φλυαρία	
+6	grc:lemma	ὕθλος	
+6	grc:lemma	λῆρος	
+6	grc:lemma	παραλήρησις	
+#7	eng:def	0	prayer, supplication	
+7	grc:lemma	ἀρά	
+7	grc:lemma	εὐχή	
+7	grc:lemma	εὐχωλή	
+7	grc:lemma	λιτή	
+7	grc:lemma	δέησις	
+7	grc:lemma	ἱκέτης	
+7	grc:lemma	ἱκτήρ	
+7	grc:lemma	ἱκετεία	
+7	grc:lemma	ἱκεσία	
+7	grc:lemma	προστροπή	
+7	grc:lemma	πρόστροπος	
+7	grc:lemma	ἄντη	
+7	grc:lemma	ἄντησις	
+7	grc:lemma	ἀντιβόλησις	
+7	grc:lemma	ἀντιβολία	
+7	grc:lemma	αἴτησις	
+7	grc:lemma	αἴτημα	
+7	grc:lemma	παραίτησις	
+#8	eng:def	0	order, command	
+8	grc:lemma	κέλευσμα	
+8	grc:lemma	κέλευμα	
+8	grc:lemma	κελευστής	
+8	grc:lemma	παράγγελσις	
+8	grc:lemma	παραγγελία	
+8	grc:lemma	παράγγελμα	
+8	grc:lemma	σημάντωρ	
+8	grc:lemma	ἐπιστολή	
+8	grc:lemma	ἐντολή	
+8	grc:lemma	ἐφετμή	
+8	grc:lemma	ἐφημοσύνη	
+8	grc:lemma	ἐφέτης	
+8	grc:lemma	θεσμός	
+8	grc:lemma	τάξις	
+8	grc:lemma	τάγμα	
+8	grc:lemma	ταγός	
+8	grc:lemma	ἐπίταξις	
+8	grc:lemma	ἐπίταγμα	
+8	grc:lemma	πρόσταξις	
+8	grc:lemma	πρόσταγμα	
+#9	eng:def	0	silence	
+9	grc:lemma	σιωπή	
+9	grc:lemma	σιγή	
+9	grc:lemma	ἡσυχία	
+#10	eng:def	0	touch	
+10	grc:lemma	θίξις	
+10	grc:lemma	θίγμα	
+10	grc:lemma	ψαῦσις	
+10	grc:lemma	ψαῦσμα	
+10	grc:lemma	ἁφή	
+10	grc:lemma	ἅψις	
+10	grc:lemma	ἐπαφή	
+10	grc:lemma	ψηλάφησις	
+10	grc:lemma	ψηλάφημα	
+10	grc:lemma	ψηλαφία	
+#11	eng:def	0	sight, vision, image, view	
+11	grc:lemma	ὅρασις	
+11	grc:lemma	ὅραμα	
+11	grc:lemma	ὀπτήρ	
+11	grc:lemma	ὀπτήρια	
+11	grc:lemma	ὄψις	
+11	grc:lemma	ὄμμα	
+11	grc:lemma	κακόπτης	
+11	grc:lemma	κακοπτήρ	
+11	grc:lemma	κάτοπρον	
+11	grc:lemma	εἶδος	
+11	grc:lemma	ἰδέα	
+11	grc:lemma	βλέμμα	
+11	grc:lemma	δέργμα	
+11	grc:lemma	ἄθρημα	
+11	grc:lemma	σκέψις	
+11	grc:lemma	σκέμμα	
+11	grc:lemma	σκοπή	
+11	grc:lemma	σκοπός	
+11	grc:lemma	σκοπιά	
+11	grc:lemma	θέα	
+11	grc:lemma	θεατής	
+11	grc:lemma	θέαμα	
+11	grc:lemma	θέατρον	
+11	grc:lemma	θεωρός	
+11	grc:lemma	θεωρία	
+11	grc:lemma	θεώρημα	
+11	grc:lemma	θεώρητρα	
+#12	eng:def	0	hearing, listening	
+12	grc:lemma	ἀίτας	
+12	grc:lemma	ἀκοή	
+12	grc:lemma	ἄκουσμα	
+12	grc:lemma	ἀκουστής	
+12	grc:lemma	ἀκρόασις	
+12	grc:lemma	ἀκρόαμα	
+12	grc:lemma	ἀκροατής	
+12	grc:lemma	ὠπτακουστής	
+#13	eng:def	0	knowledge, understanding	
+13	grc:lemma	ἀγνωσία	
+13	grc:lemma	ἀγνοία	
+13	grc:lemma	ἄγνοια	
+13	grc:lemma	γνώμη	
+13	grc:lemma	γνωμωσύνη	
+13	grc:lemma	ἀγνωμωσύνη	
+13	grc:lemma	γνῶσις	
+13	grc:lemma	γνῶμα	
+13	grc:lemma	γνωστήρ	
+13	grc:lemma	γνώρισις	
+13	grc:lemma	γνώρισμα	
+13	grc:lemma	γνωριστής	
+13	grc:lemma	ἰδρείη	
+13	grc:lemma	ἀιδρείη	
+13	grc:lemma	ἰδμοσύνη	
+13	grc:lemma	ἐπιστήμη	
+13	grc:lemma	ἀνεπιστημοσύνη	
+13	grc:lemma	ἐπιστάτης	
+13	grc:lemma	σύνεσις	
+13	grc:lemma	ἀσυνεσία	
+#14	eng:def	0	memory	
+14	grc:lemma	μνῆσις	
+14	grc:lemma	μνημοσύνη	
+14	grc:lemma	μνήμη	
+14	grc:lemma	μνεία	
+14	grc:lemma	μνημεῖον	
+14	grc:lemma	μνημόνευμα	
+14	grc:lemma	ἀπομνημόνευμα	
+14	grc:lemma	ὑπόμνησις	
+14	grc:lemma	ὑπόμνημα	
+14	grc:lemma	ἀνάμνησις	
+#15	eng:def	0	appearance	
+15	grc:lemma	δόξα	
+15	grc:lemma	δόκησις	
+15	grc:lemma	δόκημα	
+15	grc:lemma	δοκή	
+15	grc:lemma	δοκώ	
+15	grc:lemma	φάσμα	
+#16	eng:def	0	maybe	
+#17	eng:def	0	opinion, belief, trust	
+17	grc:lemma	νόμος	
+17	grc:lemma	νόμισις	
+17	grc:lemma	νόμισμα	
+17	grc:lemma	οἴησις	
+17	grc:lemma	δόγμα	
+17	grc:lemma	δόξα	
+17	grc:lemma	δοξαστής	
+17	grc:lemma	δόξασμα	
+17	grc:lemma	πίστις	
+17	grc:lemma	πίστευμα	
+#18	eng:def	0	justice, judgement	
+18	grc:lemma	θέμις	
+18	grc:lemma	θεσμός	
+18	grc:lemma	τεθμός	
+18	grc:lemma	δίκη	
+18	grc:lemma	ἀδικία	
+18	grc:lemma	δικαιοσύνη	
+18	grc:lemma	δικαστής	
+18	grc:lemma	δικαστήριον	
+18	grc:lemma	κρίσις	
+18	grc:lemma	κρῖμα	
+18	grc:lemma	κριτής	
+18	grc:lemma	κριτήριον	
+18	grc:lemma	δίαιτα	
+18	grc:lemma	διαιτητής	
+#19	eng:def	0	head	
+19	grc:lemma	κάρα	
+19	grc:lemma	κάρ	
+19	grc:lemma	κάρηνον	
+19	grc:lemma	κάρανος	
+19	grc:lemma	κορυφή	
+19	grc:lemma	κορυφαῖον	
+19	grc:lemma	κόρυμβος	
+19	grc:lemma	κεφαλή	
+19	grc:lemma	κεφάλαιον	
+#20	eng:def	0	eye	
+20	grc:lemma	ὀφθαλμός	
+20	grc:lemma	ὄσσε	
+20	grc:lemma	ὄμμα	
+20	grc:lemma	δέργμα	
+#21	eng:def	0	hair	
+21	grc:lemma	θρίξ	
+21	grc:lemma	ἔθειρα	
+21	grc:lemma	κόμη	
+21	grc:lemma	χαίτη	
+21	grc:lemma	φόβη	
+#22	eng:def	0	hand	
+22	grc:lemma	χείρ	
+22	grc:lemma	παλάμη	
+22	grc:lemma	θέναρ	
+22	grc:lemma	ὑποθέναρ	
+22	grc:lemma	ὀπισθέναρ	
+22	grc:lemma	κοτύλη	
+22	grc:lemma	δράξ	
+22	grc:lemma	δράγμα	
+22	grc:lemma	ἀγοστός	
+22	grc:lemma	πυγμή	
+22	grc:lemma	κόνδυλος	
+#23	eng:def	0	action, activity, work	
+23	grc:lemma	δρησμοσύνη	
+23	grc:lemma	δρᾶμα	
+23	grc:lemma	δραστήρ	
+23	grc:lemma	δρηστοσύνη	
+23	grc:lemma	ἔργον	
+23	grc:lemma	ἔργμα	
+23	grc:lemma	ῥέκτης	
+23	grc:lemma	ῥεκτήρ	
+23	grc:lemma	ἐργαστγήρ	
+23	grc:lemma	ἐργάτης	
+23	grc:lemma	ἐργασία	
+23	grc:lemma	πρᾶξις	
+23	grc:lemma	πρᾶγμα	
+23	grc:lemma	πράκτωρ	
+23	grc:lemma	πρηκτήρ	
+23	grc:lemma	ποίησις	
+23	grc:lemma	ποίημα	
+23	grc:lemma	ποιητής	
+#24	eng:def	0	suffering	
+24	grc:lemma	πάθος	
+24	grc:lemma	πάθη	
+24	grc:lemma	πάθημα	
+24	grc:lemma	πῆμα	
+24	grc:lemma	πημονή	
+24	grc:lemma	πημοσύνη	
+24	grc:lemma	τλημοσύνη	
+24	grc:lemma	τόλμα	
+24	grc:lemma	ὑπομονή	
+#25	eng:def	0	sleep	
+25	grc:lemma	ὕπνος	
+25	grc:lemma	κῶμα	
+25	grc:lemma	νυσταγμός	
+25	grc:lemma	ἀνάπαυσις	
+#26	eng:def	0	tear, weeping	
+26	grc:lemma	δάκρυ	
+26	grc:lemma	δάκρυον	
+26	grc:lemma	δάκρυμα	
+26	grc:lemma	κλαυθμός	
+26	grc:lemma	κλαῦμα	
+26	grc:lemma	κλαυμονή	
+#27	eng:def	0	movement, journey	
+27	grc:lemma	ἤλυσις	
+27	grc:lemma	νόστος	
+27	grc:lemma	φοίτησις	
+27	grc:lemma	βάσις	
+27	grc:lemma	βῆμα	
+27	grc:lemma	βάδος	
+27	grc:lemma	βάδισις	
+27	grc:lemma	βάδισμα	
+27	grc:lemma	ἕρψις	
+27	grc:lemma	ἑρπετόν	
+27	grc:lemma	ἕρπης	
+27	grc:lemma	πόρος	
+27	grc:lemma	πορεία	
+27	grc:lemma	πόρευμα	
+27	grc:lemma	στίχος	
+27	grc:lemma	στοῖχος	
+27	grc:lemma	χορός	
+27	grc:lemma	χῶρος	
+#28	eng:def	0	arrival	
+28	grc:lemma	ἵξις	
+28	grc:lemma	ἄφιξις	
+#29	eng:def	0	to go	
+#30	eng:def	0	run	
+30	grc:lemma	τρόχος	
+30	grc:lemma	δρόμος	
+30	grc:lemma	δρομεύς	
+30	grc:lemma	δράμημα	
+#31	eng:def	0	jump	
+31	grc:lemma	θρωσμός	
+31	grc:lemma	θορός	
+31	grc:lemma	θορή	
+31	grc:lemma	ἅλσις	
+31	grc:lemma	ἅλμα	
+31	grc:lemma	πήδησις	
+31	grc:lemma	πηδηθμός	
+31	grc:lemma	πήδημα	
+31	grc:lemma	σκίρτημα	
+#32	eng:def	0	wandering	
+32	grc:lemma	πλαγκτοσύνη	
+32	grc:lemma	πλάνη	
+32	grc:lemma	πλάνησις	
+32	grc:lemma	πλάνημα	
+32	grc:lemma	πλανήτης	
+32	grc:lemma	ἄλη	
+32	grc:lemma	ἀλήτης	
+32	grc:lemma	ἀλητεία	
+32	grc:lemma	ἀλέη	
+#33	eng:def	0	light, brightness	
+33	grc:lemma	φάος	
+33	grc:lemma	φῶς	
+33	grc:lemma	φαιδρότης	
+33	grc:lemma	φέγγος	
+33	grc:lemma	αὐγή	
+33	grc:lemma	αἴγλη	
+33	grc:lemma	σέλας	
+33	grc:lemma	λαμπάς	
+33	grc:lemma	λάμπη	
+33	grc:lemma	λαμπρότης	
+33	grc:lemma	στίλβη	
+33	grc:lemma	μαρμαρυγή	
+33	grc:lemma	σιγάλωμα	
+33	grc:lemma	γλαυκότης	
+33	grc:lemma	γλαύκωσις	
+33	grc:lemma	γλαύκωμα	
+33	grc:lemma	γάνος	
+33	grc:lemma	γάνωμα	
+#34	eng:def	0	darkness	
+34	grc:lemma	σκότος	
+34	grc:lemma	λύγη	
+34	grc:lemma	ἠλύγη	
+34	grc:lemma	ὄρφνη	
+34	grc:lemma	ἔρεβος	
+34	grc:lemma	ζόφος	
+34	grc:lemma	δνόφος	
+34	grc:lemma	γνόφος	
+34	grc:lemma	κνέφας	
+34	grc:lemma	ἀχλύς	
+#35	eng:def	0	mist	
+35	grc:lemma	ἀήρ	
+35	grc:lemma	ὁμίχλη	
+#36	eng:def	0	cloud	
+36	grc:lemma	νέφος	
+36	grc:lemma	νεφέλη	
+#37	eng:def	0	rain	
+37	grc:lemma	ὑετός	
+37	grc:lemma	ὕσμα	
+37	grc:lemma	ὄμβρος	
+37	grc:lemma	ἐπομβρία	
+37	grc:lemma	ὕδωρ	
+37	grc:lemma	ψακάς	
+37	grc:lemma	ψεκάς	
+37	grc:lemma	ψεκάδια	
+#38	eng:def	0	source, well	
+38	grc:lemma	κρήνη	
+38	grc:lemma	κρουνός	
+38	grc:lemma	πηγή	
+38	grc:lemma	πῖδαξ	
+38	grc:lemma	φρέαρ	
+38	grc:lemma	φρεατία	
+#39	eng:def	0	river, stream	
+39	grc:lemma	ποταμός	
+39	grc:lemma	νᾶμα	
+39	grc:lemma	ῥέος	
+39	grc:lemma	ῥόος	
+39	grc:lemma	ῥοή	
+39	grc:lemma	ῥεῦμα	
+39	grc:lemma	ῥεῖθρον	
+39	grc:lemma	ῥύαξ	
+#40	eng:def	0	sea	
+40	grc:lemma	ἅλς	
+40	grc:lemma	θάλασσα	
+40	grc:lemma	πόντος	
+40	grc:lemma	πέλαγος	
+40	grc:lemma	ὠκεανός	
+#41	eng:def	0	place	
+41	grc:lemma	χῶρος	
+41	grc:lemma	χώρα	
+41	grc:lemma	χωρίον	
+41	grc:lemma	τόπος	
+#42	eng:def	0	near, close	
+42	grc:lemma	πελάτης	
+42	grc:lemma	σχεδία	
+42	grc:lemma	ἀγχιστεία	
+#43	eng:def	0	neighbour	
+43	grc:lemma	γείτων	
+43	grc:lemma	γειτονία	
+43	grc:lemma	γειτόνημα	
+43	grc:lemma	γειτνίασις	
+43	grc:lemma	ἀστυγείτων	
+43	grc:lemma	παροίκησις	
+43	grc:lemma	ὁμορία	
+#44	eng:def	0	time	
+44	grc:lemma	χρόνος	
+44	grc:lemma	αἰών	
+44	grc:lemma	ὥρα	
+44	grc:lemma	ἀωρία	
+44	grc:lemma	καιρός	
+44	grc:lemma	εὐκαιρία	
+44	grc:lemma	ἀκαιρία	
+#45	eng:def	0	eternal	
+#46	eng:def	0	old, ancient	
+46	grc:lemma	παλαιότης	
+46	grc:lemma	ἀρχαιότης	
+46	grc:lemma	γῆρας	
+46	grc:lemma	γέρων	
+46	grc:lemma	πρέσβυς	
+46	grc:lemma	πρεσβύτης	
+46	grc:lemma	πρεσβεία	
+#47	eng:def	0	young	
+47	grc:lemma	νεότης	
+47	grc:lemma	νέασις	
+47	grc:lemma	νεωτερισμός	
+47	grc:lemma	νεοσσός	
+47	grc:lemma	νεογνός	
+47	grc:lemma	νηπιέη	
+47	grc:lemma	νηπιότης	
+47	grc:lemma	νεόχμωσις	
+47	grc:lemma	καινότης	
+47	grc:lemma	καινοτομία	
+#48	eng:def	0	swift, quick	
+48	grc:lemma	ταχυτής	
+48	grc:lemma	τάχος	
+48	grc:lemma	ὠκύτης	
+48	grc:lemma	ποδώκεια	
+48	grc:lemma	ὀξύτης	
+48	grc:lemma	ἐλαφρότης	
+#49	eng:def	0	slow	
+49	grc:lemma	βραδυτής	
+49	grc:lemma	νώθεια	
+49	grc:lemma	νωθρία	
+49	grc:lemma	νωθρότης	
+49	grc:lemma	νωχελίη	
+49	grc:lemma	ἀεργίη	
+49	grc:lemma	ἀργία	
+#50	eng:def	0	sudden	
+#51	eng:def	0	stone	
+51	grc:lemma	λίθος	
+51	grc:lemma	λιθάς	
+51	grc:lemma	λίθιον	
+51	grc:lemma	λιθίδιον	
+51	grc:lemma	λιθάριον	
+51	grc:lemma	λᾶας	
+51	grc:lemma	λᾶς	
+51	grc:lemma	λάιγξ	
+51	grc:lemma	πέτρος	
+51	grc:lemma	πέτρα	
+51	grc:lemma	ψῆφος	
+51	grc:lemma	ψηφίς	
+51	grc:lemma	λάλλα	
+51	grc:lemma	κροκάλη	
+51	grc:lemma	κρόκη	
+51	grc:lemma	χεράς	
+51	grc:lemma	χέραδος	
+51	grc:lemma	χερμάς	
+51	grc:lemma	χερμάδιον	
+51	grc:lemma	χάλιξ	
+51	grc:lemma	κάχληξ	
+51	grc:lemma	κόχλαξ	
+51	grc:lemma	χοιράς	
+51	grc:lemma	σπίλος	
+51	grc:lemma	σπιλάς	
+51	grc:lemma	σκόπελος	
+#52	eng:def	0	mud	
+52	grc:lemma	πηλός	
+52	grc:lemma	πήλωσις	
+52	grc:lemma	βόρβορος	
+52	grc:lemma	ἰλύς	
+52	grc:lemma	θολός	
+52	grc:lemma	θόλωσις	
+52	grc:lemma	ἄσις	
+52	grc:lemma	ἀφυσγετός	
+#53	eng:def	0	excrement, shit, filth	
+53	grc:lemma	κόπρος	
+53	grc:lemma	κόπρωσις	
+53	grc:lemma	κόπρισις	
+53	grc:lemma	κοπρισμός	
+53	grc:lemma	σκῶρ	
+53	grc:lemma	ὄνθος	
+53	grc:lemma	βόλβιτον	
+53	grc:lemma	βόλβιτος	
+53	grc:lemma	βόλιτον	
+53	grc:lemma	βόλιτος	
+53	grc:lemma	πέλεθος	
+53	grc:lemma	σπέλεθος	
+#54	eng:def	0	dirt, filth	
+54	grc:lemma	ῥύπος	
+54	grc:lemma	πίνος	
+54	grc:lemma	εὐπίνεια	
+54	grc:lemma	σπῖλος	
+54	grc:lemma	κηλίς	
+54	grc:lemma	κηλάς	
+54	grc:lemma	ἄρδα	
+54	grc:lemma	λῦμα	
+54	grc:lemma	λύθρον	
+54	grc:lemma	λύθρος	
+#55	eng:def	0	wind	
+55	grc:lemma	πνοή	
+55	grc:lemma	ἄπνοια	
+55	grc:lemma	πνεῦμα	
+55	grc:lemma	ἀπνευστία	
+55	grc:lemma	ἀυτμή	
+55	grc:lemma	ἄημα	
+55	grc:lemma	ἄελλα	
+55	grc:lemma	αὖρα	
+55	grc:lemma	οὖρος	
+55	grc:lemma	ἄνεμος	
+55	grc:lemma	νηνεμία	
+55	grc:lemma	θύελλα	
+55	grc:lemma	λαῖλαψ	
+55	grc:lemma	αἰγίς	
+55	grc:lemma	καταιγίς	
+55	grc:lemma	ἐκνεφίας	
+55	grc:lemma	ἐριώλη	
+55	grc:lemma	τυφώς	
+55	grc:lemma	τυφών	
+55	grc:lemma	χεῖμα	
+55	grc:lemma	χειμών	
+55	grc:lemma	σκηπτός	
+55	grc:lemma	πρηστήρ	
+#56	eng:def	0	wave	
+56	grc:lemma	κῦμα	
+56	grc:lemma	κλύδων	
+56	grc:lemma	κλυδώνιον	
+56	grc:lemma	οἶδμα	
+56	grc:lemma	ῥόθιον	
+56	grc:lemma	ῥηγμίς	
+56	grc:lemma	ῥηγμίν	
+56	grc:lemma	ῥαχία	
+56	grc:lemma	ῥηχίη	
+56	grc:lemma	πλήσμη	
+56	grc:lemma	πλημυρίς	
+56	grc:lemma	πλήμυρα	
+#57	eng:def	0	drop, droplet	
+57	grc:lemma	σταγών	
+57	grc:lemma	σταγόνιον	
+57	grc:lemma	στάγμα	
+57	grc:lemma	στάξις	
+57	grc:lemma	στάλαγμα	
+57	grc:lemma	σταλαγμός	
+57	grc:lemma	πρώξ	
+57	grc:lemma	ῥανίς	
+57	grc:lemma	ῥαθάμιγξ	
+57	grc:lemma	στράγξ	
+57	grc:lemma	πέμφιξ	
+#58	eng:def	0	bubble	
+58	grc:lemma	πομφόλυξ	
+58	grc:lemma	πομφός	
+58	grc:lemma	φῦσα	
+58	grc:lemma	φυσαλλίς	
+58	grc:lemma	φύσημα	
+58	grc:lemma	φλυκτίς	
+58	grc:lemma	φλύκταινα	
+58	grc:lemma	ἐνόδιον	
+#59	eng:def	0	ice, frost	
+59	grc:lemma	πῆξις	
+59	grc:lemma	πάγος	
+59	grc:lemma	παγετός	
+59	grc:lemma	πηγάς	
+59	grc:lemma	πηγυλίς	
+59	grc:lemma	πάχνη	
+59	grc:lemma	ἔκπηξις	
+59	grc:lemma	κρυός	
+59	grc:lemma	κρυμός	
+59	grc:lemma	κρύσταλλος	
+59	grc:lemma	ψῦχος	
+59	grc:lemma	ψυχρότης	
+59	grc:lemma	ψῦξις	
+59	grc:lemma	κατάψυξις	
+59	grc:lemma	ἀπόψυξις	
+59	grc:lemma	ἀναψυχή	
+59	grc:lemma	ῥῖγος	
+59	grc:lemma	ῥίγιον	
+59	grc:lemma	ῥίγωσις	
+#60	eng:def	0	warmth, heat	
+60	grc:lemma	θέρος	
+60	grc:lemma	θερμότης	
+60	grc:lemma	θερμασία	
+60	grc:lemma	θέρμη	
+60	grc:lemma	θέρμα	
+60	grc:lemma	θερμωλή	
+60	grc:lemma	θάλπος	
+60	grc:lemma	θαλπωρή	
+60	grc:lemma	εἵλη	
+60	grc:lemma	ἀλέα	
+60	grc:lemma	καῦμα	
+60	grc:lemma	πυρετός	
+#61	eng:def	0	dryness, drought	
+61	grc:lemma	ξηρότης	
+61	grc:lemma	ξηρασία	
+61	grc:lemma	ἄζα	
+61	grc:lemma	αὖος	
+61	grc:lemma	αὐότης	
+61	grc:lemma	αὐονή	
+61	grc:lemma	αὔανσις	
+61	grc:lemma	αὐασμός	
+61	grc:lemma	αὐαντή	
+61	grc:lemma	αὐχμός	
+61	grc:lemma	αὐχμή	
+#62	eng:def	0	humidity	
+62	grc:lemma	ἀνυδρία	
+62	grc:lemma	ὑγρότης	
+62	grc:lemma	ὑγρασία	
+62	grc:lemma	νοτία	
+62	grc:lemma	νοτίς	
+62	grc:lemma	ἀρδμός	
+62	grc:lemma	ἀβροχία	
+62	grc:lemma	πλάδος	
+#63	eng:def	0	decay, putrefaction	
+63	grc:lemma	πυθεδών	
+63	grc:lemma	πύον	
+63	grc:lemma	σῆψις	
+63	grc:lemma	σηπεδών	
+63	grc:lemma	σήψ	
+63	grc:lemma	ἀπόσηψις	
+63	grc:lemma	σαπρότης	
+63	grc:lemma	μύδος	
+63	grc:lemma	μύδησις	
+63	grc:lemma	μάδησις	
+63	grc:lemma	μάδισις	
+63	grc:lemma	μαδαρότης	
+63	grc:lemma	μαδάρωσις	
+#64	eng:def	0	fire, flame	
+64	grc:lemma	καῦμα	
+64	grc:lemma	αἶθος	
+64	grc:lemma	αἰθάλη	
+64	grc:lemma	δαίς	
+64	grc:lemma	δαλός	
+64	grc:lemma	δετή	
+64	grc:lemma	φλέγμα	
+64	grc:lemma	φλόξ	
+64	grc:lemma	πῦρ	
+64	grc:lemma	πυρσός	
+64	grc:lemma	πρηδών	
+#65	eng:def	0	man	
+65	grc:lemma	ἀνήρ	
+65	grc:lemma	ἄνθρωπος	
+65	grc:lemma	φώς	
+#66	eng:def	0	husband	
+66	grc:lemma	ἀνήρ	
+66	grc:lemma	πόσις	
+66	grc:lemma	γαμέτης	
+66	grc:lemma	εὐνέτης	
+66	grc:lemma	εὐνήτης	
+66	grc:lemma	εὐνητήρ	
+66	grc:lemma	εὐνήτωρ	
+66	grc:lemma	ὁμευνέτης	
+66	grc:lemma	παρακοίτης	
+66	grc:lemma	ἀκοίτης	
+#67	eng:def	0	woman, wife	
+67	grc:lemma	θῆλυς	
+67	grc:lemma	γυνή	
+67	grc:lemma	γύναιον	
+67	grc:lemma	δάμαρ	
+67	grc:lemma	γαμετή	
+67	grc:lemma	ἄλοχος	
+67	grc:lemma	εὐνέτις	
+67	grc:lemma	εὐνήτειρα	
+67	grc:lemma	ὁμευνέτις	
+67	grc:lemma	παράκοιτις	
+67	grc:lemma	ἄκοιτις	
+67	grc:lemma	πλᾶτις	
+67	grc:lemma	ἐμπελάτειρα	
+67	grc:lemma	ὄαρ	
+#68	eng:def	0	concubine, prostitute, sex worker	
+68	grc:lemma	παλλακή	
+68	grc:lemma	παλλακίς	
+68	grc:lemma	παλλακεία	
+68	grc:lemma	μοιχή	
+68	grc:lemma	μοιχός	
+68	grc:lemma	μοιχεία	
+68	grc:lemma	ἑταίρα	
+68	grc:lemma	ἑταιρίς	
+68	grc:lemma	ἑταίρησις	
+68	grc:lemma	λαικαστής	
+68	grc:lemma	λαικάστρια	
+68	grc:lemma	κάσσα	
+68	grc:lemma	κασαύρα	
+68	grc:lemma	κασωρίς	
+68	grc:lemma	κασωρῖτις	
+68	grc:lemma	κασαλβάς	
+68	grc:lemma	κασαύριον	
+68	grc:lemma	κασώριον	
+68	grc:lemma	πόρνη	
+68	grc:lemma	πόρνος	
+68	grc:lemma	πορνεία	
+68	grc:lemma	πορνεῖον	
+68	grc:lemma	σαλμακίς	
+68	grc:lemma	χαμαιτύπη	
+68	grc:lemma	χαμαιτυπία	
+68	grc:lemma	χαμαιτυπεῖον	
+68	grc:lemma	λεωφόρος	
+68	grc:lemma	δημιουργός	
+68	grc:lemma	πανδοσία	
+68	grc:lemma	σποδησιλαύρα	
+68	grc:lemma	πλύμα	
+68	grc:lemma	φωλάς	
+#69	eng:def	0	child	
+69	grc:lemma	παῖς	
+69	grc:lemma	παιδίον	
+69	grc:lemma	παιδάριον	
+69	grc:lemma	παιδίσκος	
+69	grc:lemma	παιδίσκη	
+69	grc:lemma	τέκνον	
+69	grc:lemma	τέκος	
+69	grc:lemma	βρέφος	
+69	grc:lemma	γόνος	
+#70	eng:def	0	animal, beast	
+70	grc:lemma	θήρ	
+70	grc:lemma	θηρίον	
+70	grc:lemma	θηρίδιον	
+70	grc:lemma	φήρ	
+70	grc:lemma	ζῷον	
+70	grc:lemma	κτῆνος	
+70	grc:lemma	βόσκημα	
+70	grc:lemma	βοτόν	
+#71	eng:def	0	monster	
+71	grc:lemma	πέλωρ	
+71	grc:lemma	πέλωρον	
+71	grc:lemma	κνώδαλον	
+71	grc:lemma	κῆτος	
+71	grc:lemma	δακετόν	
+71	grc:lemma	δάκος	
+#72	eng:def	0	hunt	
+72	grc:lemma	ἄγρα	
+72	grc:lemma	ἀγρεύς	
+72	grc:lemma	ἀγρευτής	
+72	grc:lemma	ἀγροιώτης	
+72	grc:lemma	ἀγροτέρα	
+72	grc:lemma	θήρα	
+72	grc:lemma	θηρατής	
+72	grc:lemma	θηρευτής	
+72	grc:lemma	κυνηγός	
+72	grc:lemma	κυνηγία	
+72	grc:lemma	κυνήγιον	
+72	grc:lemma	κυνηγέτης	
+72	grc:lemma	κυνηγέσιον	
+72	grc:lemma	κυνηγεσία	
+#73	eng:def	0	bird	
+73	grc:lemma	οἱωνός	
+73	grc:lemma	ὄρνις	
+73	grc:lemma	ὄρνεον	
+73	grc:lemma	πτηνόν	
+#74	eng:def	0	wing	
+74	grc:lemma	πτέρυξ	
+74	grc:lemma	πτερύγιον	
+74	grc:lemma	πτερόν	
+74	grc:lemma	πτίλον	
+#75	eng:def	0	tree trunk, tree stump	
+75	grc:lemma	πρέμνον	
+75	grc:lemma	στέλεχος	
+#76	eng:def	0	branch, shoot, stick	
+76	grc:lemma	καυλός	
+76	grc:lemma	μίσχος	
+76	grc:lemma	ἀκρεμών	
+76	grc:lemma	κλάδος	
+76	grc:lemma	κλών	
+76	grc:lemma	ὄζος	
+76	grc:lemma	ὅρπηξ	
+76	grc:lemma	ὄσχος	
+76	grc:lemma	ὄσχη	
+76	grc:lemma	ὠσχός	
+76	grc:lemma	κλῆμα	
+76	grc:lemma	κράδη	
+76	grc:lemma	ῥάβδος	
+76	grc:lemma	μόσχος	
+76	grc:lemma	πτόρθος	
+76	grc:lemma	βλαστός	
+76	grc:lemma	βλάστη	
+76	grc:lemma	βλάστημα	
+76	grc:lemma	θαλλός	
+76	grc:lemma	θάλεια	
+76	grc:lemma	θαλία	
+#77	eng:def	0	leaf, petal	
+77	grc:lemma	φύλλον	
+77	grc:lemma	πέταλον	
+77	grc:lemma	πέταλος	
+77	grc:lemma	πέτηλος	
+77	grc:lemma	πεταλίς	
+77	grc:lemma	πετάλη	
+#78	eng:def	0	flower, blossom	
+78	grc:lemma	ἄνθος	
+78	grc:lemma	ἄνθεμον	
+78	grc:lemma	θάλος	
+78	grc:lemma	θάλεια	
+78	grc:lemma	θαλίη	
+#79	eng:def	0	city	
+79	grc:lemma	ἄστυ	
+79	grc:lemma	προάστειον	
+79	grc:lemma	προάστιον	
+79	grc:lemma	πόλις	
+79	grc:lemma	πολίτης	
+79	grc:lemma	πολῖτις	
+79	grc:lemma	πτολίεθρον	
+79	grc:lemma	πόλισμα	
+79	grc:lemma	πολίχνη	
+79	grc:lemma	πολίχνιον	
+79	grc:lemma	πρόπολις	
+#80	eng:def	0	house	
+80	grc:lemma	δόμος	
+80	grc:lemma	δῶμα	
+80	grc:lemma	δῶ	
+80	grc:lemma	δωμάτιον	
+80	grc:lemma	οἶκος	
+80	grc:lemma	οἰκίον	
+80	grc:lemma	οἰκία	
+80	grc:lemma	οἰκίδιον	
+80	grc:lemma	οἰκίσκος	
+80	grc:lemma	οἴκησις	
+80	grc:lemma	οἴκημα	
+80	grc:lemma	οἰκοδόμησις	
+80	grc:lemma	οἰκοδόμημα	
+#81	eng:def	0	to be	
+#82	eng:def	0	pleasure, joy, happiness	
+82	grc:lemma	ἦδος	
+82	grc:lemma	ἡδονή	
+82	grc:lemma	χαρά	
+82	grc:lemma	χαρμοσύνη	
+82	grc:lemma	χαρμονή	
+82	grc:lemma	χάρμα	
+82	grc:lemma	χάρμη	
+82	grc:lemma	γῆθος	
+82	grc:lemma	γηθόσυνος	
+82	grc:lemma	γηθοσύνη	
+82	grc:lemma	τέρψις	
+82	grc:lemma	τερπωλή	
+82	grc:lemma	εὐφροσύνη	
+82	grc:lemma	εὐθυμία	
+#83	eng:def	0	sadness, grief	
+83	grc:lemma	κῆδος	
+83	grc:lemma	ἄχθος	
+83	grc:lemma	ἀχθηδών	
+83	grc:lemma	ἄχος	
+83	grc:lemma	λύπη	
+83	grc:lemma	λύπημα	
+83	grc:lemma	ἀνία	
+83	grc:lemma	δύη	
+83	grc:lemma	πένθος	
+83	grc:lemma	πένθημα	
+#84	eng:def	0	pain	
+84	grc:lemma	ἄλγος	
+84	grc:lemma	ἀλγηδών	
+84	grc:lemma	ἄλγημα	
+84	grc:lemma	ἀναλγησία	
+84	grc:lemma	ὀδύνη	
+84	grc:lemma	ὀδύνημα	
+84	grc:lemma	περιωδυνία	
+84	grc:lemma	ἀνωδυνία	
+84	grc:lemma	ὠδίς	
+#85	eng:def	0	labour, fatigue	
+85	grc:lemma	πενέστης	
+85	grc:lemma	πένης	
+85	grc:lemma	πενία	
+85	grc:lemma	πόνος	
+85	grc:lemma	μόγος	
+85	grc:lemma	μόχθος	
+85	grc:lemma	μῶλος	
+85	grc:lemma	κάματος	
+#86	eng:def	0	care, worry	
+86	grc:lemma	μέρμηρα	
+86	grc:lemma	μέριμνα	
+86	grc:lemma	μεριμνητής	
+86	grc:lemma	μελεδών	
+86	grc:lemma	μελεδώνη	
+86	grc:lemma	μελέδημα	
+86	grc:lemma	μελεδωνός	
+86	grc:lemma	ἐπιμέλεια	
+86	grc:lemma	ἐπιμελετής	
+86	grc:lemma	ἀμέλεια	
+86	grc:lemma	ἀμέλησις	
+86	grc:lemma	μελέτη	
+86	grc:lemma	μελέτημα	
+86	grc:lemma	φροντίς	
+86	grc:lemma	φροντιστής	
+86	grc:lemma	κῆδος	
+86	grc:lemma	ὤρα	
+86	grc:lemma	ὀλιγωρία	
+#87	eng:def	0	preliminary notes on colours	
+#88	eng:def	0	white	
+#89	eng:def	0	black	
+#90	eng:def	0	blue	
+#91	eng:def	0	grey	
+#92	eng:def	0	livid	
+92	grc:lemma	πελιδνότης	
+92	grc:lemma	πελίδνωμα	
+92	grc:lemma	πελίωμα	
+92	grc:lemma	ὠχρότης	
+#93	eng:def	0	yellow	
+93	grc:lemma	ξάνθισμα	
+#94	eng:def	0	red	
+94	grc:lemma	ἐρυθρότης	
+94	grc:lemma	ἐρύθημα	
+94	grc:lemma	ἔρευθος	
+94	grc:lemma	πυρρότης	
+94	grc:lemma	φοῖνιξ	
+#95	eng:def	0	green	
+95	grc:lemma	χλωρότης	
+#96	eng:def	0	earth, ground	
+96	grc:lemma	γαῖα	
+96	grc:lemma	γῆ	
+96	grc:lemma	αἶα	
+96	grc:lemma	χθών	
+96	grc:lemma	πέδον	
+96	grc:lemma	πεδίον	
+96	grc:lemma	δάπεδον	
+96	grc:lemma	οὖδας	
+96	grc:lemma	ἔδαφος	
+96	grc:lemma	χέρσος	
+#97	eng:def	0	field	
+97	grc:lemma	ἀγρός	
+97	grc:lemma	ἄρουρα	
+97	grc:lemma	γύης	
+#98	eng:def	0	domesticated	
+98	grc:lemma	ἡμέρωσις	
+98	grc:lemma	τιθασεία	
+#99	eng:def	0	mountain, hill, mound	
+99	grc:lemma	ὄρος	
+99	grc:lemma	ἄκρον	
+99	grc:lemma	ἀκρωτήριον	
+99	grc:lemma	ἄκρα	
+99	grc:lemma	ἄκρις	
+99	grc:lemma	ἀκρώρεια	
+99	grc:lemma	αἶπος	
+99	grc:lemma	κλιτύς	
+99	grc:lemma	κλίτος	
+99	grc:lemma	κλέτας	
+99	grc:lemma	πάγος	
+99	grc:lemma	ῥίον	
+99	grc:lemma	κολώνη	
+99	grc:lemma	κολωνός	
+99	grc:lemma	λόφος	
+99	grc:lemma	γήλοφος	
+99	grc:lemma	γεώλοφος	
+99	grc:lemma	γεωλοφία	
+99	grc:lemma	βουνός	
+99	grc:lemma	βοῦνις	
+99	grc:lemma	γουνός	
+99	grc:lemma	πρηών	
+99	grc:lemma	πρών	
+99	grc:lemma	ὄχθη	
+99	grc:lemma	ὄχθος	
+99	grc:lemma	κρημνός	
+99	grc:lemma	ὀφρύς	
+99	grc:lemma	ὀφρύη	
+99	grc:lemma	δειράς	
+99	grc:lemma	μαστός	
+99	grc:lemma	μασθός	
+99	grc:lemma	σκοπιά	
+99	grc:lemma	σκοπή	
+99	grc:lemma	περιωπή	
+#100	eng:def	0	headland, shore, beach	
+100	grc:lemma	ἀκτή	
+100	grc:lemma	θίς	
+100	grc:lemma	θημών	
+100	grc:lemma	θωμός	
+100	grc:lemma	σωρός	
+100	grc:lemma	ἠιών	
+100	grc:lemma	αἰγιαλός	
+100	grc:lemma	χεῖλος	
+#101	eng:def	0	steep, sheer	
+#102	eng:def	0	on transitive verbs of motion	
+#103	eng:def	0	to move	
+103	grc:lemma	κίνησις	
+103	grc:lemma	σεισμός	
+103	grc:lemma	τινάκτωρ	
+103	grc:lemma	τινάκτειρα	
+103	grc:lemma	παλμός	
+103	grc:lemma	σάλος	
+103	grc:lemma	κλόνος	
+#104	eng:def	0	to throw	
+104	grc:lemma	ῥιπή	
+104	grc:lemma	ῥιπτασμός	
+104	grc:lemma	δίσκος	
+104	grc:lemma	βόλος	
+104	grc:lemma	βολή	
+104	grc:lemma	βέλος	
+104	grc:lemma	βαλλισμός	
+104	grc:lemma	πομπή	
+104	grc:lemma	στόλος	
+#105	eng:def	0	to bring, to carry	
+105	grc:lemma	ἀγωγή	
+105	grc:lemma	φορά	
+#106	eng:def	0	to give	
+106	grc:lemma	δόσις	
+106	grc:lemma	ἀπόδοσις	
+106	grc:lemma	δῶρον	
+106	grc:lemma	δωτίνη	
+106	grc:lemma	δωρεά	
+106	grc:lemma	προίξ	
+106	grc:lemma	φερνή	
+106	grc:lemma	ἕδνον	
+106	grc:lemma	ἔεδνον	
+#107	eng:def	0	to take	
+#108	eng:def	0	to follow	
+108	grc:lemma	ἑπέτης	
+108	grc:lemma	ὀπαδός	
+108	grc:lemma	ὀπηδός	
+108	grc:lemma	ὀπάων	
+108	grc:lemma	συνάορος	
+108	grc:lemma	ἀκόλουθος	
+#109	eng:def	0	to flee	
+109	grc:lemma	φύξις	
+109	grc:lemma	φεῦξις	
+109	grc:lemma	φυγή	
+109	grc:lemma	ἀπόφευξις	
+109	grc:lemma	ἀπόφυξις	
+109	grc:lemma	ἀποφυγή	
+109	grc:lemma	διάφευξις	
+109	grc:lemma	διαφυγή	
+109	grc:lemma	κατάφευξις	
+109	grc:lemma	καταφυγή	
+109	grc:lemma	φύζα	
+#110	eng:def	0	to drag, to draw	
+110	grc:lemma	σπασμός	
+110	grc:lemma	σπάσις	
+110	grc:lemma	ὁλκός	
+110	grc:lemma	ὁλκή	
+110	grc:lemma	ἑλκηθμός	
+110	grc:lemma	συρμός	
+110	grc:lemma	ῥυμός	
+110	grc:lemma	ῥυτήρ	
+110	grc:lemma	ῥυστακτύς	
+#111	eng:def	0	to loosen	
+111	grc:lemma	χάλασις	
+111	grc:lemma	ὕφεσις	
+111	grc:lemma	ἄνεσις	
+#112	eng:def	0	to lean	
+112	grc:lemma	κλίσις	
+112	grc:lemma	ἔρεισις	
+112	grc:lemma	κάμψις	
+112	grc:lemma	καμπή	
+#113	eng:def	0	to beat, to strike	
+113	grc:lemma	τύμμα	
+113	grc:lemma	τύπος	
+113	grc:lemma	τυπή	
+113	grc:lemma	πληγή	
+113	grc:lemma	πλῆγμα	
+113	grc:lemma	ἀραγμός	
+113	grc:lemma	ἄραγμα	
+113	grc:lemma	κομμός	
+113	grc:lemma	κόμμα	
+113	grc:lemma	κροῦσις	
+113	grc:lemma	κροῦμα	
+113	grc:lemma	ῥάπισμα	
+#114	eng:def	0	to wound	
+114	grc:lemma	τραῦμα	
+114	grc:lemma	τρῶμα	
+114	grc:lemma	τρώμα	
+114	grc:lemma	ὠτειλή	
+114	grc:lemma	ἕλκος	
+#115	eng:def	0	to break	
+115	grc:lemma	ῥῆγμα	
+115	grc:lemma	ῥωγμή	
+115	grc:lemma	ἀγή	
+115	grc:lemma	ἆγμα	
+115	grc:lemma	ἀγμός	
+115	grc:lemma	κάταγμα	
+115	grc:lemma	θραῦσμα	
+#116	eng:def	0	sound	
+116	grc:lemma	ψόφος	
+116	grc:lemma	ἦχος	
+116	grc:lemma	ἠχή	
+116	grc:lemma	ἠχώ	
+#117	eng:def	0	noise	
+117	grc:lemma	κτύπος	
+117	grc:lemma	δοῦπος	
+117	grc:lemma	καναχή	
+117	grc:lemma	ὄτοβος	
+117	grc:lemma	κρότος	
+117	grc:lemma	ἄραβος	
+117	grc:lemma	κόναβος	
+117	grc:lemma	βρόμος	
+#118	eng:def	0	din	
+118	grc:lemma	ὀρυμαγδός	
+118	grc:lemma	πάταγος	
+118	grc:lemma	φλοῖσβος	
+118	grc:lemma	κορκορυγή	
+#119	eng:def	0	hum	
+119	grc:lemma	βόμβος	
+119	grc:lemma	ῥοῖζος	
+119	grc:lemma	ῥοίζημα	
+119	grc:lemma	ῥοῖβδος	
+#120	eng:def	0	roaring	
+120	grc:lemma	ῥόχθος	
+120	grc:lemma	πάφλασμα	
+#121	eng:def	0	sounds made by mammals	
+#122	eng:def	0	sounds made by birds, amphibians and insects	
+#123	eng:def	0	whistle, whisper	
+123	grc:lemma	ῥόθος	
+123	grc:lemma	ψίθυρος	
+123	grc:lemma	ψιθυρισμός	
+123	grc:lemma	ψιθύρισμα	
+#124	eng:def	0	stuttering	
+124	grc:lemma	ψελλότης	
+124	grc:lemma	ψελλισμός	
+124	grc:lemma	τραυλότης	
+124	grc:lemma	τραυλισμός	
+124	grc:lemma	ἰσχνοφωνία	
+124	grc:lemma	βατταριστής	
+124	grc:lemma	βατταρισμός	
+#125	eng:def	0	shout, noise	
+125	grc:lemma	κέλαδος	
+125	grc:lemma	κελάδων	
+125	grc:lemma	κελαδῆτις	
+125	grc:lemma	θόρυβος	
+#126	eng:def	0	lament	
+126	grc:lemma	ἰυγή	
+126	grc:lemma	ἰυγμός	
+126	grc:lemma	μινύρισμα	
+126	grc:lemma	κωκυτός	
+126	grc:lemma	κώκυμα	
+126	grc:lemma	οἰμωγή	
+126	grc:lemma	οἴμωγμα	
+126	grc:lemma	αἴαγμα	
+126	grc:lemma	στόνος	
+126	grc:lemma	στεναγμός	
+126	grc:lemma	στέναγμα	
+126	grc:lemma	στοναχή	
+126	grc:lemma	γόος	
+126	grc:lemma	ὀδυρμός	
+126	grc:lemma	ὄδυρμα	
+126	grc:lemma	ὀλολυγή	
+126	grc:lemma	ὀλολυγμός	
+126	grc:lemma	ὀλόλυγμα	
+126	grc:lemma	θρῆνος	
+#127	eng:def	0	to show	
+127	grc:lemma	δεῖξις	
+127	grc:lemma	ἀπόδειξις	
+127	grc:lemma	ἔνδειξις	
+127	grc:lemma	ἐπίδειξις	
+127	grc:lemma	φάσις	
+127	grc:lemma	ἀπόφασις	
+127	grc:lemma	ἀπόφανσις	
+127	grc:lemma	ἔμφασις	
+127	grc:lemma	ἐπίφασις	
+127	grc:lemma	μήνυσις	
+#128	eng:def	0	example	
+128	grc:lemma	δεῖγμα	
+128	grc:lemma	παράδειγμα	
+#129	eng:def	0	clear	
+129	grc:lemma	καταφάνεια	
+129	grc:lemma	ἐμφάνεια	
+129	grc:lemma	διαφάνεια	
+129	grc:lemma	περιφάνεια	
+129	grc:lemma	ἐπιφάνεια	
+129	grc:lemma	ἐνάργεια	
+#130	eng:def	0	unclear	
+130	grc:lemma	ἀδηλότης	
+130	grc:lemma	ἀφάνεια	
+#131	eng:def	0	flatterer	
+131	grc:lemma	κόλαξ	
+131	grc:lemma	κολακεία	
+131	grc:lemma	κολάκευμα	
+131	grc:lemma	θώψ	
+131	grc:lemma	θωπεία	
+131	grc:lemma	θώπευμα	
+131	grc:lemma	θεραπεία	
+131	grc:lemma	ὑποκορισμός	
+131	grc:lemma	ὑποκόρισμα	
+#132	eng:def	0	to jest, to mock	
+132	grc:lemma	παιδιά	
+132	grc:lemma	σκῶμμα	
+132	grc:lemma	σκωπτόλης	
+132	grc:lemma	εὐτραπελία	
+132	grc:lemma	χαριεντισμός	
+132	grc:lemma	γελωτοποιία	
+132	grc:lemma	γελοιαστής	
+132	grc:lemma	βωμολόχος	
+132	grc:lemma	βωμολοχία	
+132	grc:lemma	βωμολόχευμα	
+132	grc:lemma	γεφυρισμός	
+132	grc:lemma	γεφυριστής	
+#133	eng:def	0	to blame, to upbraid	
+133	grc:lemma	μῶμος	
+133	grc:lemma	μῶκος	
+133	grc:lemma	μωκός	
+133	grc:lemma	τωθασμός	
+133	grc:lemma	ἐπιτωθασμός	
+133	grc:lemma	χλεύη	
+133	grc:lemma	χλευαστής	
+133	grc:lemma	χλευασία	
+133	grc:lemma	χλευασμός	
+133	grc:lemma	λάσθη	
+#134	eng:def	0	companion, friend, comrade	
+134	grc:lemma	ἔτης	
+134	grc:lemma	ἑταῖρος	
+134	grc:lemma	ἑταιρία	
+134	grc:lemma	ἑταιρεία	
+134	grc:lemma	φιλία	
+#135	eng:def	0	own	
+135	grc:lemma	ἰδιότης	
+135	grc:lemma	οἰκειότης	
+#136	eng:def	0	to love	
+136	grc:lemma	ἔρως	
+136	grc:lemma	ἐραστής	
+136	grc:lemma	φίλησις	
+136	grc:lemma	φίλημα	
+136	grc:lemma	φιλότης	
+136	grc:lemma	φιλοφροσύνη	
+136	grc:lemma	στοργή	
+136	grc:lemma	ἀγάπη	
+136	grc:lemma	ἀγάπησις	
+136	grc:lemma	ἀγάπημα	
+#137	eng:def	0	to hate	
+137	grc:lemma	ἔχθος	
+137	grc:lemma	ἔχθρα	
+137	grc:lemma	στύγος	
+137	grc:lemma	στύγημα	
+137	grc:lemma	μῖσος	
+137	grc:lemma	μίσημα	
+#138	eng:def	0	enemy, hostile	
+138	grc:lemma	ἔχθρα	
+138	grc:lemma	ἀπέχθεια	
+138	grc:lemma	δυσμένεια	
+138	grc:lemma	ἐναντιότης	
+138	grc:lemma	δηιοτής	
+#139	eng:def	0	to fear	
+139	grc:lemma	δέος	
+139	grc:lemma	δεῖμα	
+139	grc:lemma	δεῖμος	
+139	grc:lemma	ἄδεια	
+139	grc:lemma	φόβος	
+139	grc:lemma	ἀφοβία	
+139	grc:lemma	τρόμος	
+139	grc:lemma	πτόα	
+139	grc:lemma	πτοία	
+139	grc:lemma	πτόησις	
+139	grc:lemma	ἔκπληξις	
+139	grc:lemma	κατάπληξις	
+139	grc:lemma	ὀρρωδία	
+139	grc:lemma	ἀρρωδίη	
+139	grc:lemma	τάρβος	
+139	grc:lemma	ταρβοσύνη	
+139	grc:lemma	δυσωπία	
+#140	eng:def	0	shame	
+140	grc:lemma	αἰδώς	
+140	grc:lemma	ἀναίδεια	
+140	grc:lemma	αἰσχύνη	
+140	grc:lemma	ἀναισχυντία	
+#141	eng:def	0	courage, bravery	
+141	grc:lemma	θάρσος	
+141	grc:lemma	θάρρος	
+141	grc:lemma	θράσος	
+141	grc:lemma	θρασύτης	
+141	grc:lemma	τόλμα	
+141	grc:lemma	εὐτολμία	
+141	grc:lemma	ἀτολμία	
+141	grc:lemma	ἴτης	
+141	grc:lemma	ἰταμότης	
+141	grc:lemma	μένος	
+141	grc:lemma	εὐψυχία	
+141	grc:lemma	ἀψυχία	
+141	grc:lemma	ἠνορέη	
+141	grc:lemma	ἀγηνορίη	
+141	grc:lemma	ἀνδρία	
+141	grc:lemma	ἀνδρεία	
+141	grc:lemma	ἀνανδρία	
+#142	eng:def	0	anger, ire, rage	
+142	grc:lemma	ὀργή	
+142	grc:lemma	δυσοργία	
+142	grc:lemma	εὐοργία	
+142	grc:lemma	ὀργιλότης	
+142	grc:lemma	μένος	
+142	grc:lemma	θυμός	
+142	grc:lemma	θύμωμα	
+142	grc:lemma	ὀξυθυμία	
+142	grc:lemma	χόλος	
+142	grc:lemma	ὀξυχολία	
+142	grc:lemma	ἀκροχολία	
+142	grc:lemma	ἀγανάκτησις	
+142	grc:lemma	πικρία	
+142	grc:lemma	κότος	
+142	grc:lemma	μῆνις	
+142	grc:lemma	μηνιθμός	
+142	grc:lemma	μήνιμα	
+#143	eng:def	0	pity, sympathy	
+143	grc:lemma	ἔλεος	
+143	grc:lemma	οἶκτος	
+143	grc:lemma	οἰκτιρμός	
+143	grc:lemma	ὀλοφυρμός	
+143	grc:lemma	ὀλόφυρσις	
+#144	eng:def	0	hope	
+144	grc:lemma	ἐλπίς	
+144	grc:lemma	ἐλπωρή	
+144	grc:lemma	προσδοκία	
+#145	eng:def	0	desire	
+145	grc:lemma	ὄρεξις	
+145	grc:lemma	ἔφεσις	
+145	grc:lemma	ἐπιθυμία	
+145	grc:lemma	ἵμερος	
+145	grc:lemma	πόθος	
+145	grc:lemma	ποθή	
+#146	eng:def	0	to want, to wish	
+146	grc:lemma	βουλή	
+146	grc:lemma	βούλησις	
+146	grc:lemma	λῆμα	
+146	grc:lemma	ἐέλδωρ	
+#147	eng:def	0	mind, intellect, thought	
+147	grc:lemma	φρήν	
+147	grc:lemma	φρόνησις	
+147	grc:lemma	φρόνημα	
+147	grc:lemma	καταφρόνησις	
+147	grc:lemma	καταφρόνημα	
+147	grc:lemma	ἀφροσύνη	
+147	grc:lemma	ἐνθύμησις	
+147	grc:lemma	ἐνθύμημα	
+147	grc:lemma	αἴσθησις	
+147	grc:lemma	ἀναισθησία	
+147	grc:lemma	εὐήθεια	
+147	grc:lemma	βλακεία	
+147	grc:lemma	νοῦς	
+147	grc:lemma	νόησις	
+147	grc:lemma	νόημα	
+147	grc:lemma	ἔννοια	
+147	grc:lemma	ἐννόησις	
+147	grc:lemma	κατανόησις	
+147	grc:lemma	κατανόημα	
+147	grc:lemma	ἄνοια	
+147	grc:lemma	ἀβελτερία	
+147	grc:lemma	ἠλιθιότης	
+147	grc:lemma	λόγος	
+147	grc:lemma	λογισμός	
+#148	eng:def	0	strength	
+148	grc:lemma	ῥώμη	
+148	grc:lemma	ἀρρωστία	
+148	grc:lemma	ἴς	
+148	grc:lemma	ἰσχύς	
+148	grc:lemma	κῖκυς	
+148	grc:lemma	σθένος	
+148	grc:lemma	ἀσθένεια	
+148	grc:lemma	δύναμις	
+148	grc:lemma	δύνασις	
+148	grc:lemma	ἀδυναμία	
+148	grc:lemma	ἀδυνασία	
+148	grc:lemma	κράτος	
+148	grc:lemma	ἀκράτεια	
+148	grc:lemma	ἀλκή	
+148	grc:lemma	ἄλκαρ	
+148	grc:lemma	ἀνάλκεια	
+148	grc:lemma	βία	
+#149	eng:def	0	illness	
+149	grc:lemma	νόσος	
+149	grc:lemma	νόσημα	
+149	grc:lemma	νόσευμα	
+149	grc:lemma	κάματος	
+149	grc:lemma	ἀσθένεια	
+149	grc:lemma	ἀσθένημα	
+149	grc:lemma	ἀρρωστία	
+149	grc:lemma	ἀρρώστημα	
+#150	eng:def	0	it is necessary	
