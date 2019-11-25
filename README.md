@@ -2,6 +2,8 @@
 
 Code relative to the project on Ancient Greek semantic space. 
 
+[![DOI](https://zenodo.org/badge/174973156.svg)](https://zenodo.org/badge/latestdoi/174973156)
+
 Project team (in alphabetical order): Barbara McGillivray (Turing/Cambridge), Philomen Probert (Oxford), Martina Astrid Rodda (Oxford/Turing), enrichment student at the Turing from January to June 2019.
 
 ## corpusprocess_2.0.py
@@ -99,3 +101,4 @@ Use:
 ## References
 
 Rodda, M. A., Probert, P. and McGillivray, B. (forthcoming). "Vector space models of Ancient Greek word meaning, and a case study on Homer".
+
