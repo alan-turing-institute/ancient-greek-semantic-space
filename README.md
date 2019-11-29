@@ -21,11 +21,11 @@ The script produces three output files (a sparse matrix, .sm, plus a .rows and .
 
 These two text files contain lists of lemmas used as a benchmark for the accuracy of the semantic space.
 
-The former, compiled by Philomen Probert, is from Pollux's *Onomasticon* (2nd century AD), and lists 'headwords' used to search for nouns that are listed as synonyms of said headwords by Pollux.
+The former, compiled by Philomen Probert, is from Pollux's *Onomasticon* (2nd century AD), and lists 'headwords' used to search for nouns that are listed as synonyms of said headwords by Pollux. NB the 'headwords' do not have any special status in Pollux's work; they are simply the 32 target words used for the evaluation.
 
 The latter, compiled by Martina Astrid Rodda is from J.H.H. Schmidt's *Synonymik der Griechischen Sprache* (1876-1886), and lists all of the nouns in each section of Schmidt's dictionary, indexed by an English definition for each section.
 
-These files have been used as input for evaluation_text_processing.py.
+These files have been used as input for evaluation_text_processing.py. For the script to run correctly, make sure that the files are formatted with the appropriate spacing and returns.
 
 ## evaluation_text_processing.py
 
